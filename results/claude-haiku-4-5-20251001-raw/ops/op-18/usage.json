@@ -1,0 +1,17 @@
+{
+  "status": "completed",
+  "turns": 16,
+  "toolCalls": 26,
+  "usage": {
+    "input": 2957,
+    "output": 16479,
+    "thinking": 86,
+    "total": 429305,
+    "cacheWrite": 42825,
+    "cacheRead": 367044
+  },
+  "latencyMs": 135025,
+  "snapshotSha": "e96896b4f6dfc25b62c30233d594caeb6014845c",
+  "noChange": false,
+  "filesChanged": 5
+}

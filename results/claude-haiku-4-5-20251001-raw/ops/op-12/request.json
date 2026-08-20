@@ -1,0 +1,10 @@
+{
+  "op": {
+    "n": 12,
+    "id": "B6",
+    "wave": "B",
+    "title": "Group the concept pages",
+    "instruction": "The Concepts detail pages sit at the top level rather than under the Concepts\nlanding page, unlike every other section. Move them so the section is\nconsistent with the rest of the site."
+  },
+  "system": "You are a content editor maintaining the Godzilla Docs documentation site.\n\nComplete the requested change. Keep the site internally consistent: every page that should link to another should still link to it, and every page should follow the site's design system.\n\nA reference to the design system and a site map are available to you. Read what you need before making changes — you have no memory of any previous work on this site.\n\nWhen you have finished the change, briefly state what you did."
+}

@@ -1,0 +1,17 @@
+{
+  "status": "partial",
+  "turns": 7,
+  "toolCalls": 13,
+  "usage": {
+    "input": 5317,
+    "output": 3621,
+    "thinking": 151,
+    "total": 53728,
+    "cacheWrite": 12304,
+    "cacheRead": 32486
+  },
+  "latencyMs": 36696,
+  "snapshotSha": "7d4b1ab42dd856d6fea65e48515cf20ff190f9e0",
+  "noChange": true,
+  "filesChanged": 0
+}

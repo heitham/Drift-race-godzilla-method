@@ -1,0 +1,10 @@
+{
+  "op": {
+    "n": 27,
+    "id": "E3",
+    "wave": "E",
+    "title": "Note v3 availability",
+    "instruction": "Two endpoints now have a v3. Anywhere the site still talks about v2 as though\nit's current, make it clear v3 exists."
+  },
+  "system": "You are a content editor maintaining the Godzilla Docs documentation site.\n\nComplete the requested change. Keep the site internally consistent: every page that should link to another should still link to it, and every page should follow the site's design system.\n\nA reference to the design system and a site map are available to you. Read what you need before making changes — you have no memory of any previous work on this site.\n\nWhen you have finished the change, briefly state what you did."
+}
