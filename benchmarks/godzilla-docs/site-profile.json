@@ -1,0 +1,955 @@
+{
+  "generatedAt": "2026-08-20T15:52:21.240Z",
+  "root": "/Users/heithamghariani/Documents/RIFT Drift Race Benchmark/clones/godzilladocs-main",
+  "pageCount": 30,
+  "sections": {
+    "apis": [
+      "/apis/connectors",
+      "/apis/events",
+      "/apis/index",
+      "/apis/pipelines",
+      "/apis/rate-limits-errors",
+      "/apis/webhooks"
+    ],
+    "(root)": [
+      "/changelog",
+      "/concepts-connectors",
+      "/concepts-events",
+      "/concepts-pipelines",
+      "/concepts",
+      "/getting-started-authentication",
+      "/getting-started-installation",
+      "/getting-started-quickstart",
+      "/glossary",
+      "/index",
+      "/migration-guide-v1-to-v2",
+      "/release-notes-archive",
+      "/security-and-compliance",
+      "/support",
+      "/troubleshooting"
+    ],
+    "guides": [
+      "/guides/building-your-first-pipeline",
+      "/guides/connecting-a-data-source",
+      "/guides/handling-errors-and-retries",
+      "/guides/index",
+      "/guides/monitoring-and-alerts",
+      "/guides/scheduling-and-triggers"
+    ],
+    "sdks": [
+      "/sdks/index",
+      "/sdks/node-js",
+      "/sdks/python"
+    ]
+  },
+  "dsClassVocabulary": [
+    "alert",
+    "alert--danger",
+    "alert--info",
+    "alert--success",
+    "alert--warning",
+    "alert__body",
+    "alert__title",
+    "breadcrumb",
+    "breadcrumb__list",
+    "card",
+    "card__description",
+    "card__tag",
+    "card__title",
+    "chip",
+    "chip--danger",
+    "chip--info",
+    "chip--primary",
+    "chip--success",
+    "chip--warning",
+    "code-block",
+    "code-block__code",
+    "code-block__copy",
+    "code-block__filename",
+    "code-block__header",
+    "code-block__lang",
+    "code-block__pre",
+    "docs-content",
+    "docs-layout",
+    "docs-pagination",
+    "docs-pagination__direction",
+    "docs-pagination__label",
+    "docs-pagination__next",
+    "docs-pagination__prev",
+    "docs-toc",
+    "docs-toc__heading",
+    "docs-toc__list",
+    "hero",
+    "hero__cta",
+    "hero__inner",
+    "hero__subtitle",
+    "hero__title",
+    "left-nav",
+    "left-nav__heading",
+    "left-nav__inner",
+    "main-nav__list",
+    "param-table",
+    "site-footer",
+    "site-footer__brand",
+    "site-footer__inner",
+    "site-header",
+    "site-header__brand",
+    "site-header__inner",
+    "site-header__logo",
+    "site-header__nav",
+    "stat-card",
+    "stat-card__description",
+    "stat-card__label",
+    "stat-card__value"
+  ],
+  "dsStylesheets": [
+    "/assets/ds/3d67e511-2482-49b6-8846-c64c523d1a39.css"
+  ],
+  "pages": [
+    {
+      "path": "/apis/webhooks",
+      "title": "Webhooks endpoint",
+      "section": "apis",
+      "inbound": 11,
+      "outbound": 2
+    },
+    {
+      "path": "/concepts-pipelines",
+      "title": "Pipelines",
+      "section": "(root)",
+      "inbound": 9,
+      "outbound": 5
+    },
+    {
+      "path": "/guides/handling-errors-and-retries",
+      "title": "Handling errors & retries",
+      "section": "guides",
+      "inbound": 9,
+      "outbound": 6
+    },
+    {
+      "path": "/apis/pipelines",
+      "title": "Pipelines endpoint",
+      "section": "apis",
+      "inbound": 7,
+      "outbound": 2
+    },
+    {
+      "path": "/guides/building-your-first-pipeline",
+      "title": "Building your first pipeline",
+      "section": "guides",
+      "inbound": 7,
+      "outbound": 8
+    },
+    {
+      "path": "/apis/connectors",
+      "title": "Connectors endpoint",
+      "section": "apis",
+      "inbound": 6,
+      "outbound": 2
+    },
+    {
+      "path": "/apis/index",
+      "title": "API Reference",
+      "section": "apis",
+      "inbound": 6,
+      "outbound": 6
+    },
+    {
+      "path": "/apis/rate-limits-errors",
+      "title": "Rate limits & errors",
+      "section": "apis",
+      "inbound": 6,
+      "outbound": 2
+    },
+    {
+      "path": "/concepts-connectors",
+      "title": "Connectors",
+      "section": "(root)",
+      "inbound": 6,
+      "outbound": 2
+    },
+    {
+      "path": "/concepts-events",
+      "title": "Events",
+      "section": "(root)",
+      "inbound": 6,
+      "outbound": 2
+    },
+    {
+      "path": "/getting-started-authentication",
+      "title": "Authentication",
+      "section": "(root)",
+      "inbound": 4,
+      "outbound": 5
+    },
+    {
+      "path": "/guides/connecting-a-data-source",
+      "title": "Connecting a data source",
+      "section": "guides",
+      "inbound": 4,
+      "outbound": 5
+    },
+    {
+      "path": "/guides/monitoring-and-alerts",
+      "title": "Monitoring & alerts",
+      "section": "guides",
+      "inbound": 4,
+      "outbound": 6
+    },
+    {
+      "path": "/guides/scheduling-and-triggers",
+      "title": "Scheduling & triggers",
+      "section": "guides",
+      "inbound": 4,
+      "outbound": 4
+    },
+    {
+      "path": "/migration-guide-v1-to-v2",
+      "title": "Migration guide (v1 → v2)",
+      "section": "(root)",
+      "inbound": 4,
+      "outbound": 4
+    },
+    {
+      "path": "/apis/events",
+      "title": "Events endpoint",
+      "section": "apis",
+      "inbound": 3,
+      "outbound": 2
+    },
+    {
+      "path": "/getting-started-quickstart",
+      "title": "Quickstart",
+      "section": "(root)",
+      "inbound": 3,
+      "outbound": 6
+    },
+    {
+      "path": "/guides/index",
+      "title": "Guides",
+      "section": "guides",
+      "inbound": 3,
+      "outbound": 5
+    },
+    {
+      "path": "/changelog",
+      "title": "Changelog",
+      "section": "(root)",
+      "inbound": 2,
+      "outbound": 5
+    },
+    {
+      "path": "/concepts",
+      "title": "Concepts",
+      "section": "(root)",
+      "inbound": 2,
+      "outbound": 3
+    },
+    {
+      "path": "/getting-started-installation",
+      "title": "Installation",
+      "section": "(root)",
+      "inbound": 2,
+      "outbound": 5
+    },
+    {
+      "path": "/sdks/node-js",
+      "title": "Node.js SDK",
+      "section": "sdks",
+      "inbound": 2,
+      "outbound": 4
+    },
+    {
+      "path": "/sdks/python",
+      "title": "Python SDK",
+      "section": "sdks",
+      "inbound": 2,
+      "outbound": 4
+    },
+    {
+      "path": "/troubleshooting",
+      "title": "Troubleshooting / FAQ",
+      "section": "(root)",
+      "inbound": 2,
+      "outbound": 6
+    },
+    {
+      "path": "/release-notes-archive",
+      "title": "Release notes archive",
+      "section": "(root)",
+      "inbound": 1,
+      "outbound": 2
+    },
+    {
+      "path": "/sdks/index",
+      "title": "SDKs",
+      "section": "sdks",
+      "inbound": 1,
+      "outbound": 3
+    },
+    {
+      "path": "/security-and-compliance",
+      "title": "Security & compliance overview",
+      "section": "(root)",
+      "inbound": 1,
+      "outbound": 3
+    },
+    {
+      "path": "/support",
+      "title": "Support / Contact",
+      "section": "(root)",
+      "inbound": 1,
+      "outbound": 2
+    },
+    {
+      "path": "/glossary",
+      "title": "Glossary",
+      "section": "(root)",
+      "inbound": 0,
+      "outbound": 6
+    },
+    {
+      "path": "/index",
+      "title": "Godzilla Docs",
+      "section": "(root)",
+      "inbound": 0,
+      "outbound": 7
+    }
+  ],
+  "linkGraph": [
+    {
+      "from": "/apis/connectors",
+      "to": "/concepts-connectors"
+    },
+    {
+      "from": "/apis/events",
+      "to": "/concepts-events"
+    },
+    {
+      "from": "/apis/index",
+      "to": "/apis/pipelines"
+    },
+    {
+      "from": "/apis/index",
+      "to": "/apis/pipelines"
+    },
+    {
+      "from": "/apis/index",
+      "to": "/apis/connectors"
+    },
+    {
+      "from": "/apis/index",
+      "to": "/apis/events"
+    },
+    {
+      "from": "/apis/index",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/apis/index",
+      "to": "/apis/rate-limits-errors"
+    },
+    {
+      "from": "/apis/pipelines",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/apis/pipelines",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/apis/rate-limits-errors",
+      "to": "/concepts-events"
+    },
+    {
+      "from": "/apis/webhooks",
+      "to": "/migration-guide-v1-to-v2"
+    },
+    {
+      "from": "/changelog",
+      "to": "/migration-guide-v1-to-v2"
+    },
+    {
+      "from": "/changelog",
+      "to": "/release-notes-archive"
+    },
+    {
+      "from": "/changelog",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/changelog",
+      "to": "/apis/pipelines"
+    },
+    {
+      "from": "/changelog",
+      "to": "/apis/rate-limits-errors"
+    },
+    {
+      "from": "/changelog",
+      "to": "/migration-guide-v1-to-v2"
+    },
+    {
+      "from": "/concepts-connectors",
+      "to": "/guides/connecting-a-data-source"
+    },
+    {
+      "from": "/concepts-connectors",
+      "to": "/apis/connectors"
+    },
+    {
+      "from": "/concepts-events",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/concepts-events",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/concepts-pipelines",
+      "to": "/concepts-events"
+    },
+    {
+      "from": "/concepts-pipelines",
+      "to": "/concepts-connectors"
+    },
+    {
+      "from": "/concepts-pipelines",
+      "to": "/migration-guide-v1-to-v2"
+    },
+    {
+      "from": "/concepts-pipelines",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/concepts-pipelines",
+      "to": "/apis/pipelines"
+    },
+    {
+      "from": "/concepts",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/concepts",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/concepts",
+      "to": "/concepts-connectors"
+    },
+    {
+      "from": "/concepts",
+      "to": "/concepts-events"
+    },
+    {
+      "from": "/getting-started-authentication",
+      "to": "/apis/index"
+    },
+    {
+      "from": "/getting-started-authentication",
+      "to": "/apis/rate-limits-errors"
+    },
+    {
+      "from": "/getting-started-authentication",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/getting-started-authentication",
+      "to": "/getting-started-quickstart"
+    },
+    {
+      "from": "/getting-started-authentication",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/getting-started-installation",
+      "to": "/sdks/node-js"
+    },
+    {
+      "from": "/getting-started-installation",
+      "to": "/sdks/python"
+    },
+    {
+      "from": "/getting-started-installation",
+      "to": "/apis/index"
+    },
+    {
+      "from": "/getting-started-installation",
+      "to": "/concepts"
+    },
+    {
+      "from": "/getting-started-installation",
+      "to": "/getting-started-quickstart"
+    },
+    {
+      "from": "/getting-started-quickstart",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/getting-started-quickstart",
+      "to": "/getting-started-authentication"
+    },
+    {
+      "from": "/getting-started-quickstart",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/getting-started-quickstart",
+      "to": "/apis/events"
+    },
+    {
+      "from": "/getting-started-quickstart",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/getting-started-quickstart",
+      "to": "/getting-started-installation"
+    },
+    {
+      "from": "/getting-started-quickstart",
+      "to": "/getting-started-authentication"
+    },
+    {
+      "from": "/glossary",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/glossary",
+      "to": "/concepts-connectors"
+    },
+    {
+      "from": "/glossary",
+      "to": "/concepts-events"
+    },
+    {
+      "from": "/glossary",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/glossary",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/glossary",
+      "to": "/apis/rate-limits-errors"
+    },
+    {
+      "from": "/guides/building-your-first-pipeline",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/guides/building-your-first-pipeline",
+      "to": "/getting-started-authentication"
+    },
+    {
+      "from": "/guides/building-your-first-pipeline",
+      "to": "/concepts-connectors"
+    },
+    {
+      "from": "/guides/building-your-first-pipeline",
+      "to": "/apis/pipelines"
+    },
+    {
+      "from": "/guides/building-your-first-pipeline",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/guides/building-your-first-pipeline",
+      "to": "/guides/monitoring-and-alerts"
+    },
+    {
+      "from": "/guides/building-your-first-pipeline",
+      "to": "/guides/index"
+    },
+    {
+      "from": "/guides/building-your-first-pipeline",
+      "to": "/guides/connecting-a-data-source"
+    },
+    {
+      "from": "/guides/connecting-a-data-source",
+      "to": "/concepts-connectors"
+    },
+    {
+      "from": "/guides/connecting-a-data-source",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/guides/connecting-a-data-source",
+      "to": "/apis/connectors"
+    },
+    {
+      "from": "/guides/connecting-a-data-source",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/guides/connecting-a-data-source",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/guides/connecting-a-data-source",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/guides/handling-errors-and-retries",
+      "to": "/concepts-events"
+    },
+    {
+      "from": "/guides/handling-errors-and-retries",
+      "to": "/apis/events"
+    },
+    {
+      "from": "/guides/handling-errors-and-retries",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/guides/handling-errors-and-retries",
+      "to": "/guides/monitoring-and-alerts"
+    },
+    {
+      "from": "/guides/handling-errors-and-retries",
+      "to": "/guides/connecting-a-data-source"
+    },
+    {
+      "from": "/guides/handling-errors-and-retries",
+      "to": "/guides/scheduling-and-triggers"
+    },
+    {
+      "from": "/guides/index",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/guides/index",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/guides/index",
+      "to": "/guides/connecting-a-data-source"
+    },
+    {
+      "from": "/guides/index",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/guides/index",
+      "to": "/guides/scheduling-and-triggers"
+    },
+    {
+      "from": "/guides/index",
+      "to": "/guides/monitoring-and-alerts"
+    },
+    {
+      "from": "/guides/monitoring-and-alerts",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/guides/monitoring-and-alerts",
+      "to": "/apis/connectors"
+    },
+    {
+      "from": "/guides/monitoring-and-alerts",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/guides/monitoring-and-alerts",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/guides/monitoring-and-alerts",
+      "to": "/guides/scheduling-and-triggers"
+    },
+    {
+      "from": "/guides/monitoring-and-alerts",
+      "to": "/guides/index"
+    },
+    {
+      "from": "/guides/scheduling-and-triggers",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/guides/scheduling-and-triggers",
+      "to": "/apis/pipelines"
+    },
+    {
+      "from": "/guides/scheduling-and-triggers",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/guides/scheduling-and-triggers",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/guides/scheduling-and-triggers",
+      "to": "/guides/monitoring-and-alerts"
+    },
+    {
+      "from": "/index",
+      "to": "/getting-started-quickstart"
+    },
+    {
+      "from": "/index",
+      "to": "/getting-started-installation"
+    },
+    {
+      "from": "/index",
+      "to": "/getting-started-quickstart"
+    },
+    {
+      "from": "/index",
+      "to": "/getting-started-authentication"
+    },
+    {
+      "from": "/index",
+      "to": "/concepts"
+    },
+    {
+      "from": "/index",
+      "to": "/guides/index"
+    },
+    {
+      "from": "/index",
+      "to": "/apis/index"
+    },
+    {
+      "from": "/index",
+      "to": "/sdks/index"
+    },
+    {
+      "from": "/migration-guide-v1-to-v2",
+      "to": "/changelog"
+    },
+    {
+      "from": "/migration-guide-v1-to-v2",
+      "to": "/apis/rate-limits-errors"
+    },
+    {
+      "from": "/migration-guide-v1-to-v2",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/migration-guide-v1-to-v2",
+      "to": "/apis/rate-limits-errors"
+    },
+    {
+      "from": "/migration-guide-v1-to-v2",
+      "to": "/troubleshooting"
+    },
+    {
+      "from": "/release-notes-archive",
+      "to": "/changelog"
+    },
+    {
+      "from": "/release-notes-archive",
+      "to": "/migration-guide-v1-to-v2"
+    },
+    {
+      "from": "/sdks/index",
+      "to": "/sdks/node-js"
+    },
+    {
+      "from": "/sdks/index",
+      "to": "/sdks/node-js"
+    },
+    {
+      "from": "/sdks/index",
+      "to": "/sdks/python"
+    },
+    {
+      "from": "/sdks/index",
+      "to": "/apis/index"
+    },
+    {
+      "from": "/sdks/node-js",
+      "to": "/apis/index"
+    },
+    {
+      "from": "/sdks/node-js",
+      "to": "/apis/pipelines"
+    },
+    {
+      "from": "/sdks/node-js",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/sdks/node-js",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/sdks/python",
+      "to": "/apis/index"
+    },
+    {
+      "from": "/sdks/python",
+      "to": "/apis/pipelines"
+    },
+    {
+      "from": "/sdks/python",
+      "to": "/guides/building-your-first-pipeline"
+    },
+    {
+      "from": "/sdks/python",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/security-and-compliance",
+      "to": "/concepts-pipelines"
+    },
+    {
+      "from": "/security-and-compliance",
+      "to": "/getting-started-authentication"
+    },
+    {
+      "from": "/security-and-compliance",
+      "to": "/apis/connectors"
+    },
+    {
+      "from": "/support",
+      "to": "/troubleshooting"
+    },
+    {
+      "from": "/support",
+      "to": "/security-and-compliance"
+    },
+    {
+      "from": "/troubleshooting",
+      "to": "/apis/connectors"
+    },
+    {
+      "from": "/troubleshooting",
+      "to": "/guides/scheduling-and-triggers"
+    },
+    {
+      "from": "/troubleshooting",
+      "to": "/guides/handling-errors-and-retries"
+    },
+    {
+      "from": "/troubleshooting",
+      "to": "/apis/webhooks"
+    },
+    {
+      "from": "/troubleshooting",
+      "to": "/apis/rate-limits-errors"
+    },
+    {
+      "from": "/troubleshooting",
+      "to": "/support"
+    }
+  ],
+  "suggestedBindings": {
+    "R1_RENAME_PAGE": [
+      {
+        "target": "/apis/webhooks",
+        "inbound": 11,
+        "rationale": "highest inbound degree — maximum reference blast radius"
+      },
+      {
+        "target": "/concepts-pipelines",
+        "inbound": 9,
+        "rationale": "highest inbound degree — maximum reference blast radius"
+      },
+      {
+        "target": "/guides/handling-errors-and-retries",
+        "inbound": 9,
+        "rationale": "highest inbound degree — maximum reference blast radius"
+      }
+    ],
+    "R2_RENAME_SECTION": [
+      {
+        "target": "apis",
+        "pageCount": 6,
+        "rationale": "largest section"
+      },
+      {
+        "target": "guides",
+        "pageCount": 6,
+        "rationale": "largest section"
+      }
+    ],
+    "R3_NEST_LOOSE_PAGES": {
+      "candidates": [
+        "/changelog",
+        "/concepts-connectors",
+        "/concepts-events",
+        "/concepts-pipelines",
+        "/concepts",
+        "/getting-started-authentication",
+        "/getting-started-installation",
+        "/getting-started-quickstart",
+        "/glossary",
+        "/migration-guide-v1-to-v2",
+        "/release-notes-archive",
+        "/security-and-compliance",
+        "/support",
+        "/troubleshooting"
+      ],
+      "rationale": "top-level pages with no section — candidates for grouping"
+    },
+    "T_RETIREMENT_CANDIDATES": [
+      {
+        "target": "/apis/webhooks",
+        "inbound": 11,
+        "rationale": "enough inbound links that removal is measurable"
+      },
+      {
+        "target": "/concepts-pipelines",
+        "inbound": 9,
+        "rationale": "enough inbound links that removal is measurable"
+      },
+      {
+        "target": "/guides/handling-errors-and-retries",
+        "inbound": 9,
+        "rationale": "enough inbound links that removal is measurable"
+      },
+      {
+        "target": "/apis/pipelines",
+        "inbound": 7,
+        "rationale": "enough inbound links that removal is measurable"
+      },
+      {
+        "target": "/guides/building-your-first-pipeline",
+        "inbound": 7,
+        "rationale": "enough inbound links that removal is measurable"
+      },
+      {
+        "target": "/apis/connectors",
+        "inbound": 6,
+        "rationale": "enough inbound links that removal is measurable"
+      }
+    ],
+    "E_SIBLING_SETS": [
+      {
+        "section": "apis",
+        "members": [
+          "/apis/connectors",
+          "/apis/events",
+          "/apis/index",
+          "/apis/pipelines",
+          "/apis/rate-limits-errors",
+          "/apis/webhooks"
+        ],
+        "rationale": "sibling set for cross-page consistency checks"
+      },
+      {
+        "section": "guides",
+        "members": [
+          "/guides/building-your-first-pipeline",
+          "/guides/connecting-a-data-source",
+          "/guides/handling-errors-and-retries",
+          "/guides/index",
+          "/guides/monitoring-and-alerts",
+          "/guides/scheduling-and-triggers"
+        ],
+        "rationale": "sibling set for cross-page consistency checks"
+      },
+      {
+        "section": "sdks",
+        "members": [
+          "/sdks/index",
+          "/sdks/node-js",
+          "/sdks/python"
+        ],
+        "rationale": "sibling set for cross-page consistency checks"
+      }
+    ]
+  }
+}

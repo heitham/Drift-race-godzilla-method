@@ -1,0 +1,27 @@
+{
+  "name": "rift-drift-race-benchmark",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Standalone benchmark: RIFT MCP-governed vs raw-LLM content operations, scored on drift.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc --noEmit",
+    "profile": "tsx harness/profile/index.ts",
+    "baseline:dump": "pg_dump -Fc postgres://heithamghariani@localhost:5432/cms_dev -f baseline/cms_dev.baseline.dump",
+    "baseline:restore": "dropdb --if-exists cms_dev && createdb cms_dev && pg_restore -d postgres://heithamghariani@localhost:5432/cms_dev baseline/cms_dev.baseline.dump",
+    "score": "tsx scoring/score.ts",
+    "test:scoring": "tsx scoring/fixtures.test.ts clones/godzilladocs-main",
+    "preflight": "node harness/preflight.mjs",
+    "bench": "tsx harness/run/index.ts",
+    "reset": "bash scripts/reset-baseline.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.23.12",
+    "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "node-html-parser": "^9.0.1"
+  }
+}

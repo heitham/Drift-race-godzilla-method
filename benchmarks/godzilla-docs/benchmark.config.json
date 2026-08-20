@@ -1,0 +1,121 @@
+{
+  "id": "godzilla-docs",
+  "frozenAt": "2026-08-20",
+  "description": "RIFT Drift Race v1 \u2014 30-page documentation site, paired raw vs governed runs.",
+  "baseline": {
+    "repo": "https://github.com/heitham/godzilladocs.git",
+    "mainSha": "15c7b5fd568e3d2f1bcbacc17c065dd340391dc8",
+    "dbDump": "baseline/cms_dev.baseline.dump",
+    "dbDumpSha256": "18cd899308aafcc4edc796fa65ca8b18c998550f64b19153792c0205cb2e8883",
+    "pageCount": 30,
+    "linkEdges": 129
+  },
+  "_pin": [
+    "The renderer that produces every snapshot lives in the RIFT CMS. If it",
+    "changes mid-benchmark, snapshots stop being comparable and the failure is",
+    "SILENT \u2014 both versions emit valid-looking HTML. The operator has committed",
+    "to holding RIFT stable, so rather than isolating a worktree we enforce the",
+    "pin actively: the runner reads HEAD of cmsRepo and REFUSES to start if it",
+    "differs from cmsSha, or if the working tree is dirty. A silent risk is",
+    "converted into a loud failure at the only moment it can still be fixed.",
+    "To intentionally move the pin, update cmsSha here and record why in",
+    "pinHistory \u2014 never bypass the check."
+  ],
+  "cms": {
+    "repo": "/Users/heithamghariani/Documents/Claude CMS Build",
+    "cmsSha": "40b1b708d81cbd114623508d39362776298184a2",
+    "enforce": "refuse-on-mismatch",
+    "allowDirtyPaths": [
+      "docs/"
+    ],
+    "pinHistory": [
+      {
+        "sha": "40b1b708d81cbd114623508d39362776298184a2",
+        "date": "2026-08-20",
+        "reason": "initial pin at benchmark freeze"
+      }
+    ]
+  },
+  "_roster": [
+    "Scoped to three models on 2026-08-20, before any trial, to cut cost and",
+    "shorten the feedback loop. The three were chosen to vary the two things the",
+    "benchmark can actually speak to: capability (Haiku 4.5 -> Sonnet 5) and",
+    "vendor (Anthropic -> Google). Gemini 3.1 Pro remains unreachable (429 on",
+    "every Pro-tier model with this key), so the Gemini side is Flash-tier only.",
+    "Dropped from the earlier roster: claude-sonnet-4-6 (redundant with Sonnet 5",
+    "for the capability axis) and gemini-3.5-flash (redundant with 3.7 Flash for",
+    "the vendor axis). Adding either back later is additive - it does not",
+    "invalidate completed runs, since every comparison is paired WITHIN a model."
+  ],
+  "roster": [
+    {
+      "id": "claude-haiku-4-5-20251001",
+      "provider": "anthropic",
+      "label": "Claude Haiku 4.5",
+      "tier": "small"
+    },
+    {
+      "id": "claude-sonnet-5",
+      "provider": "anthropic",
+      "label": "Claude Sonnet 5",
+      "tier": "large"
+    },
+    {
+      "id": "gemini-3.7-flash",
+      "provider": "google",
+      "label": "Gemini 3.7 Flash",
+      "tier": "flash"
+    }
+  ],
+  "rosterExcluded": [
+    {
+      "id": "gemini-3.1-pro-preview",
+      "reason": "429 RESOURCE_EXHAUSTED - no Pro-tier quota on this key",
+      "checkedAt": "2026-08-20"
+    },
+    {
+      "id": "claude-sonnet-4-6",
+      "reason": "descoped 2026-08-20 - redundant with Sonnet 5 on the capability axis",
+      "checkedAt": "2026-08-20"
+    },
+    {
+      "id": "gemini-3.5-flash",
+      "reason": "descoped 2026-08-20 - redundant with Gemini 3.7 Flash on the vendor axis",
+      "checkedAt": "2026-08-20"
+    }
+  ],
+  "arms": [
+    "raw",
+    "governed"
+  ],
+  "trialsPerCell": 1,
+  "operations": "methodology/operations.md",
+  "operationCount": 30,
+  "_effort": [
+    "Reasoning is enabled for every model. The two providers expose it through",
+    "different mechanisms with incompatible units, so effort is NOT numerically",
+    "equivalent across providers \u2014 see methodology M3. The protocol requires it",
+    "constant across a single model's two arms, which this satisfies exactly.",
+    "Reasoning tokens are billed and are counted in M3."
+  ],
+  "reasoning": {
+    "anthropic": {
+      "type": "enabled",
+      "budget_tokens": 8000
+    },
+    "google": {
+      "thinkingBudget": 8000
+    }
+  },
+  "site": {
+    "id": "32114acb-ccbe-44e4-96d4-64fa594284e2",
+    "displayName": "Godzilla Docs",
+    "designSystem": "Godzilla 1.0.0",
+    "mcpUrl": "http://localhost:3001/api/mcp"
+  },
+  "runBranchPrefix": "run/",
+  "protectedBranches": [
+    "main",
+    "staging"
+  ]
+}
