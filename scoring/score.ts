@@ -153,6 +153,41 @@ function scoreOrphans(crawl: SiteCrawl) {
   }
 }
 
+/**
+ * M5 — blast radius.
+ *
+ * The one metric that genuinely needs two snapshots: everything else is an
+ * absolute audit of a single one (methodology §6.1). Compares rendered content
+ * per page, so a republish that rewrites bytes without changing what a reader
+ * sees does not register as churn.
+ *
+ * Chrome is deliberately excluded. A page whose only change is the left-nav
+ * gaining an entry for some *other* new page has not itself been touched, and
+ * counting it would make every additive operation look like a site-wide edit —
+ * inflating the governed arm's blast radius precisely because its navigation
+ * is generated centrally.
+ */
+export interface BlastRadius {
+  changed: number
+  added: string[]
+  removed: string[]
+  modified: string[]
+}
+
+export function blastRadius(prev: SiteCrawl, curr: SiteCrawl): BlastRadius {
+  const before = new Map(prev.pages.map(p => [p.path, p.content.hash]))
+  const after = new Map(curr.pages.map(p => [p.path, p.content.hash]))
+
+  const added = [...after.keys()].filter(p => !before.has(p)).sort()
+  const removed = [...before.keys()].filter(p => !after.has(p)).sort()
+  const modified = [...after.entries()]
+    .filter(([p, h]) => before.has(p) && before.get(p) !== h)
+    .map(([p]) => p)
+    .sort()
+
+  return { changed: added.length + removed.length + modified.length, added, removed, modified }
+}
+
 /** Class vocabulary from the design system's own published stylesheet. */
 export function vocabularyFor(root: string, crawl: SiteCrawl): Set<string> {
   const sheets = [...new Set(

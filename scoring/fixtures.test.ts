@@ -15,7 +15,8 @@
 import { cpSync, readFileSync, writeFileSync, rmSync, mkdtempSync, existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
-import { scoreSnapshot, type Scores } from './score.js'
+import { scoreSnapshot, blastRadius, type Scores } from './score.js'
+import { crawlSite, type SiteCrawl } from './crawl.js'
 
 const baselineDir = process.argv[2] ?? 'clones/godzilladocs-main'
 if (!existsSync(baselineDir)) { console.error(`baseline not found: ${baselineDir}`); process.exit(1) }
@@ -31,6 +32,19 @@ function withFixture(mutate: (dir: string) => void): Scores {
     rmSync(path.join(dir, '.git'), { recursive: true, force: true })
     mutate(dir)
     return scoreSnapshot(dir)
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+}
+
+/** Same fixture mechanism, but returns the crawl — M5 compares two of them. */
+function withFixtureCrawl(mutate: (dir: string) => void): SiteCrawl {
+  const dir = mkdtempSync(path.join(tmpdir(), 'driftfix-'))
+  try {
+    cpSync(baselineDir, dir, { recursive: true })
+    rmSync(path.join(dir, '.git'), { recursive: true, force: true })
+    mutate(dir)
+    return crawlSite(dir)
   } finally {
     rmSync(dir, { recursive: true, force: true })
   }
@@ -144,6 +158,36 @@ check('M6 orphan detected when content links are removed',
     }
   }).m6_orphansAndReach.orphans.includes('/changelog'),
   true)
+
+// --- M5: blast radius (the one metric that compares two snapshots) ---------
+
+{
+  const base = crawlSite(baselineDir)
+
+  check('M5 identical snapshots report no churn',
+    blastRadius(base, crawlSite(baselineDir)).changed, 0)
+
+  const oneEdit = withFixtureCrawl(d => injectIntoContent(d, 'glossary.html', '<p>edited</p>'))
+  check('M5 single edited page counts as 1',
+    blastRadius(base, oneEdit).modified, ['/glossary'])
+
+  const deleted = withFixtureCrawl(d => rmSync(path.join(d, 'changelog.html')))
+  check('M5 deleted page is counted as removed',
+    blastRadius(base, deleted).removed, ['/changelog'])
+
+  // Guards the chrome exclusion: a new page makes the left nav gain an entry
+  // on EVERY page. Counting that would make every additive operation look like
+  // a site-wide rewrite — and would penalize the governed arm hardest, since
+  // its navigation is generated centrally.
+  const chromeOnly = withFixtureCrawl(d => {
+    for (const f of ['glossary.html', 'changelog.html', 'support.html']) {
+      const p = path.join(d, f)
+      writeFileSync(p, readFileSync(p, 'utf8').replace('</aside>', '<a href="/new-page">New</a></aside>'))
+    }
+  })
+  check('M5 ignores chrome-only changes (regression)',
+    blastRadius(base, chromeOnly).changed, 0)
+}
 
 // --- determinism -----------------------------------------------------------
 

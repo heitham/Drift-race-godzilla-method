@@ -14,7 +14,8 @@
     "test:scoring": "tsx scoring/fixtures.test.ts clones/godzilladocs-main",
     "preflight": "node harness/preflight.mjs",
     "bench": "tsx harness/run/index.ts",
-    "reset": "bash scripts/reset-baseline.sh"
+    "reset": "bash scripts/reset-baseline.sh",
+    "score:run": "tsx scoring/score-run.ts"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
