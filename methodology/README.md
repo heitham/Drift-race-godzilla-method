@@ -205,6 +205,7 @@ substrate's ceiling.
 refuses to proceed if it comes back empty. The frozen baseline carries **126
 edges, all `cms_reference`** — no page starts outside the managed-link
 guarantee.
+
 ### 4.5 Review between operations
 
 RIFT guards a page against carrying two *unreviewed agent bundles* at once: a
