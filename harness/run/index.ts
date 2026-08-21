@@ -146,62 +146,69 @@ async function main() {
 
   const timeline: unknown[] = []
 
-  for (const n of selected) {
-    const op = operations.find(o => o.n === n)!
-    const opDir = path.join(outDir, 'ops', `op-${String(n).padStart(2, '0')}`)
-    mkdirSync(opDir, { recursive: true })
+  // Teardown must run even when an operation throws. The governed arm points
+  // the site's publish branches at this run for the duration; leaving them
+  // there would send the operator's next real publish to a benchmark branch.
+  try {
+    for (const n of selected) {
+      const op = operations.find(o => o.n === n)!
+      const opDir = path.join(outDir, 'ops', `op-${String(n).padStart(2, '0')}`)
+      mkdirSync(opDir, { recursive: true })
 
-    process.stdout.write(`op ${String(n).padStart(2)}  ${op.id.padEnd(4)} ${op.title.slice(0, 44).padEnd(46)}`)
+      process.stdout.write(`op ${String(n).padStart(2)}  ${op.id.padEnd(4)} ${op.title.slice(0, 44).padEnd(46)}`)
 
-    // Fresh session: a new driver invocation with no prior messages.
-    const result = await driver.runSession({
-      system: SYSTEM_PROMPT,
-      userMessage: op.instruction,
-      tools: arm.tools(),
-      onToolCall: (name, input) => arm.callTool(name, input),
-    })
+      // Fresh session: a new driver invocation with no prior messages.
+      const result = await driver.runSession({
+        system: SYSTEM_PROMPT,
+        userMessage: op.instruction,
+        tools: arm.tools(),
+        onToolCall: (name, input) => arm.callTool(name, input),
+      })
 
-    const snap = await arm.snapshot(op.id, op.title)
+      const snap = await arm.snapshot(op.id, op.title)
 
-    // A run must never earn a clean drift score by doing nothing (M7).
-    const status = result.status === 'error' ? 'failed'
-      : snap.noChange ? 'partial'
-      : result.status === 'max_turns' ? 'partial'
-      : 'completed'
+      // A run must never earn a clean drift score by doing nothing (M7).
+      const status = result.status === 'error' ? 'failed'
+        : snap.noChange ? 'partial'
+        : result.status === 'max_turns' ? 'partial'
+        : 'completed'
 
-    writeFileSync(path.join(opDir, 'request.json'), JSON.stringify({ op, system: SYSTEM_PROMPT }, null, 2))
-    writeFileSync(path.join(opDir, 'transcript.jsonl'), result.transcript.map(t => JSON.stringify(t)).join('\n'))
-    writeFileSync(path.join(opDir, 'usage.json'), JSON.stringify({
-      status, turns: result.turns, toolCalls: result.toolCalls,
-      usage: result.usage, latencyMs: result.latencyMs, error: result.error,
-      snapshotSha: snap.sha, noChange: snap.noChange, filesChanged: snap.filesChanged,
-      autoClosed: snap.autoClosed ?? false,
-    }, null, 2))
+      writeFileSync(path.join(opDir, 'request.json'), JSON.stringify({ op, system: SYSTEM_PROMPT }, null, 2))
+      writeFileSync(path.join(opDir, 'transcript.jsonl'), result.transcript.map(t => JSON.stringify(t)).join('\n'))
+      writeFileSync(path.join(opDir, 'usage.json'), JSON.stringify({
+        status, turns: result.turns, toolCalls: result.toolCalls,
+        usage: result.usage, latencyMs: result.latencyMs, error: result.error,
+        snapshotSha: snap.sha, noChange: snap.noChange, filesChanged: snap.filesChanged,
+        autoClosed: snap.autoClosed ?? false,
+      }, null, 2))
 
-    timeline.push({
-      op: n, opId: op.id, wave: op.wave, status,
-      // The harness publishes on the model's behalf in both arms; this flags
-      // the operations where it had to, so M7 can report unaided completion
-      // separately from completion (see GovernedArm.snapshot).
-      autoClosed: snap.autoClosed ?? false,
-      snapshotSha: snap.sha, filesChanged: snap.filesChanged,
-      turns: result.turns, toolCalls: result.toolCalls,
-      tokens: result.usage, latencyMs: result.latencyMs,
-    })
-    writeFileSync(path.join(outDir, 'timeline.json'), JSON.stringify(timeline, null, 2))
+      timeline.push({
+        op: n, opId: op.id, wave: op.wave, status,
+        // The harness publishes on the model's behalf in both arms; this flags
+        // the operations where it had to, so M7 can report unaided completion
+        // separately from completion (see GovernedArm.snapshot).
+        autoClosed: snap.autoClosed ?? false,
+        snapshotSha: snap.sha, filesChanged: snap.filesChanged,
+        turns: result.turns, toolCalls: result.toolCalls,
+        tokens: result.usage, latencyMs: result.latencyMs,
+      })
+      writeFileSync(path.join(outDir, 'timeline.json'), JSON.stringify(timeline, null, 2))
 
-    const tag = status === 'completed' ? (snap.autoClosed ? 'ok*' : 'ok') : status
-    console.log(
-      `${tag.padEnd(10)} ${String(result.turns).padStart(2)}t ` +
-      `${String(result.toolCalls).padStart(3)}c ` +
-      `${String(result.usage.total).padStart(7)}tok ` +
-      `cr:${String(Math.round(result.usage.cacheRead / 1000)).padStart(5)}k ` +
-      `${String(Math.round(result.latencyMs / 1000)).padStart(4)}s` +
-      (result.error ? `  ${result.error.slice(0, 60)}` : ''),
-    )
+      const tag = status === 'completed' ? (snap.autoClosed ? 'ok*' : 'ok') : status
+      console.log(
+        `${tag.padEnd(10)} ${String(result.turns).padStart(2)}t ` +
+        `${String(result.toolCalls).padStart(3)}c ` +
+        `${String(result.usage.total).padStart(7)}tok ` +
+        `cr:${String(Math.round(result.usage.cacheRead / 1000)).padStart(5)}k ` +
+        `${String(Math.round(result.latencyMs / 1000)).padStart(4)}s` +
+        (result.error ? `  ${result.error.slice(0, 60)}` : ''),
+      )
+    }
+
+  } finally {
+    await arm.teardown()
   }
 
-  await arm.teardown()
   writeFileSync(
     path.join(outDir, 'manifest.json'),
     JSON.stringify({ ...manifest, finishedAt: new Date().toISOString() }, null, 2),

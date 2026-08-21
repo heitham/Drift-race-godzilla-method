@@ -61,6 +61,20 @@ createdb cms_dev          || die "createdb failed"
 pg_restore -d "$DB_URL" "$DUMP" 2>&1 | grep -iE "^pg_restore: error" && die "restore reported errors" || true
 say "restored"
 
+# --- re-apply schema migrations --------------------------------------------
+# The dump is frozen at the benchmark's content baseline, but the CMS SCHEMA
+# moves under active development — migration 0047 added
+# change_sets.reviewed_by_api_key_id, without which every automated approval
+# fails. Restoring the dump therefore rewinds the schema too, and the run would
+# break on the first review with a column-not-found error that looks nothing
+# like its cause. Migrations are idempotent (drizzle tracks what has run), so
+# this is safe when there is nothing new to apply.
+step "applying schema migrations"
+cd "$CMS_DIR"
+DATABASE_URL="$DB_URL" pnpm db:migrate >/tmp/cms-migrate.log 2>&1 \
+  || die "migrations failed — see /tmp/cms-migrate.log"
+say "schema current"
+
 # --- re-seed the benchmark API key -----------------------------------------
 # The baseline dump predates the agent key, so every restore wipes it and the
 # governed arm loses its MCP auth. Re-seeding here keeps reset self-healing

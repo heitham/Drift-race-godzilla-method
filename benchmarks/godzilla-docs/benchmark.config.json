@@ -23,7 +23,7 @@
   ],
   "cms": {
     "repo": "/Users/heithamghariani/Documents/Claude CMS Build",
-    "cmsSha": "01207e8c858884ce41b408e9eaeae6511adc448e",
+    "cmsSha": "19bc37e1c9146c5b158473843264ac3b358f066f",
     "enforce": "refuse-on-mismatch",
     "allowDirtyPaths": [
       "docs/"
@@ -41,6 +41,14 @@
         "renderPathUnchanged": true,
         "evidence": "Static reachability proof over the publish path, which is stronger than a sampled byte-compare: publish.ts imports renderer, succession, navResolver, discoveryFiles, gitPublisher and storage — none modified by the commit — and renderer.ts imports only node:crypto, so no change can reach it. The one render-adjacent file that did change, linkParser.ts, is imported by exactly four modules: two (cms) UI server actions, contentValidation.ts and linkSync.ts. None is on the publish path. Identical stored content therefore still renders to identical HTML and the published baseline needs no refresh.",
         "effect": "create_item/update_item now reject three classes of body that previously stored and published silently: UNMANAGED_INTERNAL_LINK (raw path where a managed reference exists), MALFORMED_HREF (extra layer of quoting) and DEAD_MANAGED_REF (reference to a nonexistent item). Rejection, not normalization — the model sees the error and must respond to it, so the substrate is measured enforcing rather than quietly repairing."
+      },
+      {
+        "sha": "19bc37e1c9146c5b158473843264ac3b358f066f",
+        "date": "2026-08-21",
+        "reason": "FR-AP-016: approve a change-set over the v1 API, admin keys only. Requested by this benchmark (docs/CMS-REQUEST-approve-endpoint.md) because RIFT's collision guard assumes review happens between agent bundles, and the protocol had no way to review. Moved before any valid governed run exists.",
+        "renderPathUnchanged": true,
+        "evidence": "Changed files are the new route, lib/changeSetReview.ts, the (cms) server action now delegating to it, migration 0047, schema.ts, an e2e file and docs. No renderer, publisher or discovery-file change.",
+        "effect": "The harness can review between operations. Governance verified by the CMS author against agent, content_author, unauthenticated and admin callers: only admin approves, so the model under test still cannot sign off its own work. Migration 0047 adds change_sets.reviewed_by_api_key_id so an automated approval records WHO acted rather than leaving the named-approver field null — which also means the frozen dump now restores an out-of-date SCHEMA, and reset-baseline.sh re-applies migrations after every restore."
       }
     ]
   },

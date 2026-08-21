@@ -192,74 +192,58 @@ export class GovernedArm implements Arm {
    */
   async snapshot(_opId: string, _message: string): Promise<SnapshotResult> {
     const autoClosed = await this.flushOpenChangeSets()
+    const before = this.lastSha
 
-    for (let i = 0; i < 45; i++) {
+    // Two publishes can land per operation: the one `propose` triggers, and
+    // the one approval triggers. Wait for the first, review, then wait for
+    // everything to go quiet — recording a sha between the two would attribute
+    // the approval's commit to the NEXT operation and shift every snapshot in
+    // the run by one, silently.
+    await this.waitForChange(before)
+    await this.review()
+    const sha = await this.waitForQuiet()
+
+    if (!sha || sha === before) {
+      return { sha: before || 'no-publish', noChange: true, filesChanged: 0, autoClosed }
+    }
+    const changed = this.countChanged(before, sha)
+    this.lastSha = sha
+    return { sha, noChange: false, filesChanged: changed, autoClosed }
+  }
+
+  /** Wait for the run branch to move off `from`. Returns '' if it never does. */
+  private async waitForChange(from: string, tries = 45): Promise<string> {
+    for (let i = 0; i < tries; i++) {
       const sha = this.remoteSha()
-      if (sha && sha !== this.lastSha) {
-        const changed = this.countChanged(this.lastSha, sha)
-        this.lastSha = sha
-        await this.review()
-        return { sha, noChange: false, filesChanged: changed, autoClosed }
-      }
+      if (sha && sha !== from) return sha
       await new Promise(r => setTimeout(r, 2000))
     }
-    await this.review()
-    return { sha: this.lastSha || 'no-publish', noChange: true, filesChanged: 0, autoClosed }
+    return ''
   }
 
   /**
-   * Review what this operation produced, playing the part a content team plays
-   * between one month's work and the next.
+   * Wait until the branch stops moving.
    *
-   * RIFT guards a page against carrying two *unreviewed agent bundles* at
-   * once: a second change-set touching a page an `open` or `proposed` one
-   * already holds is refused with "ask a human to approve or reject that
-   * change-set first". The guard is explicitly agent-only and exists so that
-   * approving one bundle cannot ship another's edits. It is correct, and it
-   * assumes review happens.
-   *
-   * Our protocol did not review, so change-sets accumulated in `proposed` and
-   * the governed arm progressively walled itself out of every page it had
-   * already touched. In the v2 trial ops 8 and 9 — both RENAMES, where the
-   * governed substrate should be strongest — failed for that reason alone.
-   * That was a defect in our protocol, not in the CMS and not model drift;
-   * scoring it as drift would have been the benchmark lying about its subject.
-   *
-   * Approval goes through RIFT's own admin-key endpoint rather than being
-   * imitated here, so the benchmark exercises the same code path a real
-   * reviewer does — including the item transitions, the audit trail and the
-   * publish that follow from it.
+   * Publishing is queued, so "the sha changed" does not mean "publishing
+   * finished" — the approval's publish is still in flight behind it. Quiet is
+   * defined as the same sha across several consecutive polls; anything less
+   * races the worker.
    */
-  private async review(): Promise<void> {
-    const ids = this.sql(`
-      SELECT id FROM change_sets
-      WHERE site_id = '${this.config.site.id}' AND status = 'proposed'
-      ORDER BY proposed_at
-    `).split('\n').map(x => x.trim()).filter(Boolean)
-
-    for (const id of ids) {
-      const res = await fetch(
-        `${this.origin}/api/v1/sites/${this.config.site.id}/change-sets/${id}/approve`,
-        {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
-          body: JSON.stringify({ comment: 'Reviewed between benchmark operations.', publish_after: true }),
-        },
-      )
-      if (!res.ok) {
-        const detail = await res.text().catch(() => '')
-        throw new Error(
-          `review failed for change-set ${id.slice(0, 8)} (HTTP ${res.status}).\n` +
-          `  ${detail.slice(0, 300)}\n` +
-          `  Without review the next operation will be locked out of every page this one\n` +
-          `  touched, so the run is stopped rather than allowed to record that as drift.`,
-        )
+  private async waitForQuiet(stableFor = 5, tries = 90): Promise<string> {
+    let last = ''
+    let stable = 0
+    for (let i = 0; i < tries; i++) {
+      const sha = this.remoteSha()
+      if (sha && sha === last) {
+        if (++stable >= stableFor) return sha
+      } else {
+        stable = 0
+        last = sha
       }
+      await new Promise(r => setTimeout(r, 2000))
     }
+    return last
   }
-
-  /** CMS origin, derived from the configured MCP URL. */
-  private get origin(): string { return new URL(this.config.site.mcpUrl).origin }
 
   /**
    * Propose every change-set this site still has open that actually contains
@@ -291,6 +275,59 @@ export class GovernedArm implements Arm {
     }
     return true
   }
+
+  /**
+   * Review what this operation produced, playing the part a content team plays
+   * between one month's work and the next.
+   *
+   * RIFT guards a page against carrying two *unreviewed agent bundles* at
+   * once: a second change-set touching a page an `open` or `proposed` one
+   * already holds is refused with "ask a human to approve or reject that
+   * change-set first". The guard is explicitly agent-only and exists so that
+   * approving one bundle cannot ship another's edits. It is correct, and it
+   * assumes review happens.
+   *
+   * Our protocol did not review, so change-sets accumulated in `proposed` and
+   * the governed arm progressively walled itself out of every page it had
+   * already touched. In the v2 trial ops 8 and 9 — both RENAMES, where the
+   * governed substrate should be strongest — failed for that reason alone.
+   * That was a defect in our protocol, not in the CMS and not model drift;
+   * scoring it as drift would have been the benchmark lying about its subject.
+   *
+   * Approval goes through RIFT's own admin-key endpoint rather than being
+   * imitated here, so the benchmark exercises the same code path a real
+   * reviewer does — item transitions, audit trail and publish included.
+   */
+  private async review(): Promise<void> {
+    const ids = this.sql(`
+      SELECT id FROM change_sets
+      WHERE site_id = '${this.config.site.id}' AND status = 'proposed'
+      ORDER BY proposed_at
+    `).split('\n').map(x => x.trim()).filter(Boolean)
+
+    for (const id of ids) {
+      const res = await fetch(
+        `${this.origin}/api/v1/sites/${this.config.site.id}/change-sets/${id}/approve`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
+          body: JSON.stringify({ comment: 'Reviewed between benchmark operations.', publish_after: true }),
+        },
+      )
+      if (!res.ok) {
+        const detail = await res.text().catch(() => '')
+        throw new Error(
+          `review failed for change-set ${id.slice(0, 8)} (HTTP ${res.status}).\n` +
+          `  ${detail.slice(0, 300)}\n` +
+          `  Without review the next operation is locked out of every page this one\n` +
+          `  touched, so the run stops rather than recording that as drift.`,
+        )
+      }
+    }
+  }
+
+  /** CMS origin, derived from the configured MCP URL. */
+  private get origin(): string { return new URL(this.config.site.mcpUrl).origin }
 
   /** Files touched between two published commits — M5 blast radius. */
   private countChanged(from: string, to: string): number {

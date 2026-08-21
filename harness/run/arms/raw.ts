@@ -211,10 +211,12 @@ export class RawArm implements Arm {
       git(this.dir, `push --quiet -u origin ${this.branch} --force`)
     } catch (e) {
       // Previously swallowed as "offline is survivable". It is survivable —
-      // the local history holds every snapshot — but staying quiet about it
-      // produced a completed run that could not be scored and gave no clue
-      // why. A benchmark whose failures are silent is worse than one that
-      // stops, so say it loudly and say exactly how to finish the job.
+      // the local history holds every snapshot — but a run that completes and
+      // then cannot be scored, with nothing in the output saying why, is the
+      // worst failure this harness can produce. Note that the push happens
+      // HERE and only here: the branch is legitimately absent from the remote
+      // until the run finishes, which is not a failure and should not be
+      // mistaken for one mid-run.
       console.warn(
         `\n  PUSH FAILED — the run is intact locally but is not on the remote.` +
         `\n  ${(e as Error).message.split('\n')[0].slice(0, 160)}` +
