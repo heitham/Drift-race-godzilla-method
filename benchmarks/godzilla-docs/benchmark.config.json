@@ -23,7 +23,7 @@
   ],
   "cms": {
     "repo": "/Users/heithamghariani/Documents/Claude CMS Build",
-    "cmsSha": "19bc37e1c9146c5b158473843264ac3b358f066f",
+    "cmsSha": "aebb44b9ad841de01261ee1074b3dc79f3c6d3ce",
     "enforce": "refuse-on-mismatch",
     "allowDirtyPaths": [
       "docs/"
@@ -49,6 +49,14 @@
         "renderPathUnchanged": true,
         "evidence": "Changed files are the new route, lib/changeSetReview.ts, the (cms) server action now delegating to it, migration 0047, schema.ts, an e2e file and docs. No renderer, publisher or discovery-file change.",
         "effect": "The harness can review between operations. Governance verified by the CMS author against agent, content_author, unauthenticated and admin callers: only admin approves, so the model under test still cannot sign off its own work. Migration 0047 adds change_sets.reviewed_by_api_key_id so an automated approval records WHO acted rather than leaving the named-approver field null — which also means the frozen dump now restores an out-of-date SCHEMA, and reset-baseline.sh re-applies migrations after every restore."
+      },
+      {
+        "sha": "aebb44b9ad841de01261ee1074b3dc79f3c6d3ce",
+        "date": "2026-08-21",
+        "reason": "FR-AP-017 create_folder and FR-AP-018 move_item. Both requested by this benchmark after the first Haiku pair scored governed as winning Wave B while the published tree showed it had created no sections and moved no pages — the arm was scored `completed` for work it could not perform. Moved before any valid governed run exists.",
+        "renderPathUnchanged": true,
+        "evidence": "Changed: mcp/tools.ts, the v1 folders and items routes, the item workflow route, migration 0048, schema, e2e, docs. No renderer, publisher or discovery-file change.",
+        "effect": "The governed arm can now create a section and relocate a published page. Moves follow edit_public exactly: the change is staged and the live URL moves only on approval, which the harness performs with its reviewer key — so no human is in the loop during a run, and the approval gate is not weakened. Migration 0048 adds content_item_pairs.pending_folder_id, the slot a staged move needs because an edit_public copy borrows the live page's placement until the publish swap."
       }
     ]
   },
