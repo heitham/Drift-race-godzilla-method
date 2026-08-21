@@ -37,13 +37,14 @@ and all.
 ### The baseline both runs started from
 
 ```bash
-git checkout 15c7b5fd568e3d2f1bcbacc17c065dd340391dc8
+git checkout baseline-v1
 ```
 
 30 pages, 129 internal links, one pre-existing broken reference that both arms inherited.
 
 > **Note on `main`:** the tip of `main` is not the baseline. It carries later publishes and
-> test output. Use the commit above when you want the pristine starting state.
+> test output, including a leftover folder from a CMS fix verified against this repo. The
+> `baseline-v1` tag is the pristine starting state.
 
 ### The other branches
 
