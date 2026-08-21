@@ -1,0 +1,283 @@
+<title>The Drift Race</title>
+<style>
+  :root {
+    --paper:      #EFF1F0;
+    --ink:        #14181A;
+    --ink-soft:   #4C5551;
+    --rule:       #C7CEC9;
+    --raw:        #B23A2E;
+    --raw-soft:   #E8D5D1;
+    --gov:        #14605C;
+    --gov-soft:   #CFE0DD;
+    --grid:       #D5DAD6;
+
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #101413; --ink: #E9ECEA; --ink-soft: #9AA5A0; --rule: #2E3735;
+      --raw: #E06B58; --raw-soft: #3A211D; --gov: #52BFB0; --gov-soft: #14302D; --grid: #232B29;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #101413; --ink: #E9ECEA; --ink-soft: #9AA5A0; --rule: #2E3735;
+    --raw: #E06B58; --raw-soft: #3A211D; --gov: #52BFB0; --gov-soft: #14302D; --grid: #232B29;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--serif); font-size: 18px; line-height: 1.6;
+    margin: 0; padding: 0 24px 88px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 940px; margin: 0 auto; }
+  .col  { max-width: 64ch; }
+
+  .label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-soft); margin: 0;
+  }
+
+  header { padding: 68px 0 0; }
+  header .label { margin-bottom: 24px; }
+
+  h1 {
+    font-size: clamp(36px, 5.6vw, 58px); line-height: 1.05; font-weight: 400;
+    letter-spacing: -0.02em; text-wrap: balance; margin: 0 0 20px;
+  }
+  .standfirst { font-size: 20px; line-height: 1.5; color: var(--ink-soft); margin: 0; max-width: 56ch; }
+
+  h2 {
+    font-size: 27px; font-weight: 400; letter-spacing: -0.015em;
+    line-height: 1.2; text-wrap: balance; margin: 0 0 14px;
+  }
+  p { margin: 0 0 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  section { padding-top: 56px; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 56px 0 0; }
+
+  /* ---- the three results ---- */
+  .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-top: 44px; }
+  .result { border: 1px solid var(--rule); border-top: 2px solid var(--ink); padding: 20px; }
+  .result .label { margin-bottom: 16px; }
+  .bars { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .bar-row { display: grid; grid-template-columns: 62px 1fr; align-items: center; gap: 10px; }
+  .bar-key { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  .bar { height: 26px; display: flex; align-items: center; padding: 0 8px; min-width: 34px; }
+  .bar.raw { background: var(--raw); color: var(--paper); }
+  .bar.gov { background: var(--gov); color: var(--paper); }
+  .bar.zero { background: none; padding-left: 0; min-width: 0; }
+  .bar.zero.gov span { color: var(--gov); }
+  .bar.zero.raw span { color: var(--raw); }
+  .bar span { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 600; }
+  .result p { font-size: 15px; line-height: 1.45; color: var(--ink-soft); margin: 0; }
+  .result.reversed { border-top-color: var(--raw); }
+
+  /* ---- chart ---- */
+  figure { margin: 44px 0 0; }
+  figure svg { display: block; width: 100%; height: auto; }
+  figure svg text { font-family: var(--mono); }
+  figure svg .ax  { font-size: 11px; fill: var(--ink-soft); }
+  figure svg .wv  { font-size: 10px; fill: var(--ink-soft); letter-spacing: 1.3px; }
+  figure svg .an  { font-size: 12px; }
+  figure svg .key { font-size: 12px; font-weight: 600; }
+  figcaption { font-family: var(--mono); font-size: 12px; line-height: 1.6; color: var(--ink-soft); margin-top: 12px; max-width: 68ch; }
+  .scroller { overflow-x: auto; }
+  .scroller > svg { min-width: 620px; }
+
+  /* ---- exhibit ---- */
+  .exhibit { border-left: 3px solid var(--raw); background: var(--raw-soft); padding: 18px 20px; margin-top: 24px; }
+  .exhibit.good { border-left-color: var(--gov); background: var(--gov-soft); }
+  pre { font-family: var(--mono); font-size: 13px; line-height: 1.65; margin: 0; overflow-x: auto; color: var(--ink); }
+
+  /* ---- method / limits ---- */
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 40px; }
+  .panel { border: 1px solid var(--rule); padding: 20px 22px; }
+  .panel .label { margin-bottom: 12px; }
+  .panel p, .panel li { font-size: 15.5px; line-height: 1.5; }
+  .panel ul { margin: 0; padding-left: 18px; }
+  .panel li { margin-bottom: 8px; }
+  .panel li:last-child { margin-bottom: 0; }
+  .panel.limits { border-left: 3px solid var(--raw); }
+
+  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--rule); }
+  footer p { font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-soft); }
+
+  a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--gov); outline-offset: 3px; }
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="label">The Drift Race &middot; measured results &middot; Claude Haiku 4.5</p>
+  <div class="col">
+    <h1>Does structure stop the drift?</h1>
+    <p class="standfirst">We published our projections before running the experiment. Here is what actually happened — including the one we got backwards.</p>
+  </div>
+</header>
+
+<div class="results">
+  <div class="result">
+    <p class="label">Broken references</p>
+    <div class="bars">
+      <div class="bar-row"><span class="bar-key">Raw</span><div class="bar raw" style="width:100%"><span>19</span></div></div>
+      <div class="bar-row"><span class="bar-key">RIFT</span><div class="bar gov zero"><span>0</span></div></div>
+    </div>
+    <p>Raw peaked at 44. <strong>30% of its pages</strong> ended up carrying a dead link. RIFT: none.</p>
+  </div>
+
+  <div class="result reversed">
+    <p class="label">Style forks &middot; we were wrong</p>
+    <div class="bars">
+      <div class="bar-row"><span class="bar-key">Raw</span><div class="bar raw" style="width:32%"><span>9</span></div></div>
+      <div class="bar-row"><span class="bar-key">RIFT</span><div class="bar gov" style="width:100%"><span>28</span></div></div>
+    </div>
+    <p>We predicted RIFT would win this. It lost, in both runs, for a reason worth knowing.</p>
+  </div>
+
+  <div class="result">
+    <p class="label">Tokens used</p>
+    <div class="bars">
+      <div class="bar-row"><span class="bar-key">Raw</span><div class="bar raw" style="width:100%"><span>14.1M</span></div></div>
+      <div class="bar-row"><span class="bar-key">RIFT</span><div class="bar gov" style="width:61%"><span>8.5M</span></div></div>
+    </div>
+    <p>39% cheaper for the same thirty operations. Governance removed work rather than adding ceremony.</p>
+  </div>
+</div>
+
+<figure>
+  <div class="scroller">
+  <svg viewBox="0 0 900 392" role="img" aria-label="Broken references after each of thirty operations. The raw HTML site stays near zero for eleven operations, then climbs to a peak of 44 and ends at 19. The RIFT site stays at zero throughout.">
+    <g stroke="var(--grid)" stroke-width="1">
+      <line x1="70" y1="320" x2="870" y2="320"/><line x1="70" y1="255.6" x2="870" y2="255.6"/>
+      <line x1="70" y1="191.1" x2="870" y2="191.1"/><line x1="70" y1="126.7" x2="870" y2="126.7"/>
+      <line x1="70" y1="62.2" x2="870" y2="62.2"/>
+    </g>
+    <g class="ax" text-anchor="end">
+      <text x="58" y="324">0</text><text x="58" y="259.6">10</text><text x="58" y="195.1">20</text>
+      <text x="58" y="130.7">30</text><text x="58" y="66.2">40</text>
+    </g>
+    <g stroke="var(--rule)" stroke-width="1" stroke-dasharray="2 4">
+      <line x1="221.7" y1="30" x2="221.7" y2="320"/><line x1="387.2" y1="30" x2="387.2" y2="320"/>
+      <line x1="552.8" y1="30" x2="552.8" y2="320"/><line x1="718.3" y1="30" x2="718.3" y2="320"/>
+    </g>
+    <g class="wv" text-anchor="middle">
+      <text x="145.9" y="348">ADD</text><text x="304.5" y="348">REORGANISE</text><text x="470" y="348">RETIRE</text>
+      <text x="635.5" y="348">ENRICH</text><text x="794.2" y="348">CONSOLIDATE</text>
+    </g>
+    <polyline fill="none" stroke="var(--raw)" stroke-width="2.5" stroke-linejoin="round"
+      points="70,313.6 97.6,307.1 125.2,307.1 152.8,307.1 180.3,307.1 207.9,307.1 235.5,307.1 263.1,307.1 290.7,300.7 318.3,300.7 345.9,294.2 373.4,197.6 401,197.6 428.6,152.4 456.2,100.9 483.8,68.7 511.4,36.4 539,42.9 566.6,42.9 594.1,42.9 621.7,49.3 649.3,49.3 676.9,49.3 704.5,49.3 732.1,49.3 759.7,62.2 787.2,62.2 814.8,62.2 842.4,62.2 870,197.6"/>
+    <circle cx="511.4" cy="36.4" r="4" fill="var(--raw)"/><circle cx="870" cy="197.6" r="4" fill="var(--raw)"/>
+    <polyline fill="none" stroke="var(--gov)" stroke-width="2.5" stroke-linejoin="round"
+      points="70,313.6 97.6,313.6 125.2,313.6 152.8,313.6 180.3,320 207.9,320 235.5,320 263.1,320 290.7,320 318.3,320 345.9,320 373.4,320 401,320 428.6,320 456.2,320 483.8,320 511.4,320 539,320 566.6,320 594.1,320 621.7,320 649.3,320 676.9,320 704.5,320 732.1,320 759.7,320 787.2,320 814.8,320 842.4,320 870,320"/>
+    <circle cx="870" cy="320" r="4" fill="var(--gov)"/>
+    <g class="an">
+      <text x="505" y="24" fill="var(--raw)" text-anchor="middle">peak 44</text>
+      <text x="862" y="216" fill="var(--raw)" text-anchor="end">19</text>
+      <text x="862" y="308" fill="var(--gov)" text-anchor="end">0</text>
+    </g>
+    <g class="key">
+      <text x="80" y="378" fill="var(--raw)">■ raw files</text>
+      <text x="215" y="378" fill="var(--gov)">■ RIFT</text>
+    </g>
+  </svg>
+  </div>
+  <figcaption>Broken references present in the published site after each operation — every point an independent audit of the whole site, not a running total. Both arms started from the same site, which already had one.</figcaption>
+</figure>
+
+<section>
+  <div class="col">
+    <h2>Adding is safe. Moving is what breaks a site.</h2>
+    <p>For eleven operations the two sites are indistinguishable. Then comes the first reorganisation that moves pages other pages point at, and the raw site never recovers — not even after a final operation whose only job was to find and fix broken links.</p>
+    <p>In raw files a link is a literal path, so moving a page silently invalidates every reference to it. In RIFT a link is a reference to a page, so moving it repoints every inbound link automatically.</p>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <div class="col">
+    <h2>The failure a review would not have caught</h2>
+    <p>The worst damage in the raw run was not a missing page. It was this, written into eight pages:</p>
+  </div>
+  <div class="exhibit"><pre>&lt;link rel=\"stylesheet\" href=\"/assets/ds/3d67e511-….css\"</pre></div>
+  <div class="col">
+    <p style="margin-top:20px">Backslashes where quotes belong. The stylesheet never loads. <strong>One page in six was serving with no design system at all</strong> — and still returning 200. RIFT rejects that markup at the moment it is written, so the governed run could not produce it.</p>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <div class="col">
+    <h2>Where we were wrong</h2>
+    <p>We predicted RIFT would reduce style forks. It tripled them — 28 against raw's 9, in both governed runs.</p>
+    <p>Almost all of them arrived in one operation: add a “last reviewed” line to every API page. The design system had no component for that, so the model invented one in place, with inline rules and hard-coded colours.</p>
+    <p><strong>Governance stops a model writing a broken link. It does not stop a model inventing styling it cannot find.</strong> That is a gap in the design system, not the governance — and we would not have found it if the measurement had not been built to be able to lose.</p>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <div class="col">
+    <h2>What the test actually measures</h2>
+    <p>After every one of the thirty operations, the whole published site is crawled and audited from scratch. Not a diff against the previous version — an independent examination of the site as it stands, so a fault introduced at operation twelve and never fixed is still counted at operation thirty.</p>
+    <p>Seven measures are recorded. Three are reported above because they are the ones a content team feels: <strong>broken references</strong>, <strong>style forks</strong> and <strong>token cost</strong>. The others cover header and footer consistency, pages nothing links to, how many pages each change disturbed, and whether the change that was asked for actually happened.</p>
+    <p>That last one matters more than it sounds. An arm that quietly skips an operation damages nothing, and would otherwise score beautifully. So each operation carries a check written from its own instruction — a page that was supposed to move is confirmed moved — and an arm cannot look good by doing nothing.</p>
+  </div>
+
+  <div class="panels" style="margin-top:36px">
+    <div class="panel">
+      <p class="label">See it for yourself</p>
+      <ul>
+        <li><a href="https://github.com/heitham/godzilladocs">github.com/heitham/godzilladocs</a> — the site under test. Each run is its own branch, with <strong>one commit per operation</strong>, so you can check out operation 17 and read the site exactly as it stood.</li>
+        <li>The harness, the frozen operation list, the scoring code and the full results are published alongside it. Every number on this page recomputes from those snapshots without re-running a model.</li>
+        <li>Found a flaw in the method? That is the point of publishing it. We found five ourselves while running it.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <p class="label">Why we published the losses</p>
+      <p>A vendor benchmark that reports only wins is marketing. This one predicted three outcomes in public, measured them, and got one backwards. The style-fork result is on this page because it is true, and because a measurement built so it cannot lose measures nothing.</p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <div class="panels">
+    <div class="panel">
+      <p class="label">Method</p>
+      <ul>
+        <li>One 30-page documentation site, 129 internal links, published from RIFT.</li>
+        <li>Thirty operations, written and frozen before any trial: add, reorganise, retire, enrich, consolidate.</li>
+        <li>Each operation runs in a fresh session with no memory of the last — a site changing hands, not one continuous mind.</li>
+        <li>Both arms get the same model, instructions, and design-system reference. Only the substrate differs.</li>
+        <li>Every operation is checked for whether the requested change actually happened, so neither arm can score well by doing nothing.</li>
+      </ul>
+    </div>
+    <div class="panel limits">
+      <p class="label">What this does not prove</p>
+      <ul>
+        <li>One model, one site. Directional; no statistical significance is claimed.</li>
+        <li>RIFT gained a write-time link validator <em>during</em> the experiment, because the experiment exposed the gap. Part of that zero is the validator refusing bad input.</li>
+        <li>RIFT could not retire a page during these runs, so it left behind content it was asked to remove. Counted against it above.</li>
+        <li>A second model is running now. The method, operations, scoring code and raw results are published in full.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Claude Haiku 4.5, identical reasoning configuration in both arms. Governed result reproduced across two runs on two different publishing paths. Every number is recomputable from the published snapshots without re-running a model.</p>
+</footer>
+
+</div>

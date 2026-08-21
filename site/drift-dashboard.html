@@ -1,0 +1,145 @@
+<!-- ============================================================
+     THE DRIFT RACE — measured results dashboard
+     Drop-in replacement for the illustrative simulation.
+     Self-contained: no build step, no dependencies, no network.
+     Data is real, from the published run snapshots.
+     ============================================================ -->
+<div class="dr" id="dr">
+  <div class="dr-head">
+    <p class="dr-eyebrow">Measured &middot; Claude Haiku 4.5 &middot; 30 operations</p>
+    <div class="dr-controls">
+      <button type="button" class="dr-btn" data-act="play" aria-label="Play or pause">Play</button>
+      <button type="button" class="dr-btn" data-speed="1" aria-pressed="true">1&times;</button>
+      <button type="button" class="dr-btn" data-speed="2" aria-pressed="false">2&times;</button>
+      <button type="button" class="dr-btn" data-speed="4" aria-pressed="false">4&times;</button>
+      <span class="dr-op" aria-live="polite">op <b id="dr-n">30</b>/30 &middot; <span id="dr-wave">consolidate</span></span>
+    </div>
+  </div>
+
+  <div class="dr-grid">
+    <section class="dr-panel dr-raw">
+      <h3>Raw files</h3>
+      <div class="dr-metrics">
+        <div><span class="dr-k">Broken references</span><b id="dr-raw-refs">19</b></div>
+        <div><span class="dr-k">Style forks</span><b id="dr-raw-forks">9</b></div>
+        <div><span class="dr-k">Tokens</span><b id="dr-raw-tok">14.1M</b></div>
+      </div>
+      <svg viewBox="0 0 420 150" class="dr-spark" aria-hidden="true">
+        <polyline class="dr-line-raw" id="dr-p-raw" fill="none" points=""/>
+        <circle class="dr-dot-raw" id="dr-c-raw" r="3.5"/>
+      </svg>
+    </section>
+
+    <section class="dr-panel dr-gov">
+      <h3>RIFT</h3>
+      <div class="dr-metrics">
+        <div><span class="dr-k">Broken references</span><b id="dr-gov-refs">0</b></div>
+        <div><span class="dr-k">Style forks</span><b id="dr-gov-forks">28</b></div>
+        <div><span class="dr-k">Tokens</span><b id="dr-gov-tok">8.5M</b></div>
+      </div>
+      <svg viewBox="0 0 420 150" class="dr-spark" aria-hidden="true">
+        <polyline class="dr-line-gov" id="dr-p-gov" fill="none" points=""/>
+        <circle class="dr-dot-gov" id="dr-c-gov" r="3.5"/>
+      </svg>
+    </section>
+  </div>
+  <p class="dr-foot">Both charts share one scale (0&ndash;44 broken references). Every point is an independent audit of the whole site at that operation, not a running total.</p>
+</div>
+
+<style>
+.dr{--dr-raw:#B23A2E;--dr-gov:#14605C;--dr-ink:#14181A;--dr-soft:#4C5551;--dr-rule:#C7CEC9;--dr-bg:transparent;
+  font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;color:var(--dr-ink);}
+@media (prefers-color-scheme:dark){.dr{--dr-raw:#E06B58;--dr-gov:#52BFB0;--dr-ink:#E9ECEA;--dr-soft:#9AA5A0;--dr-rule:#2E3735;}}
+.dr *{box-sizing:border-box}
+.dr-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.dr-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dr-soft);margin:0}
+.dr-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dr-btn{font:inherit;font-size:12px;padding:5px 11px;background:none;color:var(--dr-ink);
+  border:1px solid var(--dr-rule);cursor:pointer;border-radius:0}
+.dr-btn[aria-pressed="true"]{background:var(--dr-ink);color:var(--dr-bg,#fff);border-color:var(--dr-ink)}
+@media (prefers-color-scheme:dark){.dr-btn[aria-pressed="true"]{color:#101413}}
+.dr-btn:focus-visible{outline:2px solid var(--dr-gov);outline-offset:2px}
+.dr-op{font-size:12px;color:var(--dr-soft);margin-left:4px}
+.dr-op b{font-variant-numeric:tabular-nums}
+.dr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.dr-panel{border:1px solid var(--dr-rule);border-top-width:2px;padding:16px 18px 10px}
+.dr-raw{border-top-color:var(--dr-raw)}
+.dr-gov{border-top-color:var(--dr-gov)}
+.dr-panel h3{font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:600}
+.dr-raw h3{color:var(--dr-raw)}
+.dr-gov h3{color:var(--dr-gov)}
+.dr-metrics{display:grid;gap:9px;margin-bottom:14px}
+.dr-metrics>div{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  border-bottom:1px dotted var(--dr-rule);padding-bottom:7px}
+.dr-k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dr-soft)}
+.dr-metrics b{font-size:22px;font-variant-numeric:tabular-nums;font-weight:600}
+.dr-spark{width:100%;height:auto;display:block}
+.dr-line-raw{stroke:var(--dr-raw);stroke-width:2;stroke-linejoin:round}
+.dr-line-gov{stroke:var(--dr-gov);stroke-width:2;stroke-linejoin:round}
+.dr-dot-raw{fill:var(--dr-raw)}
+.dr-dot-gov{fill:var(--dr-gov)}
+.dr-foot{font-size:11.5px;line-height:1.6;color:var(--dr-soft);margin:14px 0 0}
+</style>
+
+<script>
+(function(){
+  var D = {"ops":["A1","A2","A3","A4","A5","A6","B1","B2","B3","B4","B5","B6","C1","C2","C3","C4","C5","C6","D1","D2","D3","D4","D5","D6","E1","E2","E3","E4","E5","E6"],"wave":["A","A","A","A","A","A","B","B","B","B","B","B","C","C","C","C","C","C","D","D","D","D","D","D","E","E","E","E","E","E"],"raw":{"refs":[1,2,2,2,2,2,2,2,3,3,4,19,19,26,34,39,44,43,43,43,42,42,42,42,42,40,40,40,40,19],"forks":[3,3,3,3,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,9,9,9,9,9,9,9,9],"tokens":[334719,611317,813648,937799,1226465,1550448,3923055,4010935,5844321,5903368,7279775,9009626,9341866,9580006,9720551,11466877,11639591,12116421,12203121,12255635,12361078,12454041,12498671,12567218,12837947,12905855,13060510,13105182,13201145,14083053]},"gov":{"refs":[1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"forks":[3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,6,6,6,6,6,28,28],"tokens":[182947,367851,581595,685454,1269606,1436524,1585117,1664245,1751214,1821398,1843741,1981278,2380026,2465029,2700818,2782426,3011011,3535084,3578950,3618151,3711399,4007539,4070858,4286331,4427596,5562115,5747772,5811015,6113884,8533811]}};
+  var root = document.getElementById('dr');
+  if (!root) return;
+  var W = 420, H = 150, PAD = 8, MAX = 44, N = D.ops.length;
+  var x = function(i){ return PAD + i * (W - PAD*2) / (N - 1); };
+  var y = function(v){ return H - PAD - (v / MAX) * (H - PAD*2); };
+
+  var el = function(id){ return document.getElementById(id); };
+  var fmtTok = function(n){ return (n/1e6).toFixed(1) + 'M'; };
+  var WAVE = {A:'add', B:'reorganise', C:'retire', D:'enrich', E:'consolidate'};
+
+  function draw(upTo){
+    ['raw','gov'].forEach(function(arm){
+      var pts = [];
+      for (var i = 0; i <= upTo; i++) pts.push(x(i) + ',' + y(D[arm].refs[i]));
+      el('dr-p-' + arm).setAttribute('points', pts.join(' '));
+      var c = el('dr-c-' + arm);
+      c.setAttribute('cx', x(upTo)); c.setAttribute('cy', y(D[arm].refs[upTo]));
+      el('dr-' + arm + '-refs').textContent  = D[arm].refs[upTo];
+      el('dr-' + arm + '-forks').textContent = D[arm].forks[upTo];
+      el('dr-' + arm + '-tok').textContent   = fmtTok(D[arm].tokens[upTo]);
+    });
+    el('dr-n').textContent = upTo + 1;
+    el('dr-wave').textContent = WAVE[D.wave[upTo]];
+  }
+
+  var at = N - 1, timer = null, speed = 1, playing = false;
+
+  function stop(){ clearInterval(timer); timer = null; playing = false;
+    root.querySelector('[data-act="play"]').textContent = 'Play'; }
+
+  function play(){
+    if (playing) { stop(); return; }
+    if (at >= N - 1) at = 0;
+    playing = true;
+    root.querySelector('[data-act="play"]').textContent = 'Pause';
+    draw(at);
+    timer = setInterval(function(){
+      at++;
+      if (at >= N - 1) { at = N - 1; draw(at); stop(); return; }
+      draw(at);
+    }, 620 / speed);
+  }
+
+  root.addEventListener('click', function(e){
+    var b = e.target.closest('.dr-btn'); if (!b) return;
+    if (b.dataset.act === 'play') { play(); return; }
+    speed = Number(b.dataset.speed);
+    root.querySelectorAll('[data-speed]').forEach(function(o){
+      o.setAttribute('aria-pressed', String(o === b));
+    });
+    if (playing) { clearInterval(timer); timer = setInterval(function(){
+      at++; if (at >= N - 1) { at = N - 1; draw(at); stop(); return; } draw(at);
+    }, 620 / speed); }
+  });
+
+  // Final state on load: the measured outcome is the message, not the animation.
+  draw(N - 1);
+})();
+</script>
