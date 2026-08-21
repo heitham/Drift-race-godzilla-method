@@ -113,6 +113,29 @@ check('H7 ignores pre inside a code block',
   withFixture(d => injectIntoContent(d, 'glossary.html', '<div class="code-block"><pre>code</pre></div>')).m2_styleForks.byRule.H7,
   base.m2_styleForks.byRule.H7)
 
+// Regression guard for a defect that cost a whole governed run. RIFT injects a
+// breadcrumb INSIDE the content region, but only for pages nested two or more
+// levels deep — so it is absent from the baseline and appears for the first
+// time when a model successfully creates sections. Scored as authored markup it
+// read as 110 "unknown class" style forks, penalising the arm precisely for
+// doing the reorganisation right, and leaving the arm that skipped the work
+// untouched.
+check('H4 ignores publisher-injected breadcrumbs (regression)',
+  withFixture(d => injectIntoContent(d, 'glossary.html',
+    '<nav class="usa-breadcrumb"><ol class="usa-breadcrumb__list">' +
+    '<li class="usa-breadcrumb__list-item"><a class="usa-breadcrumb__link" href="/index">Home</a></li>' +
+    '</ol></nav>')).m2_styleForks.byRule.H4,
+  base.m2_styleForks.byRule.H4)
+
+// The same breadcrumb must not rescue a page from orphanhood: injected
+// navigation is chrome by origin, and counting its links as content links is
+// the exact masking the chromeLinks split exists to prevent.
+check('M6 breadcrumb links do not count as content links (regression)',
+  withFixture(d => injectIntoContent(d, 'glossary.html',
+    '<nav class="usa-breadcrumb"><a class="usa-breadcrumb__link" href="/changelog">Changelog</a></nav>'))
+    .m6_orphansAndReach.orphans.length,
+  base.m6_orphansAndReach.orphans.length)
+
 // --- M1: reference integrity ----------------------------------------------
 
 check('M1 dead fragment detected',

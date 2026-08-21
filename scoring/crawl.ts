@@ -17,6 +17,26 @@ import { parse, type HTMLElement } from 'node-html-parser'
 
 /** Chrome containers, derived from the design system's chrome components. */
 const CHROME_SELECTORS = ['header.site-header', 'aside.cms-left-nav', 'footer.site-footer']
+
+/**
+ * Design-system navigation that the publisher injects INSIDE the content
+ * region. It is chrome by origin — no author writes it — but it does not sit
+ * in a chrome element, so it has to be removed by hand.
+ *
+ * This matters more than it looks. RIFT emits a breadcrumb only for pages
+ * nested two or more levels deep, and the frozen baseline has none. So the
+ * markup appears for the first time when a model successfully creates
+ * sections — and before this exclusion it was scored as 110 hand-written
+ * "unknown class" style forks in the governed arm's v4 run, penalising the
+ * arm precisely for doing the reorganisation correctly. The raw arm, which
+ * hand-copies pages and never injects a breadcrumb, was untouched by it.
+ *
+ * Removed before BOTH content facts and the chrome hash. It cannot count as a
+ * style fork (the model did not write it), and it cannot join the chrome hash
+ * either, since a breadcrumb legitimately differs per page and would make
+ * every page its own chrome variant (M4).
+ */
+const INJECTED_NAV_SELECTORS = ['nav.usa-breadcrumb', '.usa-breadcrumb']
 /** The single content container. Everything scored as M2 lives inside this. */
 const CONTENT_SELECTOR = 'main.cms-main-content'
 
@@ -176,6 +196,20 @@ export function crawlSite(root: string): SiteCrawl {
 
     const contentEl = doc.querySelector(CONTENT_SELECTOR)
     const chromeEls = CHROME_SELECTORS.map(s => doc.querySelector(s)).filter(Boolean) as HTMLElement[]
+
+    // Publisher-injected navigation living inside the content region. Its
+    // links are collected as chrome links — counting them as content links
+    // would let a breadcrumb rescue a page from orphanhood (M6), which is the
+    // same masking the chromeLinks split exists to prevent — and then the
+    // element is detached so it reaches neither the style rules nor M4.
+    const injectedNav: HTMLElement[] = []
+    for (const sel of INJECTED_NAV_SELECTORS) {
+      for (const el of doc.querySelectorAll(sel)) {
+        if (!injectedNav.includes(el)) injectedNav.push(el)
+      }
+    }
+    for (const el of injectedNav) el.remove()
+
     const contentHtml = contentEl?.innerHTML ?? ''
 
     // --- style-fork raw material, content region only -----------------------
@@ -210,7 +244,7 @@ export function crawlSite(root: string): SiteCrawl {
       title: collapse(doc.querySelector('title')?.text ?? ''),
       ids: doc.querySelectorAll('[id]').map(e => e.getAttribute('id')!).filter(Boolean),
       links: extractLinks(contentEl),
-      chromeLinks: chromeEls.flatMap(el => extractLinks(el)),
+      chromeLinks: [...chromeEls, ...injectedNav].flatMap(el => extractLinks(el)),
       assets: [
         ...doc.querySelectorAll('link[href]').map(e => ({
           url: e.getAttribute('href')!, kind: 'stylesheet' as const, external: isExternal(e.getAttribute('href')!),

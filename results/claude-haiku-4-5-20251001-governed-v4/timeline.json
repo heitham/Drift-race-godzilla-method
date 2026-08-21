@@ -17,7 +17,40 @@
       "cacheWrite": 16598,
       "cacheRead": 70133
     },
-    "latencyMs": 33892
+    "latencyMs": 33892,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 31,
+    "linkEdges": 147,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 0,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 0
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 2,
@@ -37,7 +70,40 @@
       "cacheWrite": 24804,
       "cacheRead": 175421
     },
-    "latencyMs": 41472
+    "latencyMs": 41472,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 32,
+    "linkEdges": 155,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 3,
@@ -57,7 +123,40 @@
       "cacheWrite": 18511,
       "cacheRead": 111600
     },
-    "latencyMs": 35719
+    "latencyMs": 35719,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 33,
+    "linkEdges": 159,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 4,
@@ -77,7 +176,40 @@
       "cacheWrite": 17982,
       "cacheRead": 76263
     },
-    "latencyMs": 33491
+    "latencyMs": 33491,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 34,
+    "linkEdges": 163,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 5,
@@ -97,7 +229,40 @@
       "cacheWrite": 45912,
       "cacheRead": 821830
     },
-    "latencyMs": 203508
+    "latencyMs": 203508,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 34,
+    "linkEdges": 168,
+    "m1_brokenRefs": 16,
+    "m1_detail": {
+      "deadPath": 16,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 1,
+      "removed": 1,
+      "modified": 1
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 6,
@@ -117,7 +282,40 @@
       "cacheWrite": 21399,
       "cacheRead": 213911
     },
-    "latencyMs": 50366
+    "latencyMs": 50366,
+    "assertions": {
+      "passed": 4,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 38,
+    "linkEdges": 178,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 5,
+    "m5_detail": {
+      "added": 4,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 2
   },
   {
     "op": 7,
@@ -137,7 +335,40 @@
       "cacheWrite": 11493,
       "cacheRead": 57191
     },
-    "latencyMs": 24467
+    "latencyMs": 24467,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 181,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 10,
+    "m5_detail": {
+      "added": 4,
+      "removed": 3,
+      "modified": 3
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 8,
@@ -157,7 +388,40 @@
       "cacheWrite": 36610,
       "cacheRead": 580078
     },
-    "latencyMs": 90455
+    "latencyMs": 90455,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 181,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 4,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 4
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 9,
@@ -177,7 +441,36 @@
       "cacheWrite": 14725,
       "cacheRead": 32944
     },
-    "latencyMs": 22074
+    "latencyMs": 22074,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 39,
+    "linkEdges": 181,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 37,
+    "m5_detail": {
+      "added": 8,
+      "removed": 8,
+      "modified": 21
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 10,
@@ -197,7 +490,40 @@
       "cacheWrite": 19826,
       "cacheRead": 57584
     },
-    "latencyMs": 50038
+    "latencyMs": 50038,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 181,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 5,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 5
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 11,
@@ -217,7 +543,40 @@
       "cacheWrite": 6807,
       "cacheRead": 11839
     },
-    "latencyMs": 8586
+    "latencyMs": 8586,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 181,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 7,
+    "m5_detail": {
+      "added": 2,
+      "removed": 2,
+      "modified": 3
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 12,
@@ -237,7 +596,42 @@
       "cacheWrite": 16541,
       "cacheRead": 67079
     },
-    "latencyMs": 25134
+    "latencyMs": 25134,
+    "assertions": {
+      "passed": 1,
+      "failed": 1,
+      "failures": [
+        "sectionLanding: /concepts has no landing page"
+      ]
+    },
+    "satisfied": false,
+    "pages": 39,
+    "linkEdges": 181,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 24,
+    "m5_detail": {
+      "added": 5,
+      "removed": 5,
+      "modified": 14
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 13,
@@ -257,7 +651,36 @@
       "cacheWrite": 33737,
       "cacheRead": 272089
     },
-    "latencyMs": 105971
+    "latencyMs": 105971,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 47,
+    "linkEdges": 227,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 40,
+    "m5_detail": {
+      "added": 14,
+      "removed": 6,
+      "modified": 20
+    },
+    "m6_orphans": 5,
+    "m6_unreachable": 5
   },
   {
     "op": 14,
@@ -277,7 +700,42 @@
       "cacheWrite": 20408,
       "cacheRead": 107839
     },
-    "latencyMs": 34496
+    "latencyMs": 34496,
+    "assertions": {
+      "passed": 0,
+      "failed": 1,
+      "failures": [
+        "absent: \"Support / Contact\" still present at /support"
+      ]
+    },
+    "satisfied": false,
+    "pages": 46,
+    "linkEdges": 216,
+    "m1_brokenRefs": 24,
+    "m1_detail": {
+      "deadPath": 24,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 0,
+      "removed": 1,
+      "modified": 2
+    },
+    "m6_orphans": 6,
+    "m6_unreachable": 14
   },
   {
     "op": 15,
@@ -297,7 +755,40 @@
       "cacheWrite": 15777,
       "cacheRead": 61090
     },
-    "latencyMs": 37582
+    "latencyMs": 37582,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 47,
+    "linkEdges": 227,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 6,
+    "m6_unreachable": 6
   },
   {
     "op": 16,
@@ -317,6 +808,727 @@
       "cacheWrite": 21913,
       "cacheRead": 75808
     },
-    "latencyMs": 56743
+    "latencyMs": 56743,
+    "assertions": {
+      "passed": 2,
+      "failed": 1,
+      "failures": [
+        "absent: \"Limits, quotas & errors\" still present at /api/v2/rate-limits-errors"
+      ]
+    },
+    "satisfied": false,
+    "pages": 50,
+    "linkEdges": 229,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 7,
+    "m5_detail": {
+      "added": 4,
+      "removed": 1,
+      "modified": 2
+    },
+    "m6_orphans": 7,
+    "m6_unreachable": 18
+  },
+  {
+    "op": 17,
+    "opId": "C5",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "d285e1bc101d0e1c2ba9b0b525d8bf154ec3c259",
+    "filesChanged": 5,
+    "turns": 7,
+    "toolCalls": 11,
+    "tokens": {
+      "input": 2928,
+      "output": 2918,
+      "thinking": 203,
+      "total": 58479,
+      "cacheWrite": 11205,
+      "cacheRead": 41428
+    },
+    "latencyMs": 25921,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 238,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 7,
+    "m6_unreachable": 15
+  },
+  {
+    "op": 18,
+    "opId": "C6",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "f637c05390982c446d61c345cc3d31a978307e5f",
+    "filesChanged": 8,
+    "turns": 18,
+    "toolCalls": 29,
+    "tokens": {
+      "input": 2993,
+      "output": 11209,
+      "thinking": 131,
+      "total": 519968,
+      "cacheWrite": 46100,
+      "cacheRead": 459666
+    },
+    "latencyMs": 96842,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 52,
+    "linkEdges": 247,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 4,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 3
+    },
+    "m6_orphans": 6,
+    "m6_unreachable": 6
+  },
+  {
+    "op": 19,
+    "opId": "D1",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "ad61a1517dd441734ee5e03977738a879ca38d0e",
+    "filesChanged": 2,
+    "turns": 6,
+    "toolCalls": 6,
+    "tokens": {
+      "input": 2924,
+      "output": 1710,
+      "thinking": 133,
+      "total": 35087,
+      "cacheWrite": 7885,
+      "cacheRead": 22568
+    },
+    "latencyMs": 13097,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 52,
+    "linkEdges": 247,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 1,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 6,
+    "m6_unreachable": 6
+  },
+  {
+    "op": 20,
+    "opId": "D2",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "08bb8075a5f868b806e4977e22e6a918b092b0fd",
+    "filesChanged": 1,
+    "turns": 3,
+    "toolCalls": 5,
+    "tokens": {
+      "input": 2889,
+      "output": 516,
+      "thinking": 112,
+      "total": 14482,
+      "cacheWrite": 6601,
+      "cacheRead": 4476
+    },
+    "latencyMs": 6170,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 237,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 1,
+    "m5_detail": {
+      "added": 0,
+      "removed": 1,
+      "modified": 0
+    },
+    "m6_orphans": 9,
+    "m6_unreachable": 9
+  },
+  {
+    "op": 21,
+    "opId": "D3",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "fdefc0b0be466516c8a62c2681026ee94178fb5a",
+    "filesChanged": 5,
+    "turns": 8,
+    "toolCalls": 13,
+    "tokens": {
+      "input": 2920,
+      "output": 5251,
+      "thinking": 142,
+      "total": 139481,
+      "cacheWrite": 23647,
+      "cacheRead": 107663
+    },
+    "latencyMs": 46979,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 52,
+    "linkEdges": 247,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 4,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 3
+    },
+    "m6_orphans": 6,
+    "m6_unreachable": 6
+  },
+  {
+    "op": 22,
+    "opId": "D4",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "bcbb349b46526bf98ee8ff2a9d607d5cec8998ed",
+    "filesChanged": 19,
+    "turns": 18,
+    "toolCalls": 53,
+    "tokens": {
+      "input": 2993,
+      "output": 27488,
+      "thinking": 139,
+      "total": 788019,
+      "cacheWrite": 82794,
+      "cacheRead": 674744
+    },
+    "latencyMs": 220301,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 237,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 20,
+    "m2_byRule": {
+      "H1": 17,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 17,
+    "m5_detail": {
+      "added": 0,
+      "removed": 1,
+      "modified": 16
+    },
+    "m6_orphans": 9,
+    "m6_unreachable": 9
+  },
+  {
+    "op": 23,
+    "opId": "D5",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "33c1f5ca7efacc66f83a185321beefa766a798c2",
+    "filesChanged": 3,
+    "turns": 5,
+    "toolCalls": 6,
+    "tokens": {
+      "input": 2895,
+      "output": 1410,
+      "thinking": 121,
+      "total": 68716,
+      "cacheWrite": 17285,
+      "cacheRead": 47126
+    },
+    "latencyMs": 16317,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 52,
+    "linkEdges": 246,
+    "m1_brokenRefs": 0,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 22,
+    "m2_byRule": {
+      "H1": 19,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 8,
+    "m6_unreachable": 8
+  },
+  {
+    "op": 24,
+    "opId": "D6",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "89f692fb738806486af7c82257a818ae65eb6617",
+    "filesChanged": 5,
+    "turns": 10,
+    "toolCalls": 16,
+    "tokens": {
+      "input": 2928,
+      "output": 5915,
+      "thinking": 78,
+      "total": 219884,
+      "cacheWrite": 32441,
+      "cacheRead": 178600
+    },
+    "latencyMs": 57010,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 251,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 21,
+    "m2_byRule": {
+      "H1": 18,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 4,
+    "m5_detail": {
+      "added": 0,
+      "removed": 1,
+      "modified": 3
+    },
+    "m6_orphans": 9,
+    "m6_unreachable": 9
+  },
+  {
+    "op": 25,
+    "opId": "E1",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "5a7cd5912e9aacd57470ea68a267920a755a1d26",
+    "filesChanged": 3,
+    "turns": 17,
+    "toolCalls": 24,
+    "tokens": {
+      "input": 2985,
+      "output": 8907,
+      "thinking": 82,
+      "total": 348613,
+      "cacheWrite": 32651,
+      "cacheRead": 304070
+    },
+    "latencyMs": 90100,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 251,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 21,
+    "m2_byRule": {
+      "H1": 18,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 9,
+    "m6_unreachable": 9
+  },
+  {
+    "op": 26,
+    "opId": "E2",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "4d8da2279e39c809ef8a5dd77b06dab1a75f8225",
+    "filesChanged": 53,
+    "turns": 28,
+    "toolCalls": 52,
+    "tokens": {
+      "input": 3044,
+      "output": 17734,
+      "thinking": 118,
+      "total": 1143661,
+      "cacheWrite": 75205,
+      "cacheRead": 1047678
+    },
+    "latencyMs": 159834,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 14,
+    "linkEdges": 80,
+    "m1_brokenRefs": 92,
+    "m1_detail": {
+      "deadPath": 92,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 12,
+    "m2_byRule": {
+      "H1": 10,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 1,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 1,
+    "m5_blastRadius": 51,
+    "m5_detail": {
+      "added": 0,
+      "removed": 37,
+      "modified": 14
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 11
+  },
+  {
+    "op": 27,
+    "opId": "E3",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "5d871bbeef2b04c41bcb074d3b15cbc50b033f59",
+    "filesChanged": 39,
+    "turns": 11,
+    "toolCalls": 13,
+    "tokens": {
+      "input": 2936,
+      "output": 4015,
+      "thinking": 120,
+      "total": 190262,
+      "cacheWrite": 24396,
+      "cacheRead": 158915
+    },
+    "latencyMs": 40648,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 258,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 21,
+    "m2_byRule": {
+      "H1": 18,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 37,
+    "m5_detail": {
+      "added": 37,
+      "removed": 0,
+      "modified": 0
+    },
+    "m6_orphans": 10,
+    "m6_unreachable": 10
+  },
+  {
+    "op": 28,
+    "opId": "E4",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "9fc36775a9c75f0d0cf8700db85c5b213e6f0293",
+    "filesChanged": 2,
+    "turns": 6,
+    "toolCalls": 6,
+    "tokens": {
+      "input": 6986,
+      "output": 2114,
+      "thinking": 92,
+      "total": 39030,
+      "cacheWrite": 8867,
+      "cacheRead": 21063
+    },
+    "latencyMs": 20783,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 258,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 21,
+    "m2_byRule": {
+      "H1": 18,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 1,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 10,
+    "m6_unreachable": 10
+  },
+  {
+    "op": 29,
+    "opId": "E5",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "c9a40753c0925e644d37fa1f90fe845007b301dc",
+    "filesChanged": 20,
+    "turns": 13,
+    "toolCalls": 46,
+    "tokens": {
+      "input": 2953,
+      "output": 21990,
+      "thinking": 159,
+      "total": 529079,
+      "cacheWrite": 74343,
+      "cacheRead": 429793
+    },
+    "latencyMs": 177268,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 258,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 75,
+    "m2_byRule": {
+      "H1": 36,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 36,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 18,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 18
+    },
+    "m6_orphans": 10,
+    "m6_unreachable": 10
+  },
+  {
+    "op": 30,
+    "opId": "E6",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "fda520c9ab528949eb76c6f54480650f3b367ae6",
+    "filesChanged": 14,
+    "turns": 35,
+    "toolCalls": 48,
+    "tokens": {
+      "input": 3074,
+      "output": 18640,
+      "thinking": 145,
+      "total": 1474581,
+      "cacheWrite": 70812,
+      "cacheRead": 1382055
+    },
+    "latencyMs": 243728,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 51,
+    "linkEdges": 256,
+    "m1_brokenRefs": 28,
+    "m1_detail": {
+      "deadPath": 28,
+      "deadFragment": 0,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 75,
+    "m2_byRule": {
+      "H1": 36,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 36,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 13,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 13
+    },
+    "m6_orphans": 10,
+    "m6_unreachable": 11
   }
 ]

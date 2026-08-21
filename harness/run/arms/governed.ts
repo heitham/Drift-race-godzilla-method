@@ -201,7 +201,9 @@ export class GovernedArm implements Arm {
     // the run by one, silently.
     await this.waitForChange(before)
     await this.review()
-    await this.publishFull()
+    await this.awaitPublishRun(await this.publishFull())
+    // Belt and braces: the run is terminal, but the git push happens inside it
+    // and the remote ref can lag the status flip by a beat.
     const sha = await this.waitForQuiet()
 
     if (!sha || sha === before) {
@@ -233,7 +235,7 @@ export class GovernedArm implements Arm {
    * model failed to clean up rather than concealing them, and it republishes
    * whatever is in the CMS, unchanged.
    */
-  private async publishFull(): Promise<void> {
+  private async publishFull(): Promise<string> {
     const res = await fetch(`${this.origin}/api/v1/sites/${this.config.site.id}/publish`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
@@ -247,6 +249,43 @@ export class GovernedArm implements Arm {
         `  which would hide broken references rather than count them.`,
       )
     }
+    const body = await res.json().catch(() => null) as any
+    return body?.run?.id ?? body?.data?.run?.id ?? ''
+  }
+
+  /**
+   * Block until a publish run reaches a terminal state.
+   *
+   * Replaces waiting for the git sha to "look settled", which was a guess and
+   * a wrong one: publishing is queued, and the enqueue-to-pickup gap routinely
+   * exceeded the quiet window. Each snapshot was therefore taken BEFORE its own
+   * full publish, which then landed during the next operation — every snapshot
+   * in the run shifted by one, and the drift curve alternated between two
+   * trees (0, 28, 0, 28 ...) in a way no real site behaves.
+   *
+   * The publish run's own status is the authoritative completion signal, so
+   * this asks for it rather than inferring it.
+   */
+  private async awaitPublishRun(runId: string): Promise<void> {
+    if (!runId) return
+    for (let i = 0; i < 180; i++) {
+      const res = await fetch(
+        `${this.origin}/api/v1/sites/${this.config.site.id}/publish-runs/${runId}`,
+        { headers: { Authorization: `Bearer ${this.adminKey}` } },
+      )
+      if (res.ok) {
+        const body = await res.json().catch(() => null) as any
+        const status = body?.run?.status ?? body?.data?.run?.status
+        if (status && !['queued', 'running', 'pending', 'in_progress'].includes(status)) {
+          if (status !== 'completed' && status !== 'success') {
+            throw new Error(`publish run ${runId.slice(0, 8)} ended '${status}' — snapshot would not reflect the site`)
+          }
+          return
+        }
+      }
+      await new Promise(r => setTimeout(r, 2000))
+    }
+    throw new Error(`publish run ${runId.slice(0, 8)} did not finish within 6 minutes`)
   }
 
   /** Wait for the run branch to move off `from`. Returns '' if it never does. */
