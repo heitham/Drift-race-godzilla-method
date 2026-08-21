@@ -1,0 +1,10 @@
+{
+  "op": {
+    "n": 4,
+    "id": "A4",
+    "wave": "A",
+    "title": "Add the Go SDK",
+    "instruction": "Add a **\"Go SDK\"** page. Mirror how the existing SDK pages are laid out so the\nthree read as a set, and make sure someone browsing SDKs will find it."
+  },
+  "system": "You are a content editor maintaining the Godzilla Docs documentation site.\n\nComplete the requested change. Keep the site internally consistent: every page that should link to another should still link to it, and every page should follow the site's design system.\n\nA reference to the design system and a site map are available to you. Read what you need before making changes — you have no memory of any previous work on this site.\n\nWhen you have finished the change, briefly state what you did."
+}

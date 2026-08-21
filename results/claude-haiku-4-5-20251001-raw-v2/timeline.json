@@ -18,5 +18,285 @@
       "cacheRead": 278351
     },
     "latencyMs": 119036
+  },
+  {
+    "op": 2,
+    "opId": "A2",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "fbb2e33f35282d435c8ba8914bc52c25f6b53d69",
+    "filesChanged": 7,
+    "turns": 15,
+    "toolCalls": 16,
+    "tokens": {
+      "input": 2686,
+      "output": 15758,
+      "thinking": 129,
+      "total": 276598,
+      "cacheWrite": 32694,
+      "cacheRead": 225460
+    },
+    "latencyMs": 108024
+  },
+  {
+    "op": 3,
+    "opId": "A3",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "a134a36a08c0f11f5f3b7e7f2707569872da766e",
+    "filesChanged": 4,
+    "turns": 13,
+    "toolCalls": 14,
+    "tokens": {
+      "input": 2715,
+      "output": 8733,
+      "thinking": 164,
+      "total": 202331,
+      "cacheWrite": 27034,
+      "cacheRead": 163849
+    },
+    "latencyMs": 89896
+  },
+  {
+    "op": 4,
+    "opId": "A4",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "aa0b03c7b33460419de81227b1c182c59ea801cb",
+    "filesChanged": 4,
+    "turns": 9,
+    "toolCalls": 13,
+    "tokens": {
+      "input": 2797,
+      "output": 8527,
+      "thinking": 154,
+      "total": 124151,
+      "cacheWrite": 21006,
+      "cacheRead": 91821
+    },
+    "latencyMs": 61995
+  },
+  {
+    "op": 5,
+    "opId": "A5",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "ae3fbc0ca340d6ff291c661885d12638206a8933",
+    "filesChanged": 3,
+    "turns": 16,
+    "toolCalls": 23,
+    "tokens": {
+      "input": 3515,
+      "output": 11599,
+      "thinking": 107,
+      "total": 288666,
+      "cacheWrite": 31461,
+      "cacheRead": 242091
+    },
+    "latencyMs": 91293
+  },
+  {
+    "op": 6,
+    "opId": "A6",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "c170ed707ce5a9fa4837dfb4e14963ae306bfac5",
+    "filesChanged": 5,
+    "turns": 16,
+    "toolCalls": 19,
+    "tokens": {
+      "input": 2845,
+      "output": 11067,
+      "thinking": 115,
+      "total": 323983,
+      "cacheWrite": 32985,
+      "cacheRead": 277086
+    },
+    "latencyMs": 80601
+  },
+  {
+    "op": 7,
+    "opId": "B1",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "1033c1a46570fbf9558383d71b9af71679482b5a",
+    "filesChanged": 23,
+    "turns": 43,
+    "toolCalls": 54,
+    "tokens": {
+      "input": 3019,
+      "output": 42811,
+      "thinking": 117,
+      "total": 2372607,
+      "cacheWrite": 100278,
+      "cacheRead": 2226499
+    },
+    "latencyMs": 429790
+  },
+  {
+    "op": 8,
+    "opId": "B2",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "dd3360379c6aeaf22e2e6f276fce3803ebcf5214",
+    "filesChanged": 8,
+    "turns": 6,
+    "toolCalls": 20,
+    "tokens": {
+      "input": 2727,
+      "output": 14343,
+      "thinking": 101,
+      "total": 87880,
+      "cacheWrite": 34075,
+      "cacheRead": 36735
+    },
+    "latencyMs": 82834
+  },
+  {
+    "op": 9,
+    "opId": "B3",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "3494b66a5e71d8bfe63b16dee688e7601ffc8925",
+    "filesChanged": 33,
+    "turns": 21,
+    "toolCalls": 79,
+    "tokens": {
+      "input": 5349,
+      "output": 67232,
+      "thinking": 148,
+      "total": 1833386,
+      "cacheWrite": 145375,
+      "cacheRead": 1615430
+    },
+    "latencyMs": 391171
+  },
+  {
+    "op": 10,
+    "opId": "B4",
+    "wave": "B",
+    "status": "partial",
+    "autoClosed": false,
+    "snapshotSha": "3494b66a5e71d8bfe63b16dee688e7601ffc8925",
+    "filesChanged": 0,
+    "turns": 4,
+    "toolCalls": 17,
+    "tokens": {
+      "input": 2686,
+      "output": 17068,
+      "thinking": 95,
+      "total": 59047,
+      "cacheWrite": 31887,
+      "cacheRead": 7406
+    },
+    "latencyMs": 90381
+  },
+  {
+    "op": 11,
+    "opId": "B5",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "6df453166c7d4b0857bef46b77ba328fef118f4a",
+    "filesChanged": 17,
+    "turns": 31,
+    "toolCalls": 43,
+    "tokens": {
+      "input": 2873,
+      "output": 34516,
+      "thinking": 126,
+      "total": 1376407,
+      "cacheWrite": 81422,
+      "cacheRead": 1257596
+    },
+    "latencyMs": 259447
+  },
+  {
+    "op": 12,
+    "opId": "B6",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "af6e9d9606be7c9c86a79718f8788b2be273f487",
+    "filesChanged": 22,
+    "turns": 25,
+    "toolCalls": 65,
+    "tokens": {
+      "input": 5577,
+      "output": 46038,
+      "thinking": 136,
+      "total": 1729851,
+      "cacheWrite": 111616,
+      "cacheRead": 1566620
+    },
+    "latencyMs": 265121
+  },
+  {
+    "op": 13,
+    "opId": "C1",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "49b1c2693cc952cdcbfca7b43cc21d29e5a5c663",
+    "filesChanged": 5,
+    "turns": 17,
+    "toolCalls": 19,
+    "tokens": {
+      "input": 2859,
+      "output": 12549,
+      "thinking": 137,
+      "total": 332240,
+      "cacheWrite": 35244,
+      "cacheRead": 281588
+    },
+    "latencyMs": 96064
+  },
+  {
+    "op": 14,
+    "opId": "C2",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "16fef140f3da4671d8fa3a73eafc23351b32f5a3",
+    "filesChanged": 5,
+    "turns": 14,
+    "toolCalls": 18,
+    "tokens": {
+      "input": 2847,
+      "output": 7896,
+      "thinking": 111,
+      "total": 238140,
+      "cacheWrite": 26273,
+      "cacheRead": 201124
+    },
+    "latencyMs": 71236
+  },
+  {
+    "op": 15,
+    "opId": "C3",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "a16d9532df52d37857310fbf1f805ee54e795aaa",
+    "filesChanged": 4,
+    "turns": 10,
+    "toolCalls": 18,
+    "tokens": {
+      "input": 2898,
+      "output": 5930,
+      "thinking": 106,
+      "total": 140545,
+      "cacheWrite": 23500,
+      "cacheRead": 108217
+    },
+    "latencyMs": 46900
   }
 ]

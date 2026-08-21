@@ -78,6 +78,24 @@ psql "$DB_URL" -tAc "
   ON CONFLICT DO NOTHING;" >/dev/null || die "could not seed API key"
 say "seeded (agent role)"
 
+# The harness also needs an ADMIN key, kept strictly separate from the agent
+# key above. The model under test only ever sees the agent key and therefore
+# can never approve its own work — that ceiling is the governance model the
+# benchmark exists to measure. The admin key belongs to the harness, which
+# plays the content team's reviewer between operations (methodology §4.5).
+RIFT_ADMIN="$(grep -E '^RIFT_ADMIN_KEY=' "$BENCH_DIR/.env.local" | cut -d= -f2- | tr -d '"')"
+if [ -n "$RIFT_ADMIN" ]; then
+  ADMIN_HASH="$(printf '%s' "$RIFT_ADMIN" | shasum -a 256 | cut -d' ' -f1)"
+  psql "$DB_URL" -tAc "
+    INSERT INTO api_keys (id, name, key_hash, key_prefix, user_id, role, created_by)
+    VALUES (gen_random_uuid(), 'benchmark-reviewer', '$ADMIN_HASH', '${RIFT_ADMIN:0:12}',
+            '$ADMIN_ID', 'admin', '$ADMIN_ID')
+    ON CONFLICT DO NOTHING;" >/dev/null || die "could not seed admin API key"
+  say "seeded (admin role, reviewer)"
+else
+  say "no RIFT_ADMIN_KEY set — governed runs will refuse to start"
+fi
+
 # --- restart ---------------------------------------------------------------
 step "starting CMS on :$PORT"
 cd "$CMS_DIR"

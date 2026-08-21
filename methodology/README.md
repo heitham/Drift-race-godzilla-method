@@ -205,6 +205,42 @@ substrate's ceiling.
 refuses to proceed if it comes back empty. The frozen baseline carries **126
 edges, all `cms_reference`** — no page starts outside the managed-link
 guarantee.
+### 4.5 Review between operations
+
+RIFT guards a page against carrying two *unreviewed agent bundles* at once: a
+second change-set touching a page an `open` or `proposed` one already holds is
+refused — *"ask a human to approve or reject that change-set first."* The guard
+is explicitly agent-only, and it exists so that approving one bundle cannot
+ship another's edits.
+
+The protocol originally never reviewed anything. Change-sets accumulated in
+`proposed`, and the governed arm progressively walled itself out of every page
+it had already touched — in the v2 trial, operations 8 and 9, **both renames**,
+failed for that reason alone. That was a defect in this protocol, not in the
+CMS and not model drift. The benchmark claims to model *months of changing
+hands*; what it actually modelled was a content team that files thirty
+proposals and reads none of them.
+
+**The harness therefore reviews between operations**, through RIFT's own
+admin-key approval endpoint rather than an imitation of it, so the run
+exercises the same code path a real reviewer does — item transitions, audit
+trail and publish included.
+
+Two keys, two roles, and the separation is load-bearing:
+
+| Key | Held by | Can |
+|---|---|---|
+| agent | the model under test | propose; never approve, publish or archive |
+| admin | the harness, as reviewer | approve a proposed change-set |
+
+The model can never sign off its own work. That ceiling is the governance model
+the benchmark exists to measure, and collapsing the two keys would silently
+delete it.
+
+Approved content publishes to `git_main_branch`, so a governed run points
+**both** branch settings at its own run branch and restores them in teardown. A
+run cannot write to the site's real `main`.
+
 
 ## 5. Protocol
 

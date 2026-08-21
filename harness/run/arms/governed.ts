@@ -52,6 +52,26 @@ export class GovernedArm implements Arm {
     return k
   }
 
+  /**
+   * The reviewer's key, held by the HARNESS and never exposed to the model.
+   *
+   * Two keys, two roles, deliberately: the agent key the model uses cannot
+   * approve or publish (FR-MCP-002), so the model can never sign off its own
+   * work. That ceiling is the governance model this benchmark measures, and
+   * collapsing the two keys into one would quietly delete it.
+   */
+  private get adminKey(): string {
+    const k = process.env.RIFT_ADMIN_KEY
+    if (!k) {
+      throw new Error(
+        'RIFT_ADMIN_KEY not set — the governed arm needs an admin-role key to review\n' +
+        '  between operations. Without review, RIFT\'s collision guard locks the arm out\n' +
+        '  of every page it has already touched (see resolveReview).',
+      )
+    }
+    return k
+  }
+
   private async rpc(method: string, params: Record<string, unknown>): Promise<any> {
     const res = await fetch(this.config.site.mcpUrl, {
       method: 'POST',
@@ -92,8 +112,19 @@ export class GovernedArm implements Arm {
       )
     }
 
-    // Point this run's publishes at its own branch. main/staging are never touched.
-    this.sql(`UPDATE sites SET git_staging_branch = '${this.branch}' WHERE id = '${this.config.site.id}'`)
+    // Point this run's publishes at its own branch — BOTH of them. Approval
+    // publishes public content to git_main_branch, so leaving that at 'main'
+    // would let a benchmark run rewrite the real baseline. Teardown restores
+    // both; the run branch is the only thing a run can ever write.
+    this.sql(`
+      UPDATE sites SET git_staging_branch = '${this.branch}', git_main_branch = '${this.branch}'
+      WHERE id = '${this.config.site.id}'
+    `)
+
+    // Fail here, loudly, rather than at operation 8 when the collision guard
+    // bites: verify the reviewer's key and the approval endpoint both work
+    // before a single token is spent.
+    await this.checkReviewer()
 
     // Local checkout the scorer reads, and the baseline sha every snapshot
     // compares against. Captured now, before any operation runs.
@@ -167,12 +198,68 @@ export class GovernedArm implements Arm {
       if (sha && sha !== this.lastSha) {
         const changed = this.countChanged(this.lastSha, sha)
         this.lastSha = sha
+        await this.review()
         return { sha, noChange: false, filesChanged: changed, autoClosed }
       }
       await new Promise(r => setTimeout(r, 2000))
     }
+    await this.review()
     return { sha: this.lastSha || 'no-publish', noChange: true, filesChanged: 0, autoClosed }
   }
+
+  /**
+   * Review what this operation produced, playing the part a content team plays
+   * between one month's work and the next.
+   *
+   * RIFT guards a page against carrying two *unreviewed agent bundles* at
+   * once: a second change-set touching a page an `open` or `proposed` one
+   * already holds is refused with "ask a human to approve or reject that
+   * change-set first". The guard is explicitly agent-only and exists so that
+   * approving one bundle cannot ship another's edits. It is correct, and it
+   * assumes review happens.
+   *
+   * Our protocol did not review, so change-sets accumulated in `proposed` and
+   * the governed arm progressively walled itself out of every page it had
+   * already touched. In the v2 trial ops 8 and 9 — both RENAMES, where the
+   * governed substrate should be strongest — failed for that reason alone.
+   * That was a defect in our protocol, not in the CMS and not model drift;
+   * scoring it as drift would have been the benchmark lying about its subject.
+   *
+   * Approval goes through RIFT's own admin-key endpoint rather than being
+   * imitated here, so the benchmark exercises the same code path a real
+   * reviewer does — including the item transitions, the audit trail and the
+   * publish that follow from it.
+   */
+  private async review(): Promise<void> {
+    const ids = this.sql(`
+      SELECT id FROM change_sets
+      WHERE site_id = '${this.config.site.id}' AND status = 'proposed'
+      ORDER BY proposed_at
+    `).split('\n').map(x => x.trim()).filter(Boolean)
+
+    for (const id of ids) {
+      const res = await fetch(
+        `${this.origin}/api/v1/sites/${this.config.site.id}/change-sets/${id}/approve`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
+          body: JSON.stringify({ comment: 'Reviewed between benchmark operations.', publish_after: true }),
+        },
+      )
+      if (!res.ok) {
+        const detail = await res.text().catch(() => '')
+        throw new Error(
+          `review failed for change-set ${id.slice(0, 8)} (HTTP ${res.status}).\n` +
+          `  ${detail.slice(0, 300)}\n` +
+          `  Without review the next operation will be locked out of every page this one\n` +
+          `  touched, so the run is stopped rather than allowed to record that as drift.`,
+        )
+      }
+    }
+  }
+
+  /** CMS origin, derived from the configured MCP URL. */
+  private get origin(): string { return new URL(this.config.site.mcpUrl).origin }
 
   /**
    * Propose every change-set this site still has open that actually contains
@@ -227,7 +314,50 @@ export class GovernedArm implements Arm {
   async teardown(): Promise<void> {
     // Leave the branch pointing at the run so snapshots stay reachable; reset
     // the site's config so a later manual publish can't land on a run branch.
-    try { this.sql(`UPDATE sites SET git_staging_branch = 'staging' WHERE id = '${this.config.site.id}'`) } catch { /* best effort */ }
+    try {
+      this.sql(`
+        UPDATE sites SET git_staging_branch = 'staging', git_main_branch = 'main'
+        WHERE id = '${this.config.site.id}'
+      `)
+    } catch { /* best effort */ }
+  }
+
+  /**
+   * Preflight for the review step.
+   *
+   * Probes the approval endpoint with an id that cannot exist. A JSON error
+   * body means the route is present and the key authenticated; an HTML 404
+   * means the endpoint has not shipped yet; 401/403 means the key is missing
+   * or is not admin-role.
+   */
+  private async checkReviewer(): Promise<void> {
+    const missing = '00000000-0000-4000-8000-000000000000'
+    const res = await fetch(
+      `${this.origin}/api/v1/sites/${this.config.site.id}/change-sets/${missing}/approve`,
+      {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
+        body: JSON.stringify({ comment: 'preflight' }),
+      },
+    )
+    const body = await res.text().catch(() => '')
+    const isJson = body.trimStart().startsWith('{')
+
+    if (res.status === 401 || res.status === 403) {
+      throw new Error(
+        `the reviewer key was rejected (HTTP ${res.status}). RIFT_ADMIN_KEY must be an\n` +
+        `  ADMIN-role key — an agent key cannot approve, by design. Re-seed it with\n` +
+        `  npm run reset.`,
+      )
+    }
+    if (!isJson) {
+      throw new Error(
+        `no approval endpoint at POST /api/v1/sites/:siteId/change-sets/:id/approve\n` +
+        `  (HTTP ${res.status}, non-JSON response). The governed arm cannot review between\n` +
+        `  operations without it, and without review RIFT's collision guard locks the arm\n` +
+        `  out of every page it has already touched. See docs/CMS-REQUEST-approve-endpoint.md.`,
+      )
+    }
   }
 
   /** Local checkout of the run branch, for the scorer. */
