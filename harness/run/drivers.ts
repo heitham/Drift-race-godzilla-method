@@ -140,7 +140,7 @@ const addUsage = (a: Usage, b: Partial<Usage>): Usage => ({
 })
 
 /** Retry transient failures. Long runs die to rate limits otherwise. */
-async function withRetry<T>(fn: () => Promise<Response>, label: string, attempts = 5): Promise<T> {
+async function withRetry<T>(fn: () => Promise<Response>, label: string, attempts = 8): Promise<T> {
   let lastErr = ''
   for (let i = 1; i <= attempts; i++) {
     let res: Response
@@ -156,28 +156,46 @@ async function withRetry<T>(fn: () => Promise<Response>, label: string, attempts
     const body = await res.text()
     lastErr = `${res.status} ${body.slice(0, 300)}`
 
-    // A 429 usually means "too fast" and is worth retrying. But it is also what
-    // both providers return for "this key has NO quota for this model", which no
-    // amount of waiting fixes. Retrying that burns the full backoff schedule in
-    // silence — a smoke test spent fifteen minutes looking hung before anyone
-    // learned the key simply could not call the model. Quota exhaustion is
-    // therefore separated out and fails immediately, carrying the provider's own
-    // message so the cause is in the error rather than in a log somewhere.
-    const exhausted = res.status === 429 &&
-      /RESOURCE_EXHAUSTED|exceeded your current quota|quota_exceeded|insufficient_quota/i.test(body)
-    if (exhausted) {
-      throw new Error(
-        `${label}: quota exhausted — this key cannot call this model.\n` +
-        `  ${body.replace(/\s+/g, ' ').slice(0, 220)}\n` +
-        `  Not retried: no amount of waiting grants quota. Enable billing for the\n` +
-        `  model, or pick one the key can reach.`,
-      )
+    // A 429 is ambiguous and the two meanings need opposite handling.
+    //
+    // Google returns RESOURCE_EXHAUSTED both for a per-MINUTE rate limit, which
+    // clears on its own, and for a hard per-day or per-project cap, which does
+    // not. An earlier version of this failed fast on the wording alone; that was
+    // wrong, and it turned a recoverable pacing limit into a dead run. The
+    // structured error is what actually distinguishes them:
+    //   RetryInfo.retryDelay  -> the provider is telling us when to come back
+    //   quotaId  …PerDay/PerMonth -> waiting cannot help
+    let retryAfterMs = 0
+    let hardCap = ''
+    if (res.status === 429) {
+      const hdr = Number(res.headers.get('retry-after'))
+      if (hdr) retryAfterMs = hdr * 1000
+      try {
+        const details = JSON.parse(body)?.error?.details ?? []
+        for (const d of details) {
+          const t = String(d['@type'] ?? '')
+          if (t.includes('RetryInfo') && d.retryDelay) {
+            retryAfterMs = Math.max(retryAfterMs, (parseFloat(String(d.retryDelay)) || 0) * 1000)
+          }
+          if (t.includes('QuotaFailure')) {
+            for (const v of d.violations ?? []) {
+              if (/PerDay|PerMonth|Daily/i.test(String(v.quotaId ?? ''))) hardCap = String(v.quotaId)
+            }
+          }
+        }
+      } catch { /* unparseable body: fall through to ordinary backoff */ }
+
+      if (hardCap) {
+        throw new Error(
+          `${label}: hard quota reached (${hardCap}).\n` +
+          `  Waiting will not clear this one — raise the cap or use another key.`,
+        )
+      }
     }
 
     // 429-for-pacing and 5xx are transient; any other 4xx is a bug in our request.
     if (res.status !== 429 && res.status < 500) throw new Error(`${label}: ${lastErr}`)
-    const retryAfter = Number(res.headers.get('retry-after'))
-    await sleep(retryAfter ? retryAfter * 1000 : Math.min(2 ** i * 1000, 60_000))
+    await sleep(retryAfterMs || Math.min(2 ** i * 1000, 60_000))
   }
   throw new Error(`${label}: exhausted retries — ${lastErr}`)
 }
