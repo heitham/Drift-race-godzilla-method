@@ -442,6 +442,39 @@ This is a **snapshot count, not an accumulator** — it falls when a model repai
 something. Also report `NewBreaks(n)` (broken at *n*, sound at *n*−1) and
 `Repairs(n)` (the inverse), which separate "caused damage" from "left damage."
 
+**Redirects are deliberately out of scope, and the scorer contains no redirect
+handling of any kind.** This is not an omission — it is what makes the metric
+sharp.
+
+The question M1 asks is whether the substrate keeps a site's *internal
+references* correct as pages move: did the content actually relink? A redirect
+answers a different question, at a different layer — it is a web-server or CDN
+concern (`_redirects`, an nginx rule, a hosting provider's rewrite table),
+outside the CMS and outside what a content team manages.
+
+Worse, honouring redirects would blunt the measurement. A CMS that moved a page
+and *failed* to repoint the references to it would score clean, because the
+redirect would quietly cover the failure. The absence of a redirect is
+precisely what exposes whether the relinking happened.
+
+So when a page moves, the old path is expected to stop resolving. That is only
+counted against a snapshot when some page still *links* to the old path — a
+real broken internal reference and a real failure to relink. Concretely, the
+scorer:
+
+- treats only `.html` files as pages; a `_redirects` file is inert to it;
+- resolves each link against files that exist, following the same
+  `/foo` → `/foo.html` → `/foo/index.html` candidates a static host would;
+- never enumerates "URLs that used to exist", so a cleanly-moved page with all
+  references updated costs nothing.
+
+The `aliases` map in the crawler is URL-form normalisation — the several paths
+one file legitimately answers to — not redirect resolution.
+
+Out of scope for the same reason: external inbound links, bookmarks and search
+placement. Real consequences of a move, all of them, and none of them things
+the CMS can be scored on from a published snapshot.
+
 ### M2 — Style forks *(headline)*
 
 Scored on the **content region only** — chrome is scored separately as M4.
