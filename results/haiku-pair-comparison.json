@@ -1,0 +1,77 @@
+{
+  "model": "claude-haiku-4-5-20251001",
+  "raw": "results/claude-haiku-4-5-20251001-raw-v2",
+  "governed": "results/claude-haiku-4-5-20251001-governed-v7",
+  "metrics": [
+    {
+      "key": "M1",
+      "label": "broken references",
+      "raw": 19,
+      "gov": 1,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M2",
+      "label": "style forks",
+      "raw": 9,
+      "gov": 36,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M3",
+      "label": "tokens (total)",
+      "raw": 14083053,
+      "gov": 7639484,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M4",
+      "label": "chrome divergence",
+      "raw": 10,
+      "gov": 2,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M5",
+      "label": "pages rewritten (sum)",
+      "raw": 153,
+      "gov": 156,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M6",
+      "label": "orphaned pages",
+      "raw": 7,
+      "gov": 4,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M6",
+      "label": "unreachable pages",
+      "raw": 8,
+      "gov": 4,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M7",
+      "label": "operations completed",
+      "raw": 27,
+      "gov": 28,
+      "lowerIsBetter": false
+    },
+    {
+      "key": "M7",
+      "label": "completed unaided",
+      "raw": 27,
+      "gov": 26,
+      "lowerIsBetter": false
+    },
+    {
+      "key": "M7",
+      "label": "structure verified",
+      "raw": 13,
+      "gov": 12,
+      "lowerIsBetter": false
+    }
+  ]
+}

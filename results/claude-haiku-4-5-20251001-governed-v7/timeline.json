@@ -17,7 +17,40 @@
       "cacheWrite": 23746,
       "cacheRead": 128285
     },
-    "latencyMs": 68105
+    "latencyMs": 68105,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 31,
+    "linkEdges": 149,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 0,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 0
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 2,
@@ -37,7 +70,40 @@
       "cacheWrite": 25913,
       "cacheRead": 213900
     },
-    "latencyMs": 55591
+    "latencyMs": 55591,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 32,
+    "linkEdges": 155,
+    "m1_brokenRefs": 2,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 2,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 3,
@@ -57,7 +123,40 @@
       "cacheWrite": 28298,
       "cacheRead": 303003
     },
-    "latencyMs": 74206
+    "latencyMs": 74206,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 33,
+    "linkEdges": 160,
+    "m1_brokenRefs": 2,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 2,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 4,
@@ -77,7 +176,40 @@
       "cacheWrite": 22340,
       "cacheRead": 105484
     },
-    "latencyMs": 42706
+    "latencyMs": 42706,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 34,
+    "linkEdges": 165,
+    "m1_brokenRefs": 2,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 2,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 5,
@@ -97,7 +229,40 @@
       "cacheWrite": 31819,
       "cacheRead": 386096
     },
-    "latencyMs": 96543
+    "latencyMs": 96543,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 35,
+    "linkEdges": 172,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 1,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 6,
@@ -117,7 +282,40 @@
       "cacheWrite": 19177,
       "cacheRead": 116428
     },
-    "latencyMs": 36762
+    "latencyMs": 36762,
+    "assertions": {
+      "passed": 4,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 38,
+    "linkEdges": 176,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 4,
+    "m5_detail": {
+      "added": 3,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 7,
@@ -137,7 +335,40 @@
       "cacheWrite": 13794,
       "cacheRead": 76065
     },
-    "latencyMs": 32761
+    "latencyMs": 32761,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 179,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 10,
+    "m5_detail": {
+      "added": 4,
+      "removed": 3,
+      "modified": 3
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 2
   },
   {
     "op": 8,
@@ -157,7 +388,40 @@
       "cacheWrite": 15391,
       "cacheRead": 52324
     },
-    "latencyMs": 26974
+    "latencyMs": 26974,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 179,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 2
   },
   {
     "op": 9,
@@ -177,7 +441,36 @@
       "cacheWrite": 14591,
       "cacheRead": 45373
     },
-    "latencyMs": 24207
+    "latencyMs": 24207,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 39,
+    "linkEdges": 179,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 36,
+    "m5_detail": {
+      "added": 7,
+      "removed": 7,
+      "modified": 22
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 2
   },
   {
     "op": 10,
@@ -197,7 +490,40 @@
       "cacheWrite": 12955,
       "cacheRead": 73909
     },
-    "latencyMs": 37438
+    "latencyMs": 37438,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 179,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 1,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 2
   },
   {
     "op": 11,
@@ -217,7 +543,40 @@
       "cacheWrite": 6778,
       "cacheRead": 11806
     },
-    "latencyMs": 9461
+    "latencyMs": 9461,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 179,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 7,
+    "m5_detail": {
+      "added": 2,
+      "removed": 2,
+      "modified": 3
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 2
   },
   {
     "op": 12,
@@ -237,7 +596,42 @@
       "cacheWrite": 17546,
       "cacheRead": 65415
     },
-    "latencyMs": 29091
+    "latencyMs": 29091,
+    "assertions": {
+      "passed": 1,
+      "failed": 1,
+      "failures": [
+        "sectionLanding: /concepts has no landing page"
+      ]
+    },
+    "satisfied": false,
+    "pages": 39,
+    "linkEdges": 179,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 3,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 0,
+    "m5_blastRadius": 24,
+    "m5_detail": {
+      "added": 5,
+      "removed": 5,
+      "modified": 14
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 2
   },
   {
     "op": 13,
@@ -257,7 +651,36 @@
       "cacheWrite": 36860,
       "cacheRead": 341145
     },
-    "latencyMs": 96488
+    "latencyMs": 96488,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 41,
+    "linkEdges": 190,
+    "m1_brokenRefs": 2,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 2,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 2,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 2,
+    "m6_unreachable": 2
   },
   {
     "op": 14,
@@ -277,7 +700,40 @@
       "cacheWrite": 13985,
       "cacheRead": 71840
     },
-    "latencyMs": 33662
+    "latencyMs": 33662,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 41,
+    "linkEdges": 189,
+    "m1_brokenRefs": 2,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 2,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 15,
@@ -297,7 +753,40 @@
       "cacheWrite": 26938,
       "cacheRead": 293608
     },
-    "latencyMs": 86536
+    "latencyMs": 86536,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 41,
+    "linkEdges": 190,
+    "m1_brokenRefs": 2,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 2,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 16,
@@ -317,7 +806,42 @@
       "cacheWrite": 14590,
       "cacheRead": 70553
     },
-    "latencyMs": 53183
+    "latencyMs": 53183,
+    "assertions": {
+      "passed": 2,
+      "failed": 1,
+      "failures": [
+        "absent: \"Limits, quotas & errors\" still present at /api/rate-limits-errors"
+      ]
+    },
+    "satisfied": false,
+    "pages": 43,
+    "linkEdges": 197,
+    "m1_brokenRefs": 2,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 2,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 2,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 17,
@@ -337,7 +861,36 @@
       "cacheWrite": 10513,
       "cacheRead": 73222
     },
-    "latencyMs": 44232
+    "latencyMs": 44232,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 43,
+    "linkEdges": 199,
+    "m1_brokenRefs": 2,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 2,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 1,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 18,
@@ -357,7 +910,36 @@
       "cacheWrite": 44029,
       "cacheRead": 731263
     },
-    "latencyMs": 120045
+    "latencyMs": 120045,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 216,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 5,
+    "m5_detail": {
+      "added": 3,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 19,
@@ -377,13 +959,42 @@
       "cacheWrite": 12799,
       "cacheRead": 41583
     },
-    "latencyMs": 16857
+    "latencyMs": 16857,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 216,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 1,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 20,
     "opId": "D2",
     "wave": "D",
-    "status": "completed",
+    "status": "partial",
     "autoClosed": false,
     "snapshotSha": "d92405b017374b7e99eb45fcd0a442f5790e0028",
     "filesChanged": 0,
@@ -397,7 +1008,37 @@
       "cacheWrite": 6324,
       "cacheRead": 0
     },
-    "latencyMs": 7152
+    "latencyMs": 7152,
+    "statusCorrected": "empty commit — no file changed",
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 216,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 0,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 0
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 21,
@@ -417,6 +1058,477 @@
       "cacheWrite": 26967,
       "cacheRead": 125165
     },
-    "latencyMs": 49763
+    "latencyMs": 49763,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 216,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 4,
+    "m2_byRule": {
+      "H1": 1,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 3
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
+  },
+  {
+    "op": 22,
+    "opId": "D4",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "87f920f828b35e700a81e00c3dc2df7cf01ba0a5",
+    "filesChanged": 14,
+    "turns": 25,
+    "toolCalls": 51,
+    "tokens": {
+      "input": 3034,
+      "output": 18920,
+      "thinking": 175,
+      "total": 1234504,
+      "cacheWrite": 77073,
+      "cacheRead": 1135477
+    },
+    "latencyMs": 169381,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 216,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 6,
+    "m2_byRule": {
+      "H1": 3,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 12,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 12
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
+  },
+  {
+    "op": 23,
+    "opId": "D5",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "806b3484951b378bd24665ec01c6482cbaad8f0f",
+    "filesChanged": 2,
+    "turns": 5,
+    "toolCalls": 5,
+    "tokens": {
+      "input": 2895,
+      "output": 1527,
+      "thinking": 124,
+      "total": 60842,
+      "cacheWrite": 15403,
+      "cacheRead": 41017
+    },
+    "latencyMs": 19047,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 216,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 7,
+    "m2_byRule": {
+      "H1": 4,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 1,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
+  },
+  {
+    "op": 24,
+    "opId": "D6",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "e7afd975c976f69044bc8c68acd4d2a658320345",
+    "filesChanged": 4,
+    "turns": 10,
+    "toolCalls": 18,
+    "tokens": {
+      "input": 2928,
+      "output": 6746,
+      "thinking": 64,
+      "total": 242028,
+      "cacheWrite": 36028,
+      "cacheRead": 196326
+    },
+    "latencyMs": 59944,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 229,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 8,
+    "m2_byRule": {
+      "H1": 4,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 1,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 3,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 3
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
+  },
+  {
+    "op": 25,
+    "opId": "E1",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "dcd22ab3aa247908225bb317b7856068a6abba78",
+    "filesChanged": 8,
+    "turns": 17,
+    "toolCalls": 33,
+    "tokens": {
+      "input": 2989,
+      "output": 13081,
+      "thinking": 142,
+      "total": 397032,
+      "cacheWrite": 50644,
+      "cacheRead": 330318
+    },
+    "latencyMs": 113290,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 229,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 8,
+    "m2_byRule": {
+      "H1": 4,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 1,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 7,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 7
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
+  },
+  {
+    "op": 26,
+    "opId": "E2",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "c09586e052ef18099b45c584be958373897cf1cd",
+    "filesChanged": 6,
+    "turns": 29,
+    "toolCalls": 38,
+    "tokens": {
+      "input": 3038,
+      "output": 11305,
+      "thinking": 148,
+      "total": 1022780,
+      "cacheWrite": 62081,
+      "cacheRead": 946356
+    },
+    "latencyMs": 126656,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 227,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 8,
+    "m2_byRule": {
+      "H1": 4,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 1,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 4,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 4
+    },
+    "m6_orphans": 3,
+    "m6_unreachable": 3
+  },
+  {
+    "op": 27,
+    "opId": "E3",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "4f0a3a0df73e40bf2bed90bdfd08bcfd9d40b4df",
+    "filesChanged": 4,
+    "turns": 14,
+    "toolCalls": 22,
+    "tokens": {
+      "input": 2957,
+      "output": 8224,
+      "thinking": 202,
+      "total": 294163,
+      "cacheWrite": 29931,
+      "cacheRead": 253051
+    },
+    "latencyMs": 77039,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 233,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 10,
+    "m2_byRule": {
+      "H1": 6,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 1,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 2,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 2
+    },
+    "m6_orphans": 4,
+    "m6_unreachable": 4
+  },
+  {
+    "op": 28,
+    "opId": "E4",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "93f5131464cb08fa2a949a3c3f5830ec9f362dbb",
+    "filesChanged": 2,
+    "turns": 10,
+    "toolCalls": 15,
+    "tokens": {
+      "input": 2929,
+      "output": 3657,
+      "thinking": 163,
+      "total": 116230,
+      "cacheWrite": 19586,
+      "cacheRead": 90058
+    },
+    "latencyMs": 43892,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 234,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 10,
+    "m2_byRule": {
+      "H1": 6,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 1,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 1,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 1
+    },
+    "m6_orphans": 4,
+    "m6_unreachable": 4
+  },
+  {
+    "op": 29,
+    "opId": "E5",
+    "wave": "E",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "a05290a4c2838d73eb9087e4efd0f374966ecca1",
+    "filesChanged": 15,
+    "turns": 11,
+    "toolCalls": 33,
+    "tokens": {
+      "input": 2939,
+      "output": 14947,
+      "thinking": 110,
+      "total": 326556,
+      "cacheWrite": 55286,
+      "cacheRead": 253384
+    },
+    "latencyMs": 116153,
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 234,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 36,
+    "m2_byRule": {
+      "H1": 19,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 14,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 13,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 13
+    },
+    "m6_orphans": 4,
+    "m6_unreachable": 4
+  },
+  {
+    "op": 30,
+    "opId": "E6",
+    "wave": "E",
+    "status": "partial",
+    "autoClosed": false,
+    "snapshotSha": "47172eb5e8da4659b5e56073d1a8d592c45cd9f6",
+    "filesChanged": 0,
+    "turns": 4,
+    "toolCalls": 5,
+    "tokens": {
+      "input": 2905,
+      "output": 782,
+      "thinking": 77,
+      "total": 17321,
+      "cacheWrite": 4795,
+      "cacheRead": 8839
+    },
+    "latencyMs": 10057,
+    "statusCorrected": "empty commit — no file changed",
+    "assertions": null,
+    "satisfied": null,
+    "pages": 46,
+    "linkEdges": 234,
+    "m1_brokenRefs": 1,
+    "m1_detail": {
+      "deadPath": 0,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 36,
+    "m2_byRule": {
+      "H1": 19,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 14,
+      "H6": 2,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 0,
+    "m5_detail": {
+      "added": 0,
+      "removed": 0,
+      "modified": 0
+    },
+    "m6_orphans": 4,
+    "m6_unreachable": 4
   }
 ]

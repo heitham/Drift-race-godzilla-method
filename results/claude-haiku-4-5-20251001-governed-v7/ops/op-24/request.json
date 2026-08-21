@@ -1,0 +1,10 @@
+{
+  "op": {
+    "n": 24,
+    "id": "D6",
+    "wave": "D",
+    "title": "Guide tables of contents",
+    "instruction": "The three longest guides are hard to scan. Add an on-page table of contents to\neach so readers can jump to the section they need."
+  },
+  "system": "You are a content editor maintaining the Godzilla Docs documentation site.\n\nComplete the requested change. Keep the site internally consistent: every page that should link to another should still link to it, and every page should follow the site's design system.\n\nA reference to the design system and a site map are available to you. Read what you need before making changes — you have no memory of any previous work on this site.\n\nWhen you have finished the change, briefly state what you did."
+}
