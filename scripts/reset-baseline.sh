@@ -120,6 +120,24 @@ grep -q "all workers running" /tmp/cms-worker.log 2>/dev/null \
   || die "worker did not start — see /tmp/cms-worker.log"
 say "worker up"
 
+# --- rebuild the link graph -------------------------------------------------
+# The baseline dump predates FR-LK-002, when only the (cms) UI server actions
+# maintained link_edges — every MCP write left the graph untouched, so the
+# baseline restores with effectively zero edges across its 30 pages. An empty
+# graph silently disables the governed arm's rename repointing and broken-link
+# reporting: the run would measure a crippled CMS and report the result as the
+# substrate's ceiling. Idempotent, so this is safe on every reset.
+step "rebuilding link graph"
+cd "$CMS_DIR/apps/web"
+DATABASE_URL="$DB_URL" ./node_modules/.bin/tsx scripts/backfill-link-edges.ts --site "$SITE_ID" \
+  >/tmp/cms-backfill.log 2>&1 || die "link-edge backfill failed — see /tmp/cms-backfill.log"
+EDGES="$(psql "$DB_URL" -tAc "
+  SELECT count(*) FROM link_edges le
+  JOIN content_placements cp ON cp.item_id = le.from_item_id
+  WHERE cp.site_id = '$SITE_ID';")"
+say "link edges     $EDGES"
+[ "$EDGES" -gt 100 ] || die "link graph looks empty ($EDGES edges) — governed rename-safety would be inert"
+
 # --- verify ----------------------------------------------------------------
 step "verifying baseline"
 PAGES="$(psql "$DB_URL" -tAc "

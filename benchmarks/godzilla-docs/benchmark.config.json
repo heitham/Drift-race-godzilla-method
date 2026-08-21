@@ -1,7 +1,7 @@
 {
   "id": "godzilla-docs",
   "frozenAt": "2026-08-20",
-  "description": "RIFT Drift Race v1 \u2014 30-page documentation site, paired raw vs governed runs.",
+  "description": "RIFT Drift Race v1 — 30-page documentation site, paired raw vs governed runs.",
   "baseline": {
     "repo": "https://github.com/heitham/godzilladocs.git",
     "mainSha": "15c7b5fd568e3d2f1bcbacc17c065dd340391dc8",
@@ -13,17 +13,17 @@
   "_pin": [
     "The renderer that produces every snapshot lives in the RIFT CMS. If it",
     "changes mid-benchmark, snapshots stop being comparable and the failure is",
-    "SILENT \u2014 both versions emit valid-looking HTML. The operator has committed",
+    "SILENT — both versions emit valid-looking HTML. The operator has committed",
     "to holding RIFT stable, so rather than isolating a worktree we enforce the",
     "pin actively: the runner reads HEAD of cmsRepo and REFUSES to start if it",
     "differs from cmsSha, or if the working tree is dirty. A silent risk is",
     "converted into a loud failure at the only moment it can still be fixed.",
     "To intentionally move the pin, update cmsSha here and record why in",
-    "pinHistory \u2014 never bypass the check."
+    "pinHistory — never bypass the check."
   ],
   "cms": {
     "repo": "/Users/heithamghariani/Documents/Claude CMS Build",
-    "cmsSha": "40b1b708d81cbd114623508d39362776298184a2",
+    "cmsSha": "01207e8c858884ce41b408e9eaeae6511adc448e",
     "enforce": "refuse-on-mismatch",
     "allowDirtyPaths": [
       "docs/"
@@ -33,6 +33,14 @@
         "sha": "40b1b708d81cbd114623508d39362776298184a2",
         "date": "2026-08-20",
         "reason": "initial pin at benchmark freeze"
+      },
+      {
+        "sha": "01207e8c858884ce41b408e9eaeae6511adc448e",
+        "date": "2026-08-21",
+        "reason": "Phase 43 link governance (FR-LK-001..004). Moved deliberately: the Haiku pilot traced the governed arm losing on M1 to a CMS gap, not to the model, the content or the scorer, and the pin must not freeze a defect in place. Safe to adopt without invalidating anything because no valid run exists yet, and safe for comparability because the change is write-path only.",
+        "renderPathUnchanged": true,
+        "evidence": "Static reachability proof over the publish path, which is stronger than a sampled byte-compare: publish.ts imports renderer, succession, navResolver, discoveryFiles, gitPublisher and storage — none modified by the commit — and renderer.ts imports only node:crypto, so no change can reach it. The one render-adjacent file that did change, linkParser.ts, is imported by exactly four modules: two (cms) UI server actions, contentValidation.ts and linkSync.ts. None is on the publish path. Identical stored content therefore still renders to identical HTML and the published baseline needs no refresh.",
+        "effect": "create_item/update_item now reject three classes of body that previously stored and published silently: UNMANAGED_INTERNAL_LINK (raw path where a managed reference exists), MALFORMED_HREF (extra layer of quoting) and DEAD_MANAGED_REF (reference to a nonexistent item). Rejection, not normalization — the model sees the error and must respond to it, so the substrate is measured enforcing rather than quietly repairing."
       }
     ]
   },
@@ -94,7 +102,7 @@
   "_effort": [
     "Reasoning is enabled for every model. The two providers expose it through",
     "different mechanisms with incompatible units, so effort is NOT numerically",
-    "equivalent across providers \u2014 see methodology M3. The protocol requires it",
+    "equivalent across providers — see methodology M3. The protocol requires it",
     "constant across a single model's two arms, which this satisfies exactly.",
     "Reasoning tokens are billed and are counted in M3."
   ],

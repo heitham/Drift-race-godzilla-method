@@ -56,7 +56,16 @@ export interface ModelDriver {
   runSession(opts: SessionOptions): Promise<SessionResult>
 }
 
-const MAX_TURNS_DEFAULT = 40
+/**
+ * Turn ceiling.
+ *
+ * A session that hits it is recorded `partial`, so the ceiling itself becomes
+ * a drift signal — which makes a low ceiling actively misleading. The Haiku
+ * pilot reached exactly 40 on one raw operation and 38 on another: binding,
+ * and binding on the arm with more mechanical work to do. Raised to 60 so the
+ * limit is a runaway guard rather than a scoring artifact.
+ */
+const MAX_TURNS_DEFAULT = 60
 const zeroUsage = (): Usage => ({ input: 0, output: 0, thinking: 0, total: 0, cacheWrite: 0, cacheRead: 0 })
 
 /**

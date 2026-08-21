@@ -91,6 +91,42 @@ Docs** site (fictional data-pipeline platform), built in RIFT and published to
   each ~9–11 inbound) are deliberately targeted by the rename and retirement
   operations in Waves B and C.
 
+### 4.0 What the substrate enforces, and the pin that holds it still
+
+RIFT is pinned by commit sha and the runner refuses to start on a mismatch,
+because a changed renderer breaks comparability **silently** — both versions
+emit valid-looking HTML. The pin moved once, deliberately, before any valid run
+existed: `40b1b708` → `01207e8c`, RIFT's Phase 43 link governance. The Haiku
+pilot had traced the governed arm's loss on M1 to a gap in the CMS rather than
+to the model, the content or the scorer, and freezing a defect in place would
+have measured the wrong thing on purpose.
+
+Since that commit, `create_item` / `update_item` **reject** three classes of
+body that previously stored and published in silence:
+
+| Code | Trigger |
+|---|---|
+| `UNMANAGED_INTERNAL_LINK` | a raw path where a managed reference exists — the error names the exact `{{cms:item/<uuid>}}` |
+| `MALFORMED_HREF` | an href carrying an extra layer of quoting (`href=\"#list\"`) |
+| `DEAD_MANAGED_REF` | a reference to an item that does not exist |
+
+Rejection, not normalization. The model sees the error and has to respond to
+it, so what the benchmark measures is a substrate *enforcing* — not one quietly
+repairing behind the model's back, which would flatter the governed arm without
+telling us anything about how structure is actually maintained.
+
+**The rule that keeps future CMS work safe:** write-path changes (validation,
+tool behavior, link-graph maintenance, API routes) may land at any time — they
+change what content enters the CMS, which is the treatment under study.
+**Render-path changes** (`renderer.ts`, `publish.ts`, `discoveryFiles.ts`,
+`gitPublisher.ts`, `succession.ts`, `navResolver.ts`, design-system CSS or
+component templates) invalidate every completed run and must be coordinated.
+The test is: *does identical stored content produce different published HTML?*
+Phase 43 was verified against that test by static reachability over the publish
+path — `renderer.ts` imports only `node:crypto`, and the one render-adjacent
+file that changed, `linkParser.ts`, is imported by no module the publisher
+touches.
+
 ### 4.1 A tool that would have invalidated the benchmark
 
 RIFT exposes **two** agentic surfaces over MCP, and only one of them is a
@@ -132,9 +168,43 @@ accounting, since it spends the CMS's AI budget rather than the benchmark's.
 | Read | `list_files`, `read_file`, `grep` | `list_folders`, `search_content`, `get_item` |
 | Write | `write_file` | `create_item`, `update_item` |
 | Commit | `git commit` after each op | `open_change_set` → `propose_change_set` |
+| Who commits | The harness, on the model's behalf | The harness, on the model's behalf (§4.3) |
 | Chrome | Literal HTML duplicated in all 30 files | Injected at publish from site settings |
 | Links | Literal `href="/path"` | `{{cms:item/<uuid>}}`, resolved at publish |
 | Snapshot | The working directory | Publish to staging → git branch |
+
+### 4.3 Publication parity
+
+The raw model calls `write_file` and stops; the harness commits and pushes for
+it. The governed model, left alone, would additionally have to call
+`propose_change_set` before anything existed to score. That is not a property
+of the substrate — it is an asymmetric burden in the harness, and the Haiku
+pilot paid for it: 8 of 10 governed `partial` operations had written correct
+content that was never proposed, and scored as drift.
+
+**The harness therefore closes any change-set the model leaves open, exactly as
+it commits any file the raw model leaves written**, and records `autoClosed` on
+the operation. M7 reports completion and *unaided* completion separately, so
+nothing is hidden by the fix.
+
+This is parity of harness support, not a weakened approval gate. `propose`
+promotes to staging on the run's own branch — the governed equivalent of a
+commit. Reaching the live site still requires a named human, and no run ever
+asks for one.
+
+### 4.4 Substrate prerequisite: the link graph
+
+RIFT's rename repointing and broken-link reporting are driven by the
+`link_edges` table. Until FR-LK-002 that table was maintained only by the CMS's
+own UI, so a site built through MCP — as this one was — restored from its dump
+with effectively **zero** edges. Running against that state would have measured
+a CMS with its central guarantee switched off and reported the result as the
+substrate's ceiling.
+
+`scripts/reset-baseline.sh` therefore rebuilds the graph on every reset and
+refuses to proceed if it comes back empty. The frozen baseline carries **126
+edges, all `cms_reference`** — no page starts outside the managed-link
+guarantee.
 
 ## 5. Protocol
 
@@ -424,6 +494,11 @@ Per-op status: `completed` / `partial` / `failed` / `refused`. A run that
 silently does nothing must not be rewarded with a clean drift score, so this
 metric gates interpretation of all others.
 
+Reported alongside it: **unaided completion** — operations the model closed
+itself, without the harness publishing on its behalf (§4.3). Completion is the
+fair cross-arm comparison; unaided completion is the more interesting number,
+and only the latter is sensitive to how much ceremony a substrate demands.
+
 ## 8. Data capture
 
 Written during the run, not reconstructed afterward.
@@ -509,6 +584,15 @@ Stated plainly rather than discovered by a reader.
 7. **Publication timing differs between arms.** The governed arm publishes
    through a queue worker; the raw arm commits directly. Latency comparisons
    between arms are therefore not meaningful and are reported per-arm only.
+8. **The governed arm's guardrails are stated in its tool descriptions**, and
+   the raw arm has no surface on which an equivalent could be written. This is
+   the treatment, not a confound — a rule that travels with the write API is
+   precisely what "structure is a property of the substrate" means — but it
+   does mean the governed arm's advantage is partly *instructional* and not
+   only *mechanical*, and the two cannot be separated by this design. An arm
+   given the same rules in its system prompt, with nothing enforcing them,
+   would separate them; that is the most valuable single addition to this
+   benchmark and is not currently run.
 
 ## 11. Reproducibility
 

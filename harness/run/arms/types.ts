@@ -16,6 +16,11 @@ export interface SnapshotResult {
    *  can never earn a clean drift score by doing nothing (methodology M7). */
   noChange: boolean
   filesChanged: number
+  /** True when the harness had to close the operation the model left open.
+   *  Publication parity is a harness affordance in BOTH arms (see the
+   *  governed arm's snapshot); recording it keeps M7 able to distinguish a
+   *  model that finished unaided from one that did not. */
+  autoClosed?: boolean
 }
 
 export interface Arm {

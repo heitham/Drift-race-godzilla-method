@@ -7,6 +7,7 @@
  *
  * Usage:
  *   tsx harness/run/index.ts --model <id> --arm raw|governed [--ops 1-3] [--dry]
+ *                             [--tag r2]   distinguishes a re-run's branch and results
  */
 
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs'
@@ -90,7 +91,12 @@ async function main() {
   const operations = parseOperations(path.join(process.cwd(), config.operations))
   const selected = parseRange(args.ops as string | undefined, operations.length)
 
-  const runId = `${model.id}-${armName}`
+  // Run tag. A re-run must not land on a previous run's branch: the governed
+  // arm reads that branch's head as its "before" sha, so op 1 would be scored
+  // against the earlier run's END state. Tagging is preferred over deleting
+  // the old branch — the superseded run stays inspectable.
+  const tag = args.tag ? `-${String(args.tag)}` : ''
+  const runId = `${model.id}-${armName}${tag}`
   const outDir = path.join(process.cwd(), 'results', runId)
 
   console.log(`model             ${model.id}  (${model.provider}, reasoning budget ${budget})`)
@@ -169,17 +175,22 @@ async function main() {
       status, turns: result.turns, toolCalls: result.toolCalls,
       usage: result.usage, latencyMs: result.latencyMs, error: result.error,
       snapshotSha: snap.sha, noChange: snap.noChange, filesChanged: snap.filesChanged,
+      autoClosed: snap.autoClosed ?? false,
     }, null, 2))
 
     timeline.push({
       op: n, opId: op.id, wave: op.wave, status,
+      // The harness publishes on the model's behalf in both arms; this flags
+      // the operations where it had to, so M7 can report unaided completion
+      // separately from completion (see GovernedArm.snapshot).
+      autoClosed: snap.autoClosed ?? false,
       snapshotSha: snap.sha, filesChanged: snap.filesChanged,
       turns: result.turns, toolCalls: result.toolCalls,
       tokens: result.usage, latencyMs: result.latencyMs,
     })
     writeFileSync(path.join(outDir, 'timeline.json'), JSON.stringify(timeline, null, 2))
 
-    const tag = status === 'completed' ? 'ok' : status
+    const tag = status === 'completed' ? (snap.autoClosed ? 'ok*' : 'ok') : status
     console.log(
       `${tag.padEnd(10)} ${String(result.turns).padStart(2)}t ` +
       `${String(result.toolCalls).padStart(3)}c ` +

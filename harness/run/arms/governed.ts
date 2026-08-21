@@ -144,21 +144,65 @@ export class GovernedArm implements Arm {
    * for a perfectly successful operation. The known-good sha is therefore
    * carried as arm state across operations.
    *
-   * Work the model leaves unproposed never publishes — that is the governed
-   * substrate's approval gate behaving correctly, and it is recorded as no
-   * change so an operation cannot earn a clean drift score by stalling.
+   * PUBLICATION PARITY. In the raw arm the model calls write_file and the
+   * harness commits and pushes on its behalf — the model never publishes. The
+   * governed arm must therefore not charge the model for a publication step
+   * its counterpart is spared: the Haiku pilot lost 8 of 10 partials to
+   * content that was written correctly but never proposed, which scored as
+   * drift when it was really an asymmetric burden in the harness.
+   *
+   * So the harness closes any change-set the model left open, exactly as it
+   * commits any file the raw model left written, and records `autoClosed` so
+   * M7 can still separate a model that finished unaided from one that did not.
+   * This is parity of harness support, not a relaxed approval gate: propose
+   * promotes to staging on THIS RUN'S branch, which is the governed arm's
+   * equivalent of a commit. Going live still needs a human, and no run ever
+   * asks for one.
    */
   async snapshot(_opId: string, _message: string): Promise<SnapshotResult> {
+    const autoClosed = await this.flushOpenChangeSets()
+
     for (let i = 0; i < 45; i++) {
       const sha = this.remoteSha()
       if (sha && sha !== this.lastSha) {
         const changed = this.countChanged(this.lastSha, sha)
         this.lastSha = sha
-        return { sha, noChange: false, filesChanged: changed }
+        return { sha, noChange: false, filesChanged: changed, autoClosed }
       }
       await new Promise(r => setTimeout(r, 2000))
     }
-    return { sha: this.lastSha || 'no-publish', noChange: true, filesChanged: 0 }
+    return { sha: this.lastSha || 'no-publish', noChange: true, filesChanged: 0, autoClosed }
+  }
+
+  /**
+   * Propose every change-set this site still has open that actually contains
+   * work. Empty change-sets are left alone — proposing one publishes nothing
+   * and would only add noise to the run branch.
+   *
+   * Returns true if the harness had to close anything.
+   */
+  private async flushOpenChangeSets(): Promise<boolean> {
+    const ids = this.sql(`
+      SELECT DISTINCT cs.id FROM change_sets cs
+      JOIN change_set_items csi ON csi.change_set_id = cs.id
+      WHERE cs.site_id = '${this.config.site.id}' AND cs.status = 'open'
+    `).split('\n').map(x => x.trim()).filter(Boolean)
+
+    if (ids.length === 0) return false
+    for (const id of ids) {
+      try {
+        await this.rpc('tools/call', {
+          name: 'propose_change_set',
+          arguments: { site_id: this.config.site.id, change_set_id: id, comment: 'closed by harness (publication parity)' },
+        })
+      } catch (e) {
+        // A change-set that cannot be proposed is a genuine failure of the
+        // model's work, not of the harness — let the operation record no
+        // change rather than masking it.
+        console.warn(`\n    auto-propose failed for ${id.slice(0, 8)}: ${(e as Error).message.slice(0, 120)}`)
+      }
+    }
+    return true
   }
 
   /** Files touched between two published commits — M5 blast radius. */
