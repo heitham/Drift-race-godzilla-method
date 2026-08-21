@@ -170,4 +170,29 @@ console.log(`  operations complete ${completed}/${scored.length}`)
 console.log(`  requested structure ${satisfied}/${checked.length} operations verified` +
             (checked.length < scored.length ? `  (${scored.length - checked.length} carry no assertion)` : ''))
 console.log(`  tokens              ${tok.toLocaleString()}`)
+// --- plausibility ----------------------------------------------------------
+// Not a metric. A cheap smell test for the failure this run set kept producing:
+// an operation that reports `completed`, damages nothing, and did nothing. That
+// case is invisible to M1-M6 — work not done is also damage not done — and the
+// tell was never in a metric. It was a row reading "2t 3c 9,905tok" against an
+// instruction that said "every SDK page".
+//
+// Flags rather than fails: some operations are legitimately small. It says
+// where to look.
+{
+  const calls = scored.map(r => Number(r.toolCalls ?? 0)).filter(n => n > 0).sort((a, b) => a - b)
+  const median = calls.length ? calls[Math.floor(calls.length / 2)] : 0
+  const thin = scored.filter(r =>
+    r.status === 'completed' && Number(r.toolCalls ?? 0) > 0 && Number(r.toolCalls) * 3 < median)
+  if (thin.length) {
+    console.log(`\nthin operations — completed on unusually little work (median ${median} tool calls)`)
+    for (const r of thin) {
+      console.log(`  op ${String(r.op).padStart(2)}  ${r.opId}  ${r.toolCalls} tool calls, ` +
+                  `${Number(r.tokens?.total ?? 0).toLocaleString()} tokens`)
+    }
+    console.log('  Worth reading the transcript: a completed operation that changed little')
+    console.log('  scores as cleanly as one that changed the right things.')
+  }
+}
+
 console.log(`\nwrote ${path.join(runDir, 'timeline.json')}`)

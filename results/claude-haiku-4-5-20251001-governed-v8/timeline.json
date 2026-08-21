@@ -1,0 +1,222 @@
+[
+  {
+    "op": 1,
+    "opId": "A1",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "36d594262973a590d93e33f90f9ce6b1df762352",
+    "filesChanged": -1,
+    "turns": 12,
+    "toolCalls": 15,
+    "tokens": {
+      "input": 6704,
+      "output": 7436,
+      "thinking": 185,
+      "total": 182947,
+      "cacheWrite": 24864,
+      "cacheRead": 143943
+    },
+    "latencyMs": 68432
+  },
+  {
+    "op": 2,
+    "opId": "A2",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "6f61049c4a1cc55a478802c43e2572d47b695a8e",
+    "filesChanged": 9,
+    "turns": 11,
+    "toolCalls": 13,
+    "tokens": {
+      "input": 6579,
+      "output": 4381,
+      "thinking": 122,
+      "total": 184904,
+      "cacheWrite": 23777,
+      "cacheRead": 150167
+    },
+    "latencyMs": 41347
+  },
+  {
+    "op": 3,
+    "opId": "A3",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "9018d7217bcd8488487f6cf4158439cf01ca8c1b",
+    "filesChanged": 18,
+    "turns": 11,
+    "toolCalls": 14,
+    "tokens": {
+      "input": 6582,
+      "output": 7894,
+      "thinking": 158,
+      "total": 213744,
+      "cacheWrite": 28555,
+      "cacheRead": 170713
+    },
+    "latencyMs": 74554
+  },
+  {
+    "op": 4,
+    "opId": "A4",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "b6613a4591f5c93467784ec956b5425d0ca5b3f6",
+    "filesChanged": 6,
+    "turns": 9,
+    "toolCalls": 11,
+    "tokens": {
+      "input": 6572,
+      "output": 2796,
+      "thinking": 119,
+      "total": 103859,
+      "cacheWrite": 17973,
+      "cacheRead": 76518
+    },
+    "latencyMs": 31344
+  },
+  {
+    "op": 5,
+    "opId": "A5",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "b6624fb0c491554b8ef38cd73807805380484945",
+    "filesChanged": 10,
+    "turns": 24,
+    "toolCalls": 26,
+    "tokens": {
+      "input": 3016,
+      "output": 15653,
+      "thinking": 142,
+      "total": 584152,
+      "cacheWrite": 37891,
+      "cacheRead": 527592
+    },
+    "latencyMs": 166413
+  },
+  {
+    "op": 6,
+    "opId": "A6",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "538224911ef97216458ca7887f44abed79cbf76d",
+    "filesChanged": 6,
+    "turns": 12,
+    "toolCalls": 13,
+    "tokens": {
+      "input": 2964,
+      "output": 4127,
+      "thinking": 175,
+      "total": 166918,
+      "cacheWrite": 18635,
+      "cacheRead": 141192
+    },
+    "latencyMs": 42742
+  },
+  {
+    "op": 7,
+    "opId": "B1",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "43148120f7d66806cc68ba260f64e0cf801eda4b",
+    "filesChanged": 20,
+    "turns": 11,
+    "toolCalls": 21,
+    "tokens": {
+      "input": 6732,
+      "output": 3719,
+      "thinking": 143,
+      "total": 148593,
+      "cacheWrite": 23433,
+      "cacheRead": 114709
+    },
+    "latencyMs": 41750
+  },
+  {
+    "op": 8,
+    "opId": "B2",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "ae575efdeae858ef00c425af3fde1de12b527bc0",
+    "filesChanged": 10,
+    "turns": 7,
+    "toolCalls": 12,
+    "tokens": {
+      "input": 2929,
+      "output": 2889,
+      "thinking": 56,
+      "total": 79128,
+      "cacheWrite": 16377,
+      "cacheRead": 56933
+    },
+    "latencyMs": 32623
+  },
+  {
+    "op": 9,
+    "opId": "B3",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "990808535e77f5ec553807b910c6ce568d064a59",
+    "filesChanged": 31,
+    "turns": 9,
+    "toolCalls": 22,
+    "tokens": {
+      "input": 14767,
+      "output": 3169,
+      "thinking": 134,
+      "total": 86969,
+      "cacheWrite": 18788,
+      "cacheRead": 50245
+    },
+    "latencyMs": 31254
+  },
+  {
+    "op": 10,
+    "opId": "B4",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "db5c750451f8599f8f62fd92bb398c7b2253d095",
+    "filesChanged": 9,
+    "turns": 7,
+    "toolCalls": 9,
+    "tokens": {
+      "input": 2918,
+      "output": 1992,
+      "thinking": 129,
+      "total": 70184,
+      "cacheWrite": 13179,
+      "cacheRead": 52095
+    },
+    "latencyMs": 23605
+  },
+  {
+    "op": 11,
+    "opId": "B5",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": true,
+    "snapshotSha": "3ec945ddf4e5e6c418adf369e48312a5262c74e1",
+    "filesChanged": 16,
+    "turns": 4,
+    "toolCalls": 6,
+    "tokens": {
+      "input": 2910,
+      "output": 789,
+      "thinking": 103,
+      "total": 22343,
+      "cacheWrite": 6788,
+      "cacheRead": 11856
+    },
+    "latencyMs": 8451
+  }
+]
