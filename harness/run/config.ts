@@ -97,14 +97,38 @@ export function checkPin(config: BenchmarkConfig): PinStatus {
   }
 
   if (actualSha !== config.cms.cmsSha) {
-    return {
-      ok: false, actualSha, expectedSha: config.cms.cmsSha, dirtyFiles,
-      reason:
-        `CMS is at ${actualSha.slice(0, 8)} but the benchmark is pinned to ${config.cms.cmsSha.slice(0, 8)}.\n` +
-        `  The renderer may differ from the one that produced existing runs, which would\n` +
-        `  silently break comparability. Either check out the pinned commit, or — if the\n` +
-        `  move is intentional — update cmsSha and pinHistory in benchmark.config.json.`,
+    // A commit that touches only documentation cannot change rendered output,
+    // and the CMS is under active development — blocking every run on a README
+    // would train the operator to bypass the pin, which is the one failure the
+    // pin exists to prevent. Anything outside allowDirtyPaths is still a hard
+    // stop; the moved sha is reported either way so it is never invisible.
+    let onlyIgnorable = false
+    let movedFiles: string[] = []
+    try {
+      movedFiles = execSync(`git -C "${repo}" diff --name-only ${config.cms.cmsSha} ${actualSha}`, { encoding: 'utf8' })
+        .split('\n').map(f => f.trim()).filter(Boolean)
+      onlyIgnorable = movedFiles.length > 0 &&
+        movedFiles.every(f => config.cms.allowDirtyPaths.some(pfx => f.startsWith(pfx)))
+    } catch { /* unreachable commit — fall through to the hard stop */ }
+
+    if (!onlyIgnorable) {
+      return {
+        ok: false, actualSha, expectedSha: config.cms.cmsSha, dirtyFiles,
+        reason:
+          `CMS is at ${actualSha.slice(0, 8)} but the benchmark is pinned to ${config.cms.cmsSha.slice(0, 8)}.\n` +
+          (movedFiles.length
+            ? `  Changed since the pin:\n` + movedFiles.slice(0, 12).map(f => `    ${f}`).join('\n') +
+              (movedFiles.length > 12 ? `\n    …and ${movedFiles.length - 12} more` : '') + '\n'
+            : '') +
+          `  The renderer may differ from the one that produced existing runs, which would\n` +
+          `  silently break comparability. Either check out the pinned commit, or — if the\n` +
+          `  move is intentional — update cmsSha and pinHistory in benchmark.config.json.`,
+      }
     }
+    console.warn(
+      `pin NOTE          CMS at ${actualSha.slice(0, 8)}, pinned to ${config.cms.cmsSha.slice(0, 8)} — ` +
+      `${movedFiles.length} file(s) changed, all under ${config.cms.allowDirtyPaths.join(', ')}; accepting.`,
+    )
   }
 
   if (dirtyFiles.length) {
