@@ -155,7 +155,26 @@ async function withRetry<T>(fn: () => Promise<Response>, label: string, attempts
 
     const body = await res.text()
     lastErr = `${res.status} ${body.slice(0, 300)}`
-    // 429 and 5xx are transient; 4xx otherwise is a bug in our request.
+
+    // A 429 usually means "too fast" and is worth retrying. But it is also what
+    // both providers return for "this key has NO quota for this model", which no
+    // amount of waiting fixes. Retrying that burns the full backoff schedule in
+    // silence — a smoke test spent fifteen minutes looking hung before anyone
+    // learned the key simply could not call the model. Quota exhaustion is
+    // therefore separated out and fails immediately, carrying the provider's own
+    // message so the cause is in the error rather than in a log somewhere.
+    const exhausted = res.status === 429 &&
+      /RESOURCE_EXHAUSTED|exceeded your current quota|quota_exceeded|insufficient_quota/i.test(body)
+    if (exhausted) {
+      throw new Error(
+        `${label}: quota exhausted — this key cannot call this model.\n` +
+        `  ${body.replace(/\s+/g, ' ').slice(0, 220)}\n` +
+        `  Not retried: no amount of waiting grants quota. Enable billing for the\n` +
+        `  model, or pick one the key can reach.`,
+      )
+    }
+
+    // 429-for-pacing and 5xx are transient; any other 4xx is a bug in our request.
     if (res.status !== 429 && res.status < 500) throw new Error(`${label}: ${lastErr}`)
     const retryAfter = Number(res.headers.get('retry-after'))
     await sleep(retryAfter ? retryAfter * 1000 : Math.min(2 ** i * 1000, 60_000))
