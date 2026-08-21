@@ -90,7 +90,7 @@ let prev: SiteCrawl | null = null
 let prevSha = ''
 const scored: TimelineEntry[] = []
 
-for (const entry of timeline) {
+for (let entry of timeline) {
   const sha = entry.snapshotSha
   // A no-change operation carries the previous sha; scoring it again would
   // duplicate the prior row rather than reveal anything.
@@ -100,6 +100,15 @@ for (const entry of timeline) {
   const curr: SiteCrawl = unchanged && prev ? prev : crawlSite(scratch)
   const s = scoreSnapshot(scratch, vocabulary)
   const blast = prev ? blastRadius(prev, curr) : { changed: 0, added: [], removed: [], modified: [] }
+
+  // Status is re-derived here, not trusted from the run. The governed arm
+  // republishes the whole site every operation, so early runs recorded a new
+  // sha — and therefore `completed` — for operations that changed no file at
+  // all. The harness now catches this at snapshot time; re-deriving lets runs
+  // recorded before that fix still be scored honestly, and costs nothing.
+  if (entry.status === 'completed' && entry.filesChanged === 0) {
+    entry = { ...entry, status: 'partial', statusCorrected: 'empty commit — no file changed' }
+  }
 
   const opAssertions = assertions[entry.opId] ?? []
   const verdict = opAssertions.length ? checkOperation(curr, opAssertions) : null

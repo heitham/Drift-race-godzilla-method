@@ -210,6 +210,15 @@ export class GovernedArm implements Arm {
       return { sha: before || 'no-publish', noChange: true, filesChanged: 0, autoClosed }
     }
     const changed = this.countChanged(before, sha)
+    // A new sha is not evidence of work. The harness republishes the whole site
+    // every operation, so the publisher commits even when the tree is byte
+    // identical — and an operation where the model did nothing at all then
+    // scored `completed` on the strength of an empty commit. That is the M7
+    // hole reopening through a door this harness built, so the file count, not
+    // the sha, decides whether anything happened.
+    if (changed === 0) {
+      return { sha, noChange: true, filesChanged: 0, autoClosed }
+    }
     this.lastSha = sha
     return { sha, noChange: false, filesChanged: changed, autoClosed }
   }

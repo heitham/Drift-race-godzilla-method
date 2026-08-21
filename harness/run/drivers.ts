@@ -242,7 +242,18 @@ export function anthropicDriver(model: string, thinkingBudget: number, apiKey: s
 
           const toolUses = (d.content ?? []).filter((c: any) => c.type === 'tool_use')
           if (d.stop_reason !== 'tool_use' || toolUses.length === 0) {
-            return { status: 'completed', turns, toolCalls, usage, transcript, finalText, latencyMs: Date.now() - started }
+            // `max_tokens` means the model was CUT OFF mid-thought, not that it
+            // finished. One operation ended after three read-only calls with its
+            // sentence truncated and was recorded `completed`; the session ends
+            // either way, but calling it completion hides a real failure mode
+            // behind a clean-looking status.
+            const truncated = d.stop_reason === 'max_tokens'
+            return {
+              status: truncated ? 'max_turns' : 'completed',
+              turns, toolCalls, usage, transcript, finalText,
+              latencyMs: Date.now() - started,
+              ...(truncated ? { error: 'response truncated at max_tokens' } : {}),
+            }
           }
 
           // Thinking blocks must be echoed back verbatim alongside tool_use,
