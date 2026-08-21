@@ -519,7 +519,8 @@ export class GovernedArm implements Arm {
         `no approval endpoint at POST /api/v1/sites/:siteId/change-sets/:id/approve\n` +
         `  (HTTP ${res.status}, non-JSON response). The governed arm cannot review between\n` +
         `  operations without it, and without review RIFT's collision guard locks the arm\n` +
-        `  out of every page it has already touched. See docs/CMS-REQUEST-approve-endpoint.md.`,
+        `  out of every page it has already touched. The CMS needs an admin-key endpoint\n` +
+        `  that approves a proposed change-set; see methodology §4.5.`,
       )
     }
   }

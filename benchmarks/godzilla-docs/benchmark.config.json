@@ -45,7 +45,7 @@
       {
         "sha": "19bc37e1c9146c5b158473843264ac3b358f066f",
         "date": "2026-08-21",
-        "reason": "FR-AP-016: approve a change-set over the v1 API, admin keys only. Requested by this benchmark (docs/CMS-REQUEST-approve-endpoint.md) because RIFT's collision guard assumes review happens between agent bundles, and the protocol had no way to review. Moved before any valid governed run exists.",
+        "reason": "FR-AP-016: approve a change-set over the v1 API, admin keys only. Requested by this benchmark because RIFT's collision guard assumes review happens between agent bundles, and the protocol had no way to review. Moved before any valid governed run exists.",
         "renderPathUnchanged": true,
         "evidence": "Changed files are the new route, lib/changeSetReview.ts, the (cms) server action now delegating to it, migration 0047, schema.ts, an e2e file and docs. No renderer, publisher or discovery-file change.",
         "effect": "The harness can review between operations. Governance verified by the CMS author against agent, content_author, unauthenticated and admin callers: only admin approves, so the model under test still cannot sign off its own work. Migration 0047 adds change_sets.reviewed_by_api_key_id so an automated approval records WHO acted rather than leaving the named-approver field null — which also means the frozen dump now restores an out-of-date SCHEMA, and reset-baseline.sh re-applies migrations after every restore."
