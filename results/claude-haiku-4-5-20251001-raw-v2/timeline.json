@@ -298,5 +298,45 @@
       "cacheRead": 108217
     },
     "latencyMs": 46900
+  },
+  {
+    "op": 16,
+    "opId": "C4",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "e20d575f9efd4af0d779c71ea6361a1422d6e20e",
+    "filesChanged": 18,
+    "turns": 39,
+    "toolCalls": 47,
+    "tokens": {
+      "input": 1287,
+      "output": 36931,
+      "thinking": 135,
+      "total": 1746326,
+      "cacheWrite": 82143,
+      "cacheRead": 1625965
+    },
+    "latencyMs": 264134
+  },
+  {
+    "op": 17,
+    "opId": "C5",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "5cd7ac4d274854a2b7415f6aa128db37b62b7547",
+    "filesChanged": 3,
+    "turns": 13,
+    "toolCalls": 14,
+    "tokens": {
+      "input": 2787,
+      "output": 5842,
+      "thinking": 97,
+      "total": 172714,
+      "cacheWrite": 23345,
+      "cacheRead": 140740
+    },
+    "latencyMs": 46087
   }
 ]

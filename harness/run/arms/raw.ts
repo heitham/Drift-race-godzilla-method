@@ -207,7 +207,23 @@ export class RawArm implements Arm {
     // Push the completed run branch so snapshots are durable and auditable.
     // Suppressed for smoke tests so throwaway branches never reach the remote.
     if (!this.push) return
-    try { git(this.dir, `push --quiet -u origin ${this.branch} --force`) } catch { /* offline is survivable; local history is intact */ }
+    try {
+      git(this.dir, `push --quiet -u origin ${this.branch} --force`)
+    } catch (e) {
+      // Previously swallowed as "offline is survivable". It is survivable —
+      // the local history holds every snapshot — but staying quiet about it
+      // produced a completed run that could not be scored and gave no clue
+      // why. A benchmark whose failures are silent is worse than one that
+      // stops, so say it loudly and say exactly how to finish the job.
+      console.warn(
+        `\n  PUSH FAILED — the run is intact locally but is not on the remote.` +
+        `\n  ${(e as Error).message.split('\n')[0].slice(0, 160)}` +
+        `\n\n  Score directly from the local history:` +
+        `\n    npm run score:run results/<run-id> -- --repo ${this.dir}` +
+        `\n  or push it first:` +
+        `\n    git -C ${this.dir} push -u origin ${this.branch} --force\n`,
+      )
+    }
   }
 
   /** Directory the scorer reads. */
