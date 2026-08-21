@@ -254,22 +254,41 @@ export class GovernedArm implements Arm {
   }
 
   /**
-   * Publish, retrying once if the push lost a race for the branch ref.
+   * Publish, retrying the failures that are about the network rather than the
+   * content.
    *
-   * With `publish_after: false` on approval there should be no competitor, but
-   * a run queued by an earlier operation can still be draining. A ref-lock
-   * rejection is transient by nature — the loser only needs to push again from
-   * the newer tip — so it earns one retry before the run is failed.
+   * Every operation pushes the whole site to GitHub over SSH, so a run makes
+   * thirty round trips to a host that occasionally times out — and it did:
+   * "Connection to 140.82.114.36 port 443 timed out" killed a thirty-operation
+   * run at operation 7. A ref-lock rejection is transient for the same reason,
+   * the loser only needing to push again from the newer tip.
+   *
+   * The distinction that matters is transient-versus-real. A publish that fails
+   * because the CONTENT is wrong must still stop the run instantly, because
+   * continuing would snapshot a site that does not exist — so the retry is
+   * matched to a named set of transport failures and everything else rethrows
+   * on the first try.
    */
+  private static readonly TRANSIENT_PUBLISH =
+    /cannot lock ref|remote rejected|non-fast-forward|timed out|timeout|could not read from remote|connection (reset|refused|closed)|early eof|ssh_exchange/i
+
   private async publishFullChecked(): Promise<void> {
-    try {
-      await this.awaitPublishRun(await this.publishFull())
-    } catch (e) {
-      if (!/cannot lock ref|remote rejected|non-fast-forward/i.test((e as Error).message)) throw e
-      console.warn('\n    publish lost the branch ref; retrying once')
-      await new Promise(r => setTimeout(r, 5000))
-      await this.awaitPublishRun(await this.publishFull())
+    let last: Error | null = null
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      try {
+        await this.awaitPublishRun(await this.publishFull())
+        return
+      } catch (e) {
+        last = e as Error
+        if (!GovernedArm.TRANSIENT_PUBLISH.test(last.message)) throw last
+        if (attempt === 4) break
+        const wait = 10_000 * attempt
+        console.warn(`\n    publish failed (transient, attempt ${attempt}/4); retrying in ${wait / 1000}s` +
+                     `\n      ${last.message.split('\n').pop()?.trim().slice(0, 120)}`)
+        await new Promise(r => setTimeout(r, wait))
+      }
     }
+    throw new Error(`publish failed after 4 attempts — ${last?.message ?? 'unknown'}`)
   }
 
   /**
