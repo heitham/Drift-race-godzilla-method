@@ -13,8 +13,8 @@
 set -euo pipefail
 
 BENCH_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CMS_DIR="/Users/heithamghariani/Documents/Claude CMS Build"
-DB_URL="postgres://heithamghariani@localhost:5432/cms_dev"
+CMS_DIR="${CMS_REPO:?CMS_REPO is not set — see .env.example}"
+DB_URL="${DATABASE_URL:-postgres://localhost:5432/cms_dev}"
 DUMP="$BENCH_DIR/baseline/cms_dev.baseline.dump"
 SITE_ID="32114acb-ccbe-44e4-96d4-64fa594284e2"
 EXPECTED_PAGES=30

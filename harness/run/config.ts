@@ -80,8 +80,21 @@ export interface PinStatus {
  * rendered output. Anything else dirty means the renderer may not match the
  * one that produced earlier runs.
  */
+/**
+ * Expand ${VAR} in a config value. Paths differ per machine, and hard-coding
+ * one author's home directory into a published benchmark makes it unrunnable
+ * by anyone else — which would make "inspect it yourself" an empty invitation.
+ */
+function expand(value: string): string {
+  return value.replace(/\$\{(\w+)\}/g, (_, name: string) => {
+    const v = process.env[name]
+    if (!v) throw new Error(`${name} is not set — it is required by benchmark.config.json (see .env.example)`)
+    return v
+  })
+}
+
 export function checkPin(config: BenchmarkConfig): PinStatus {
-  const repo = config.cms.repo
+  const repo = expand(config.cms.repo)
   let actualSha = ''
   let dirtyFiles: string[] = []
 

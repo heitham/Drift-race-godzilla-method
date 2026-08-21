@@ -42,7 +42,7 @@ export class GovernedArm implements Arm {
   private cache: McpTool[] | null = null
   /** Last sha published by this run; the comparison point for snapshots. */
   private lastSha = ''
-  private db = 'postgres://heithamghariani@localhost:5432/cms_dev'
+  private db = process.env.DATABASE_URL ?? 'postgres://localhost:5432/cms_dev'
 
   constructor(private config: BenchmarkConfig, private workRoot: string) {}
 

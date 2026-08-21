@@ -22,7 +22,7 @@
     "pinHistory — never bypass the check."
   ],
   "cms": {
-    "repo": "/Users/heithamghariani/Documents/Claude CMS Build",
+    "repo": "${CMS_REPO}",
     "cmsSha": "c10f8504691159836da418c5258c2070fa2cca6b",
     "enforce": "refuse-on-mismatch",
     "allowDirtyPaths": [
@@ -68,7 +68,8 @@
         "effect": "The harness stops republishing the whole site every operation. That was a workaround for the ghost files and was wrong twice over: a full publish re-clones the repository into memory and stops scaling around ten thousand pages, and no real deployment runs that way — the benchmark would have been measuring a publish mode no customer uses. Approval now publishes incrementally and the harness awaits that run, which is the customer path.",
         "rootCauseDepth": "Deeper than the benchmark diagnosed. placement_publish_state recorded a content hash but not the published path, so an incremental publish had no memory of where a file used to live and could not delete it even in principle; migration 0049 adds published_path. The incremental skip test also keyed on hash alone, so a page that moved WITHOUT changing its rendered HTML was skipped entirely and its new path never written. Both predate agent moves and affected admin moves and file_name renames since the publisher was written."
       }
-    ]
+    ],
+    "_repo": "Path to the RIFT CMS checkout, from the CMS_REPO environment variable. The pin check reads HEAD here to confirm the renderer has not moved under a run."
   },
   "_roster": [
     "Scoped to three models on 2026-08-20, before any trial, to cut cost and",

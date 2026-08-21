@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-08-20T15:52:21.240Z",
-  "root": "/Users/heithamghariani/Documents/RIFT Drift Race Benchmark/clones/godzilladocs-main",
+  "root": "clones/godzilladocs-main",
   "pageCount": 30,
   "sections": {
     "apis": [
@@ -206,7 +206,7 @@
     },
     {
       "path": "/migration-guide-v1-to-v2",
-      "title": "Migration guide (v1 → v2)",
+      "title": "Migration guide (v1 \u2192 v2)",
       "section": "(root)",
       "inbound": 4,
       "outbound": 4
@@ -840,17 +840,17 @@
       {
         "target": "/apis/webhooks",
         "inbound": 11,
-        "rationale": "highest inbound degree — maximum reference blast radius"
+        "rationale": "highest inbound degree \u2014 maximum reference blast radius"
       },
       {
         "target": "/concepts-pipelines",
         "inbound": 9,
-        "rationale": "highest inbound degree — maximum reference blast radius"
+        "rationale": "highest inbound degree \u2014 maximum reference blast radius"
       },
       {
         "target": "/guides/handling-errors-and-retries",
         "inbound": 9,
-        "rationale": "highest inbound degree — maximum reference blast radius"
+        "rationale": "highest inbound degree \u2014 maximum reference blast radius"
       }
     ],
     "R2_RENAME_SECTION": [
@@ -882,7 +882,7 @@
         "/support",
         "/troubleshooting"
       ],
-      "rationale": "top-level pages with no section — candidates for grouping"
+      "rationale": "top-level pages with no section \u2014 candidates for grouping"
     },
     "T_RETIREMENT_CANDIDATES": [
       {

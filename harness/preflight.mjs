@@ -122,7 +122,8 @@ try {
 
 // --- CMS version pin ---------------------------------------------------
 try {
-  const dir = '/Users/heithamghariani/Documents/Claude CMS Build'
+  const dir = process.env.CMS_REPO ?? ''
+  if (!dir) return { ok: false, detail: 'CMS_REPO is not set (see .env.example)' }
   const sha = execSync(`git -C "${dir}" rev-parse --short HEAD`, { encoding: 'utf8' }).trim()
   const dirty = execSync(`git -C "${dir}" status --porcelain`, { encoding: 'utf8' }).trim().length > 0
   record(true, 'CMS commit', `${sha}${dirty ? '  (WORKING TREE DIRTY — pin a worktree before running)' : ''}`)

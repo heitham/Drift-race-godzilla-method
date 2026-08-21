@@ -17,7 +17,7 @@ import { execSync } from 'node:child_process'
 import { writeFileSync } from 'node:fs'
 import path from 'node:path'
 
-const DB = 'postgres://heithamghariani@localhost:5432/cms_dev'
+const DB = process.env.DATABASE_URL ?? 'postgres://localhost:5432/cms_dev'
 const [, , siteId, outDir] = process.argv
 if (!siteId || !outDir) {
   console.error('usage: node harness/profile/ds-export.mjs <site-id> <out-dir>')
