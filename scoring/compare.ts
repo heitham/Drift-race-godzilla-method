@@ -24,6 +24,7 @@ interface Row {
   wave: string
   status: string
   autoClosed?: boolean
+  satisfied?: boolean | null
   tokens?: Record<string, number>
   m1_brokenRefs: number
   m2_styleForks: number
@@ -90,6 +91,9 @@ const finalOf = (r: Run) => r.rows[r.rows.length - 1]
 const sumTokens = (r: Run) => r.rows.reduce((n, x) => n + Number(x.tokens?.total ?? 0), 0)
 const completed = (r: Run) => r.rows.filter(x => x.status === 'completed').length
 const unaided = (r: Run) => r.rows.filter(x => x.status === 'completed' && !x.autoClosed).length
+/** Operations whose requested structure was verified present (M7 assertions). */
+const satisfied = (r: Run) => r.rows.filter(x => x.satisfied === true).length
+const checked = (r: Run) => r.rows.filter(x => x.satisfied !== null && x.satisfied !== undefined).length
 /** Churn is the one metric that IS a sum: total pages rewritten over the run. */
 const churn = (r: Run) => r.rows.reduce((n, x) => n + (x.m5_blastRadius ?? 0), 0)
 
@@ -106,6 +110,7 @@ const metrics: Metric[] = [
   { key: 'M6', label: 'unreachable pages', raw: rf.m6_unreachable, gov: gf.m6_unreachable, lowerIsBetter: true },
   { key: 'M7', label: 'operations completed', raw: completed(raw), gov: completed(gov), lowerIsBetter: false },
   { key: 'M7', label: 'completed unaided', raw: unaided(raw), gov: unaided(gov), lowerIsBetter: false },
+  { key: 'M7', label: 'structure verified', raw: satisfied(raw), gov: satisfied(gov), lowerIsBetter: false },
 ]
 
 if (rest.includes('--json')) {
@@ -126,6 +131,18 @@ if (rest.includes('--json')) {
       `  ${(m.key + ' ' + m.label).padEnd(24)}  ${n(m.raw).padStart(11)}  ${n(m.gov).padStart(11)}  ` +
       `${delta.padStart(11)}  ${mark}`,
     )
+  }
+
+  // Printed before the wave table, because it gates how the wave table should
+  // be read: an arm that skipped the reorganisation operations will show low
+  // drift for the wrong reason, and this is the line that says so.
+  const cr = checked(raw), cg = checked(gov)
+  const gap = (r: Run, c: number) => c - satisfied(r)
+  console.log(`\n  structural verification: raw ${satisfied(raw)}/${cr}, governed ${satisfied(gov)}/${cg}` +
+              ` — ${raw.rows.length - cr} operation(s) carry no assertion`)
+  if (gap(raw, cr) || gap(gov, cg)) {
+    console.log('  UNVERIFIED WORK: an arm that did not perform an operation also did not damage')
+    console.log('  the site doing it. Read every metric below against this line, not on its own.')
   }
 
   console.log('\n  drift by wave (broken references at the end of each wave)')
