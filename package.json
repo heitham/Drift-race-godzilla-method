@@ -15,7 +15,8 @@
     "preflight": "node harness/preflight.mjs",
     "bench": "tsx harness/run/index.ts",
     "reset": "bash scripts/reset-baseline.sh",
-    "score:run": "tsx scoring/score-run.ts"
+    "score:run": "tsx scoring/score-run.ts",
+    "compare": "tsx scoring/compare.ts"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
