@@ -569,6 +569,37 @@ itself, without the harness publishing on its behalf (§4.3). Completion is the
 fair cross-arm comparison; unaided completion is the more interesting number,
 and only the latter is sensitive to how much ceremony a substrate demands.
 
+**Structural assertions — `satisfied`.** Status answers "did anything publish",
+which is not the question. The first Haiku pair scored the governed arm
+`completed` on three reorganisation operations whose published tree showed no
+new sections and no moved pages: it had written root-level hub pages and
+stopped. Nothing in M1–M7 could see it, and the blind spot systematically
+flattered whichever arm did less, because work not done is also damage not
+done — a model that declines to move any page never breaks a link.
+
+Each operation therefore carries assertions derived from its frozen
+instruction, checked against that operation's snapshot
+(`benchmarks/<id>/assertions.json`). They are:
+
+- **written from the instruction text, before any arm's output was inspected**,
+  so they cannot be tuned to a result;
+- **matched on page titles, never paths** — the arms legitimately choose
+  different paths for the same page, and asserting on paths would score a
+  naming preference as a failure;
+- **deliberately incomplete.** Operations whose success is a matter of taste —
+  "make it unmistakable that v3 is current", "add a prominent notice" — carry
+  no assertion, because encoding this author's judgement as ground truth would
+  be worse than measuring nothing. Those operations are still reported on the
+  older, weaker evidence, and the count of unasserted operations is printed.
+
+One rule was written and then removed, which is worth recording: a "no
+duplicate titles" check, intended to catch copied-instead-of-moved. It fired on
+the raw arm leaving meta-refresh redirect stubs at vacated paths — a sound
+technique when links are literal paths, and one whose clutter M6 already counts
+— and on operation C1 deliberately publishing a v3 page alongside the v2 it
+supersedes. It was encoding a hunch as ground truth, which is the exact failure
+these assertions exist to prevent.
+
 ## 8. Data capture
 
 Written during the run, not reconstructed afterward.

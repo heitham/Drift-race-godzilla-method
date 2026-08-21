@@ -44,7 +44,13 @@
       "modified": 0
     },
     "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_unreachable": 1,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 2,
@@ -91,7 +97,13 @@
       "modified": 2
     },
     "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_unreachable": 1,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 3,
@@ -138,7 +150,13 @@
       "modified": 2
     },
     "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_unreachable": 1,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 4,
@@ -185,7 +203,13 @@
       "modified": 1
     },
     "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_unreachable": 1,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 5,
@@ -232,7 +256,13 @@
       "modified": 2
     },
     "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_unreachable": 1,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 6,
@@ -279,7 +309,13 @@
       "modified": 1
     },
     "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_unreachable": 1,
+    "assertions": {
+      "passed": 4,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 7,
@@ -326,7 +362,13 @@
       "modified": 6
     },
     "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_unreachable": 4,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 8,
@@ -373,7 +415,13 @@
       "modified": 6
     },
     "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_unreachable": 4,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 9,
@@ -420,7 +468,9 @@
       "modified": 23
     },
     "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_unreachable": 4,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 10,
@@ -467,7 +517,16 @@
       "modified": 0
     },
     "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_unreachable": 4,
+    "assertions": {
+      "passed": 0,
+      "failed": 2,
+      "failures": [
+        "exists: no page titled \"Error handling & recovery\"",
+        "absent: \"Handling errors & retries\" still present at /guides/handling-errors-and-retries"
+      ]
+    },
+    "satisfied": false
   },
   {
     "op": 11,
@@ -514,7 +573,13 @@
       "modified": 3
     },
     "m6_orphans": 5,
-    "m6_unreachable": 5
+    "m6_unreachable": 5,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 12,
@@ -561,7 +626,13 @@
       "modified": 14
     },
     "m6_orphans": 5,
-    "m6_unreachable": 5
+    "m6_unreachable": 5,
+    "assertions": {
+      "passed": 2,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 13,
@@ -608,7 +679,9 @@
       "modified": 2
     },
     "m6_orphans": 6,
-    "m6_unreachable": 6
+    "m6_unreachable": 6,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 14,
@@ -655,7 +728,13 @@
       "modified": 2
     },
     "m6_orphans": 6,
-    "m6_unreachable": 6
+    "m6_unreachable": 6,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 15,
@@ -702,7 +781,13 @@
       "modified": 1
     },
     "m6_orphans": 5,
-    "m6_unreachable": 5
+    "m6_unreachable": 5,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 16,
@@ -749,7 +834,13 @@
       "modified": 12
     },
     "m6_orphans": 9,
-    "m6_unreachable": 15
+    "m6_unreachable": 15,
+    "assertions": {
+      "passed": 3,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true
   },
   {
     "op": 17,
@@ -796,7 +887,9 @@
       "modified": 3
     },
     "m6_orphans": 9,
-    "m6_unreachable": 15
+    "m6_unreachable": 15,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 18,
@@ -843,7 +936,9 @@
       "modified": 3
     },
     "m6_orphans": 8,
-    "m6_unreachable": 9
+    "m6_unreachable": 9,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 19,
@@ -890,7 +985,9 @@
       "modified": 1
     },
     "m6_orphans": 8,
-    "m6_unreachable": 9
+    "m6_unreachable": 9,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 20,
@@ -937,7 +1034,9 @@
       "modified": 4
     },
     "m6_orphans": 8,
-    "m6_unreachable": 9
+    "m6_unreachable": 9,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 21,
@@ -984,7 +1083,9 @@
       "modified": 3
     },
     "m6_orphans": 8,
-    "m6_unreachable": 9
+    "m6_unreachable": 9,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 22,
@@ -1031,7 +1132,9 @@
       "modified": 0
     },
     "m6_orphans": 8,
-    "m6_unreachable": 9
+    "m6_unreachable": 9,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 23,
@@ -1078,7 +1181,9 @@
       "modified": 1
     },
     "m6_orphans": 8,
-    "m6_unreachable": 9
+    "m6_unreachable": 9,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 24,
@@ -1125,7 +1230,9 @@
       "modified": 1
     },
     "m6_orphans": 8,
-    "m6_unreachable": 9
+    "m6_unreachable": 9,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 25,
@@ -1172,7 +1279,9 @@
       "modified": 0
     },
     "m6_orphans": 8,
-    "m6_unreachable": 9
+    "m6_unreachable": 9,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 26,
@@ -1219,7 +1328,9 @@
       "modified": 3
     },
     "m6_orphans": 7,
-    "m6_unreachable": 8
+    "m6_unreachable": 8,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 27,
@@ -1266,7 +1377,9 @@
       "modified": 6
     },
     "m6_orphans": 7,
-    "m6_unreachable": 8
+    "m6_unreachable": 8,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 28,
@@ -1313,7 +1426,9 @@
       "modified": 1
     },
     "m6_orphans": 7,
-    "m6_unreachable": 8
+    "m6_unreachable": 8,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 29,
@@ -1360,7 +1475,9 @@
       "modified": 0
     },
     "m6_orphans": 7,
-    "m6_unreachable": 8
+    "m6_unreachable": 8,
+    "assertions": null,
+    "satisfied": null
   },
   {
     "op": 30,
@@ -1407,6 +1524,8 @@
       "modified": 1
     },
     "m6_orphans": 7,
-    "m6_unreachable": 8
+    "m6_unreachable": 8,
+    "assertions": null,
+    "satisfied": null
   }
 ]

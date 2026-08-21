@@ -21,6 +21,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { crawlSite, type SiteCrawl } from './crawl.js'
 import { scoreSnapshot, blastRadius, vocabularyFor } from './score.js'
+import { checkOperation, type Assertion } from './assertions.js'
 
 interface TimelineEntry {
   op: number
@@ -49,6 +50,14 @@ const config = JSON.parse(
 )
 const repo = repoFlag >= 0 ? rest[repoFlag + 1] : config.baseline.repo
 
+// Structural assertions: did the operation do what was asked, as opposed to
+// merely publishing something? Optional — a benchmark without them still
+// scores, it just cannot tell a skipped operation from a completed one.
+const assertionsPath = path.join('benchmarks', manifest.benchmark ?? 'godzilla-docs', 'assertions.json')
+const assertions: Record<string, Assertion[]> = existsSync(assertionsPath)
+  ? JSON.parse(readFileSync(assertionsPath, 'utf8'))
+  : {}
+
 const timeline: TimelineEntry[] = JSON.parse(readFileSync(path.join(runDir, 'timeline.json'), 'utf8'))
 if (timeline.length === 0) { console.error('empty timeline — nothing to score'); process.exit(1) }
 
@@ -74,8 +83,8 @@ checkout(config.baseline.mainSha)
 const vocabulary = vocabularyFor(scratch, crawlSite(scratch))
 console.log(`vocab     ${vocabulary.size} design-system classes (pinned from baseline)\n`)
 
-console.log('  op  wave  status      M1    M2    M4   orph  M5(blast)')
-console.log('  ──  ────  ─────────  ────  ────  ────  ────  ─────────')
+console.log('  op  wave  status      M1    M2    M4   orph  M5(blast)  asserts')
+console.log('  ──  ────  ─────────  ────  ────  ────  ────  ─────────  ───────')
 
 let prev: SiteCrawl | null = null
 let prevSha = ''
@@ -92,8 +101,16 @@ for (const entry of timeline) {
   const s = scoreSnapshot(scratch, vocabulary)
   const blast = prev ? blastRadius(prev, curr) : { changed: 0, added: [], removed: [], modified: [] }
 
+  const opAssertions = assertions[entry.opId] ?? []
+  const verdict = opAssertions.length ? checkOperation(curr, opAssertions) : null
+
   const row: TimelineEntry = {
     ...entry,
+    // `status` records whether the session produced a publish; this records
+    // whether the requested structure actually exists. They disagree exactly
+    // where it matters.
+    assertions: verdict ? { passed: verdict.passed, failed: verdict.failed, failures: verdict.failures } : null,
+    satisfied: verdict ? verdict.failed === 0 : null,
     pages: s.pages,
     linkEdges: s.linkEdges,
     m1_brokenRefs: s.m1_brokenRefs.total,
@@ -112,12 +129,14 @@ for (const entry of timeline) {
   }
   scored.push(row)
 
+  const asrt = verdict ? (verdict.failed === 0 ? `${verdict.passed}/${verdict.passed}` : `${verdict.passed}/${verdict.passed + verdict.failed} FAIL`) : '-'
   console.log(
     `  ${String(entry.op).padStart(2)}  ${entry.wave.padEnd(4)}  ${entry.status.padEnd(9)} ` +
     `${String(row.m1_brokenRefs).padStart(4)}  ${String(row.m2_styleForks).padStart(4)}  ` +
     `${String(row.m4_chromeDivergence).padStart(4)}  ${String(row.m6_orphans).padStart(4)}  ` +
-    `${String(row.m5_blastRadius).padStart(9)}`,
+    `${String(row.m5_blastRadius).padStart(9)}  ${asrt}`,
   )
+  if (verdict && verdict.failed) for (const f of verdict.failures) console.log(`        ${f}`)
 
   prev = curr
   prevSha = sha
@@ -130,6 +149,8 @@ rmSync(scratch, { recursive: true, force: true })
 const last = scored[scored.length - 1]
 const tok = scored.reduce((n, r) => n + Number(r.tokens?.total ?? 0), 0)
 const completed = scored.filter(r => r.status === 'completed').length
+const checked = scored.filter(r => r.satisfied !== null)
+const satisfied = checked.filter(r => r.satisfied === true).length
 
 console.log(`\nfinal state after ${scored.length} operations`)
 console.log(`  broken references   ${last.m1_brokenRefs}`)
@@ -137,5 +158,7 @@ console.log(`  style forks         ${last.m2_styleForks}`)
 console.log(`  chrome divergence   ${last.m4_chromeDivergence}`)
 console.log(`  orphaned pages      ${last.m6_orphans}`)
 console.log(`  operations complete ${completed}/${scored.length}`)
+console.log(`  requested structure ${satisfied}/${checked.length} operations verified` +
+            (checked.length < scored.length ? `  (${scored.length - checked.length} carry no assertion)` : ''))
 console.log(`  tokens              ${tok.toLocaleString()}`)
 console.log(`\nwrote ${path.join(runDir, 'timeline.json')}`)

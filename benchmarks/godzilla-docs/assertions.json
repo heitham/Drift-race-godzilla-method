@@ -1,0 +1,166 @@
+{
+  "_": [
+    "Structural assertions per operation — 'did the work actually happen', as",
+    "distinct from 'did anything publish'. Written from the frozen instruction",
+    "text in methodology/operations.md, authored BEFORE inspecting any arm's",
+    "output so they cannot be tuned to a result.",
+    "",
+    "Matched on TITLES, never paths: both arms legitimately choose different",
+    "paths for the same page, and the instructions specify titles. Asserting on",
+    "paths would score a naming preference as a failure. The site-name suffix",
+    "('... | Godzilla Docs') is stripped before comparison.",
+    "",
+    "Deliberately conservative. Only what the instruction plainly requires is",
+    "asserted. Operations whose outcome is a matter of judgement — 'make it",
+    "unmistakable that v3 is current', 'add a prominent notice', 'add a table of",
+    "contents' — carry no assertion, because a check for them would encode this",
+    "author's taste as ground truth. Their absence is a stated limitation: an",
+    "operation with no assertion is still reported on the older, weaker evidence.",
+    "",
+    "A 'no duplicate titles' rule was written and then REMOVED after it fired on",
+    "two legitimate outcomes: the raw arm leaving meta-refresh redirect stubs at",
+    "vacated paths (a sound technique when links are literal paths, and one whose",
+    "clutter M6 already counts), and operation C1 deliberately publishing a v3",
+    "page alongside the v2 it supersedes. It was encoding a hunch as ground truth."
+  ],
+  "A1": [
+    {
+      "kind": "exists",
+      "title": "Transforming events in flight"
+    },
+    {
+      "kind": "links",
+      "from": "Guides",
+      "to": "Transforming events in flight"
+    }
+  ],
+  "A2": [
+    {
+      "kind": "exists",
+      "title": "Transforms endpoint"
+    }
+  ],
+  "A3": [
+    {
+      "kind": "exists",
+      "title": "Schemas"
+    }
+  ],
+  "A4": [
+    {
+      "kind": "exists",
+      "title": "Go SDK"
+    }
+  ],
+  "A5": [
+    {
+      "kind": "exists",
+      "title": "Quotas & billing"
+    }
+  ],
+  "A6": [
+    {
+      "kind": "exists",
+      "title": "Backfill historical data"
+    },
+    {
+      "kind": "exists",
+      "title": "Fan-out to multiple destinations"
+    },
+    {
+      "kind": "grouped",
+      "titles": [
+        "Backfill historical data",
+        "Fan-out to multiple destinations"
+      ]
+    },
+    {
+      "kind": "sectionLanding",
+      "title": "Backfill historical data"
+    }
+  ],
+  "B1": [
+    {
+      "kind": "grouped",
+      "titles": [
+        "Installation",
+        "Quickstart",
+        "Authentication"
+      ]
+    },
+    {
+      "kind": "sectionLanding",
+      "title": "Quickstart"
+    }
+  ],
+  "B2": [
+    {
+      "kind": "exists",
+      "title": "Limits, quotas & errors"
+    },
+    {
+      "kind": "absent",
+      "title": "Rate limits & errors"
+    }
+  ],
+  "B4": [
+    {
+      "kind": "exists",
+      "title": "Error handling & recovery"
+    },
+    {
+      "kind": "absent",
+      "title": "Handling errors & retries"
+    }
+  ],
+  "B5": [
+    {
+      "kind": "grouped",
+      "titles": [
+        "Migration guide (v1 → v2)",
+        "Release notes archive"
+      ]
+    }
+  ],
+  "B6": [
+    {
+      "kind": "grouped",
+      "titles": [
+        "Pipelines",
+        "Connectors",
+        "Events",
+        "Schemas"
+      ]
+    },
+    {
+      "kind": "sectionLanding",
+      "title": "Pipelines"
+    }
+  ],
+  "C2": [
+    {
+      "kind": "absent",
+      "title": "Support / Contact"
+    }
+  ],
+  "C3": [
+    {
+      "kind": "absent",
+      "title": "Glossary"
+    }
+  ],
+  "C4": [
+    {
+      "kind": "exists",
+      "title": "Rate limits"
+    },
+    {
+      "kind": "exists",
+      "title": "Error reference"
+    },
+    {
+      "kind": "absent",
+      "title": "Limits, quotas & errors"
+    }
+  ]
+}
