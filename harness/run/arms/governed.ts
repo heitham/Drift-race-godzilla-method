@@ -201,7 +201,6 @@ export class GovernedArm implements Arm {
     // the run by one, silently.
     await this.waitForChange(before)
     await this.review()
-    await this.publishFullChecked()
     // Belt and braces: the run is terminal, but the git push happens inside it
     // and the remote ref can lag the status flip by a beat.
     const sha = await this.waitForQuiet()
@@ -223,44 +222,6 @@ export class GovernedArm implements Arm {
     return { sha, noChange: false, filesChanged: changed, autoClosed }
   }
 
-  /**
-   * Republish the whole site, so the snapshot is the site rather than a
-   * patch of it.
-   *
-   * Approval publishes with scope `site_changed`, and only `site_full` /
-   * `site_staging` clean the branch first (`cleanFirst` in publish.ts). An
-   * incremental publish therefore writes a moved page's NEW path and leaves
-   * the old file sitting on the branch — so a relocated page keeps answering
-   * at its old URL with stale content, and the scorer, which reads the branch,
-   * would see a site that does not exist.
-   *
-   * That would corrupt the measurement in the direction that flatters the
-   * governed arm: ghost files at old paths keep stale links resolving, hiding
-   * exactly the breakage M1 exists to count.
-   *
-   * This is representational parity, not help. The raw arm's snapshot is its
-   * real file tree; this makes the governed arm's snapshot its real site. It
-   * cannot improve the model's score — a full publish reveals duplicates the
-   * model failed to clean up rather than concealing them, and it republishes
-   * whatever is in the CMS, unchanged.
-   */
-  private async publishFull(): Promise<string> {
-    const res = await fetch(`${this.origin}/api/v1/sites/${this.config.site.id}/publish`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
-      body: JSON.stringify({ scope: 'site_full' }),
-    })
-    if (!res.ok) {
-      const detail = await res.text().catch(() => '')
-      throw new Error(
-        `full publish failed (HTTP ${res.status}): ${detail.slice(0, 200)}\n` +
-        `  Without it the snapshot keeps stale files at the paths of moved pages,\n` +
-        `  which would hide broken references rather than count them.`,
-      )
-    }
-    const body = await res.json().catch(() => null) as any
-    return body?.run?.id ?? body?.data?.run?.id ?? ''
-  }
 
   /**
    * Publish, retrying the failures that are about the network rather than the
@@ -281,11 +242,32 @@ export class GovernedArm implements Arm {
   private static readonly TRANSIENT_PUBLISH =
     /cannot lock ref|remote rejected|non-fast-forward|timed out|timeout|could not read from remote|connection (reset|refused|closed)|early eof|ssh_exchange/i
 
-  private async publishFullChecked(): Promise<void> {
+  /** POST a publish run and return its id. */
+  private async triggerPublish(scope: string): Promise<string> {
+    const res = await fetch(`${this.origin}/api/v1/sites/${this.config.site.id}/publish`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
+      body: JSON.stringify({ scope }),
+    })
+    if (!res.ok) throw new Error(`publish (${scope}) failed: HTTP ${res.status} ${(await res.text().catch(() => '')).slice(0, 200)}`)
+    const body = await res.json().catch(() => null) as any
+    return body?.run?.id ?? body?.data?.run?.id ?? ''
+  }
+
+  /**
+   * Await a publish run, re-triggering it on a transient transport failure.
+   *
+   * The first attempt awaits the run approval already started; a retry has to
+   * enqueue its own, since a failed run cannot be re-awaited into success.
+   * Retries use `site_changed` — the same incremental scope — so a retry can
+   * never quietly become the full republish this arm deliberately stopped
+   * doing.
+   */
+  private async awaitPublishWithRetry(runId: string): Promise<void> {
     let last: Error | null = null
     for (let attempt = 1; attempt <= 4; attempt++) {
       try {
-        await this.awaitPublishRun(await this.publishFull())
+        await this.awaitPublishRun(attempt === 1 ? runId : await this.triggerPublish('site_changed'))
         return
       } catch (e) {
         last = e as Error
@@ -439,16 +421,27 @@ export class GovernedArm implements Arm {
         {
           method: 'POST',
           headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
-          // publish_after: false — deliberately. Approval's job here is the
-        // workflow transition, including the staged move's placement swap; the
-        // single site_full publish below writes the files. Letting both publish
-        // put two runs on one branch at once and git rejected the loser:
-        // "cannot lock ref ... is at <sha> but expected <other>". One publish
-        // per operation removes the race rather than retrying it.
-        body: JSON.stringify({ comment: 'Reviewed between benchmark operations.', publish_after: false }),
+          // Approval publishes incrementally, and the harness awaits the run it
+        // returns. This replaced a site_full republish per operation, which was
+        // a workaround for the publisher leaving ghost files at the old paths
+        // of moved pages (FR-PB-030, fixed). Keeping it would have been wrong
+        // twice over: a full publish re-clones the whole repository into memory
+        // and stops scaling around ten thousand pages, and it is not the path a
+        // real deployment takes — so the benchmark would have been measuring a
+        // publish mode no customer uses.
+        body: JSON.stringify({ comment: 'Reviewed between benchmark operations.', publish_after: true }),
         },
       )
-      if (!res.ok) {
+      if (res.ok) {
+        const body = await res.json().catch(() => null) as any
+        const runId = body?.publish_run_id ?? body?.data?.publish_run_id ?? body?.run?.id ?? ''
+        // One publish at a time, awaited to a terminal state. Two runs pushing
+        // the same branch concurrently is what git rejected earlier with
+        // "cannot lock ref ... is at <sha> but expected <other>".
+        await this.awaitPublishWithRetry(runId)
+        continue
+      }
+      {
         const detail = await res.text().catch(() => '')
         throw new Error(
           `review failed for change-set ${id.slice(0, 8)} (HTTP ${res.status}).\n` +

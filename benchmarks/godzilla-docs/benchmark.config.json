@@ -23,7 +23,7 @@
   ],
   "cms": {
     "repo": "/Users/heithamghariani/Documents/Claude CMS Build",
-    "cmsSha": "aebb44b9ad841de01261ee1074b3dc79f3c6d3ce",
+    "cmsSha": "c10f8504691159836da418c5258c2070fa2cca6b",
     "enforce": "refuse-on-mismatch",
     "allowDirtyPaths": [
       "docs/"
@@ -57,6 +57,16 @@
         "renderPathUnchanged": true,
         "evidence": "Changed: mcp/tools.ts, the v1 folders and items routes, the item workflow route, migration 0048, schema, e2e, docs. No renderer, publisher or discovery-file change.",
         "effect": "The governed arm can now create a section and relocate a published page. Moves follow edit_public exactly: the change is staged and the live URL moves only on approval, which the harness performs with its reviewer key — so no human is in the loop during a run, and the approval gate is not weakened. Migration 0048 adds content_item_pairs.pending_folder_id, the slot a staged move needs because an edit_public copy borrows the live page's placement until the publish swap."
+      },
+      {
+        "sha": "c10f8504691159836da418c5258c2070fa2cca6b",
+        "date": "2026-08-21",
+        "reason": "FR-PB-030/031: incremental publish now deletes a moved page's old file, and an approved move records a redirect. Reported by this benchmark after the governed arm's published tree kept ghost files at vacated paths.",
+        "renderPathChanged": false,
+        "publishPathChanged": true,
+        "evidence": "renderer.ts, discoveryFiles.ts and navResolver.ts are untouched, so identical content still renders to identical HTML and the RAW arm — which never touches RIFT's publisher — remains valid across this pin. What changed is the SET OF FILES a publish writes and deletes, which is exactly what the scorer reads, so the governed arm is re-run.",
+        "effect": "The harness stops republishing the whole site every operation. That was a workaround for the ghost files and was wrong twice over: a full publish re-clones the repository into memory and stops scaling around ten thousand pages, and no real deployment runs that way — the benchmark would have been measuring a publish mode no customer uses. Approval now publishes incrementally and the harness awaits that run, which is the customer path.",
+        "rootCauseDepth": "Deeper than the benchmark diagnosed. placement_publish_state recorded a content hash but not the published path, so an incremental publish had no memory of where a file used to live and could not delete it even in principle; migration 0049 adds published_path. The incremental skip test also keyed on hash alone, so a page that moved WITHOUT changing its rendered HTML was skipped entirely and its new path never written. Both predate agent moves and affected admin moves and file_name renames since the publisher was written."
       }
     ]
   },
