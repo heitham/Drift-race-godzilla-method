@@ -201,7 +201,7 @@ export class GovernedArm implements Arm {
     // the run by one, silently.
     await this.waitForChange(before)
     await this.review()
-    await this.awaitPublishRun(await this.publishFull())
+    await this.publishFullChecked()
     // Belt and braces: the run is terminal, but the git push happens inside it
     // and the remote ref can lag the status flip by a beat.
     const sha = await this.waitForQuiet()
@@ -254,6 +254,25 @@ export class GovernedArm implements Arm {
   }
 
   /**
+   * Publish, retrying once if the push lost a race for the branch ref.
+   *
+   * With `publish_after: false` on approval there should be no competitor, but
+   * a run queued by an earlier operation can still be draining. A ref-lock
+   * rejection is transient by nature — the loser only needs to push again from
+   * the newer tip — so it earns one retry before the run is failed.
+   */
+  private async publishFullChecked(): Promise<void> {
+    try {
+      await this.awaitPublishRun(await this.publishFull())
+    } catch (e) {
+      if (!/cannot lock ref|remote rejected|non-fast-forward/i.test((e as Error).message)) throw e
+      console.warn('\n    publish lost the branch ref; retrying once')
+      await new Promise(r => setTimeout(r, 5000))
+      await this.awaitPublishRun(await this.publishFull())
+    }
+  }
+
+  /**
    * Block until a publish run reaches a terminal state.
    *
    * Replaces waiting for the git sha to "look settled", which was a guess and
@@ -278,7 +297,11 @@ export class GovernedArm implements Arm {
         const status = body?.run?.status ?? body?.data?.run?.status
         if (status && !['queued', 'running', 'pending', 'in_progress'].includes(status)) {
           if (status !== 'completed' && status !== 'success') {
-            throw new Error(`publish run ${runId.slice(0, 8)} ended '${status}' — snapshot would not reflect the site`)
+            const why = body?.run?.error_message ?? body?.data?.run?.error_message ?? ''
+            throw new Error(
+              `publish run ${runId.slice(0, 8)} ended '${status}' — snapshot would not reflect the site` +
+              (why ? `\n  ${String(why).split('\n')[0].slice(0, 200)}` : ''),
+            )
           }
           return
         }
@@ -388,7 +411,13 @@ export class GovernedArm implements Arm {
         {
           method: 'POST',
           headers: { Authorization: `Bearer ${this.adminKey}`, 'content-type': 'application/json' },
-          body: JSON.stringify({ comment: 'Reviewed between benchmark operations.', publish_after: true }),
+          // publish_after: false — deliberately. Approval's job here is the
+        // workflow transition, including the staged move's placement swap; the
+        // single site_full publish below writes the files. Letting both publish
+        // put two runs on one branch at once and git rejected the loser:
+        // "cannot lock ref ... is at <sha> but expected <other>". One publish
+        // per operation removes the race rather than retrying it.
+        body: JSON.stringify({ comment: 'Reviewed between benchmark operations.', publish_after: false }),
         },
       )
       if (!res.ok) {
