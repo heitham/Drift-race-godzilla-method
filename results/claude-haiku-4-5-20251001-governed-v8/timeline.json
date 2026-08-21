@@ -218,5 +218,185 @@
       "cacheRead": 11856
     },
     "latencyMs": 8451
+  },
+  {
+    "op": 12,
+    "opId": "B6",
+    "wave": "B",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "933da3ce91c4145cc7d9bbd66ac4dcd328ed248e",
+    "filesChanged": 25,
+    "turns": 12,
+    "toolCalls": 20,
+    "tokens": {
+      "input": 6870,
+      "output": 2765,
+      "thinking": 129,
+      "total": 137537,
+      "cacheWrite": 22791,
+      "cacheRead": 105111
+    },
+    "latencyMs": 26693
+  },
+  {
+    "op": 13,
+    "opId": "C1",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "a4c59e27a9eaafbd9cf23872ed5e2e56f9e3c641",
+    "filesChanged": 11,
+    "turns": 17,
+    "toolCalls": 24,
+    "tokens": {
+      "input": 3005,
+      "output": 11375,
+      "thinking": 128,
+      "total": 398748,
+      "cacheWrite": 39111,
+      "cacheRead": 345257
+    },
+    "latencyMs": 101063
+  },
+  {
+    "op": 14,
+    "opId": "C2",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "9bc49180db4a71fd8caa74b3e17a61bc85252979",
+    "filesChanged": 8,
+    "turns": 10,
+    "toolCalls": 12,
+    "tokens": {
+      "input": 2955,
+      "output": 2706,
+      "thinking": 104,
+      "total": 85003,
+      "cacheWrite": 12841,
+      "cacheRead": 66501
+    },
+    "latencyMs": 32018
+  },
+  {
+    "op": 15,
+    "opId": "C3",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "395efb732bd1ddb394c6198fea1ca028e272a7ed",
+    "filesChanged": 3,
+    "turns": 13,
+    "toolCalls": 20,
+    "tokens": {
+      "input": 2966,
+      "output": 4094,
+      "thinking": 137,
+      "total": 235789,
+      "cacheWrite": 34032,
+      "cacheRead": 194697
+    },
+    "latencyMs": 42933
+  },
+  {
+    "op": 16,
+    "opId": "C4",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "3550a495d0c5af05733e0a3300da96c65576956e",
+    "filesChanged": 13,
+    "turns": 10,
+    "toolCalls": 12,
+    "tokens": {
+      "input": 7015,
+      "output": 3377,
+      "thinking": 139,
+      "total": 81608,
+      "cacheWrite": 12263,
+      "cacheRead": 58953
+    },
+    "latencyMs": 35387
+  },
+  {
+    "op": 17,
+    "opId": "C5",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "92a4f2339fb4e93614856ff75c344373c409ec24",
+    "filesChanged": 3,
+    "turns": 18,
+    "toolCalls": 21,
+    "tokens": {
+      "input": 2987,
+      "output": 6314,
+      "thinking": 123,
+      "total": 228585,
+      "cacheWrite": 25245,
+      "cacheRead": 194039
+    },
+    "latencyMs": 76110
+  },
+  {
+    "op": 18,
+    "opId": "C6",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "5b923934f733614bb9f3b71d70077cbf3759b4d1",
+    "filesChanged": 16,
+    "turns": 18,
+    "toolCalls": 28,
+    "tokens": {
+      "input": 2991,
+      "output": 9251,
+      "thinking": 115,
+      "total": 524073,
+      "cacheWrite": 43410,
+      "cacheRead": 468421
+    },
+    "latencyMs": 99036
+  },
+  {
+    "op": 19,
+    "opId": "D1",
+    "wave": "D",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "aab50c43791f2e2f105fb8b2898dc3456b80aa2d",
+    "filesChanged": 2,
+    "turns": 6,
+    "toolCalls": 5,
+    "tokens": {
+      "input": 6008,
+      "output": 1590,
+      "thinking": 90,
+      "total": 43866,
+      "cacheWrite": 10474,
+      "cacheRead": 25794
+    },
+    "latencyMs": 17058
+  },
+  {
+    "op": 20,
+    "opId": "D2",
+    "wave": "D",
+    "status": "partial",
+    "autoClosed": false,
+    "snapshotSha": "aab50c43791f2e2f105fb8b2898dc3456b80aa2d",
+    "filesChanged": 0,
+    "turns": 4,
+    "toolCalls": 5,
+    "tokens": {
+      "input": 2892,
+      "output": 672,
+      "thinking": 142,
+      "total": 39201,
+      "cacheWrite": 13104,
+      "cacheRead": 22533
+    },
+    "latencyMs": 9135
   }
 ]

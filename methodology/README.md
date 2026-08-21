@@ -685,7 +685,29 @@ Stated plainly rather than discovered by a reader.
 7. **Publication timing differs between arms.** The governed arm publishes
    through a queue worker; the raw arm commits directly. Latency comparisons
    between arms are therefore not meaningful and are reported per-arm only.
-8. **The governed arm's guardrails are stated in its tool descriptions**, and
+8. **The protocol cannot answer a clarifying question.** Each operation is a
+   fresh session with no human on the other end, so a model that pauses to ask
+   something reasonable gets no reply and the operation ends unperformed —
+   recorded `partial`, indistinguishable from a model that simply failed.
+
+   This is not hypothetical. Operation D2 asks for "a prominent notice about a
+   breaking change" without saying what the notice should say. In one governed
+   run the model found the SDK pages and then asked what text to use; the raw
+   arm's model, given the identical instruction, invented a notice and shipped
+   it. The benchmark scored the first as incomplete and the second as done.
+
+   Read carefully, that is the protocol penalising the better instinct. A
+   content editor who asks before inventing a product announcement is behaving
+   correctly. The benchmark cannot represent that, and every `partial` should be
+   read with the possibility in mind.
+
+   The obvious fix — telling the model in the system prompt that no human is
+   available and it should use its judgement — is deliberately NOT applied
+   here, because the prompt is identical across arms and frozen, and changing
+   it mid-benchmark would invalidate the completed runs. It belongs in the next
+   frozen version.
+
+9. **The governed arm's guardrails are stated in its tool descriptions**, and
    the raw arm has no surface on which an equivalent could be written. This is
    the treatment, not a confound — a rule that travels with the write API is
    precisely what "structure is a property of the substrate" means — but it
