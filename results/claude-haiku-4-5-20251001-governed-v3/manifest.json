@@ -1,14 +1,14 @@
 {
-  "runId": "claude-haiku-4-5-20251001-raw-v2",
+  "runId": "claude-haiku-4-5-20251001-governed-v3",
   "benchmark": "godzilla-docs",
   "model": "claude-haiku-4-5-20251001",
   "provider": "anthropic",
   "label": "Claude Haiku 4.5",
-  "arm": "raw",
+  "arm": "governed",
   "reasoningBudget": 8000,
-  "cmsSha": "fcaf87d5ccdaa43eba5168e2947891909f8c18ac",
+  "cmsSha": "19bc37e1c9146c5b158473843264ac3b358f066f",
   "baselineSha": "15c7b5fd568e3d2f1bcbacc17c065dd340391dc8",
-  "startedAt": "2026-08-21T03:27:28.774Z",
+  "startedAt": "2026-08-21T04:31:17.304Z",
   "operations": [
     1,
     2,
@@ -41,5 +41,5 @@
     29,
     30
   ],
-  "finishedAt": "2026-08-21T04:25:19.949Z"
+  "finishedAt": "2026-08-21T05:17:33.346Z"
 }

@@ -1,0 +1,10 @@
+{
+  "op": {
+    "n": 18,
+    "id": "C6",
+    "wave": "C",
+    "title": "Supersede the events endpoint",
+    "instruction": "A **v3** of the events endpoint has shipped and v2 is being withdrawn\nentirely. Document v3, remove v2, and make sure the migration material\nreflects the change for anyone still moving over."
+  },
+  "system": "You are a content editor maintaining the Godzilla Docs documentation site.\n\nComplete the requested change. Keep the site internally consistent: every page that should link to another should still link to it, and every page should follow the site's design system.\n\nA reference to the design system and a site map are available to you. Read what you need before making changes — you have no memory of any previous work on this site.\n\nWhen you have finished the change, briefly state what you did."
+}

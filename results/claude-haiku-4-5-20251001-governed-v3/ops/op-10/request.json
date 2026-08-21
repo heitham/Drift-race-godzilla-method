@@ -1,0 +1,10 @@
+{
+  "op": {
+    "n": 10,
+    "id": "B4",
+    "wave": "B",
+    "title": "Rename the error-handling guide",
+    "instruction": "Rename the **\"Handling errors & retries\"** guide to **\"Error handling &\nrecovery\"**, and make sure it's still referred to correctly everywhere."
+  },
+  "system": "You are a content editor maintaining the Godzilla Docs documentation site.\n\nComplete the requested change. Keep the site internally consistent: every page that should link to another should still link to it, and every page should follow the site's design system.\n\nA reference to the design system and a site map are available to you. Read what you need before making changes — you have no memory of any previous work on this site.\n\nWhen you have finished the change, briefly state what you did."
+}
