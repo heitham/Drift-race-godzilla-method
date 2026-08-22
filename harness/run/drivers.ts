@@ -366,10 +366,23 @@ export function googleDriver(model: string, thinkingBudget: number, apiKey: stri
           )
 
           const u = d.usageMetadata ?? {}
+          // Gemini caches the repeated prefix IMPLICITLY — no cachedContent object
+          // and no lifecycle to manage — and reports the hit as
+          // cachedContentTokenCount. This driver did not read that field, so every
+          // Gemini run reported cacheRead 0 and looked far more expensive than it
+          // was: a two-turn probe showed 16,350 of 19,311 prompt tokens served from
+          // cache while the harness recorded none of it.
+          //
+          // promptTokenCount INCLUDES the cached tokens (unlike Anthropic, whose
+          // input_tokens excludes them), so `input` is reduced here to mean the same
+          // thing in both providers — tokens actually charged at full input rate —
+          // and totalTokenCount is already complete, so it is used as-is.
+          const cachedIn = u.cachedContentTokenCount ?? 0
           usage = addUsage(usage, {
-            input: u.promptTokenCount ?? 0,
+            input: Math.max(0, (u.promptTokenCount ?? 0) - cachedIn),
             output: u.candidatesTokenCount ?? 0,
             thinking: u.thoughtsTokenCount ?? 0,
+            cacheRead: cachedIn,
             // Google reports reasoning separately from candidates; totalTokenCount
             // already includes it, so use it directly rather than re-adding.
             total: u.totalTokenCount ?? 0,

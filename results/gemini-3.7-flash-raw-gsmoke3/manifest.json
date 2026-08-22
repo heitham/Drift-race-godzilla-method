@@ -1,0 +1,17 @@
+{
+  "runId": "gemini-3.7-flash-raw-gsmoke3",
+  "benchmark": "godzilla-docs",
+  "model": "gemini-3.7-flash",
+  "provider": "google",
+  "label": "Gemini 3.7 Flash",
+  "arm": "raw",
+  "reasoningBudget": 8000,
+  "cmsSha": "c10f8504691159836da418c5258c2070fa2cca6b",
+  "baselineSha": "15c7b5fd568e3d2f1bcbacc17c065dd340391dc8",
+  "startedAt": "2026-08-22T00:07:52.525Z",
+  "operations": [
+    1,
+    2
+  ],
+  "finishedAt": "2026-08-22T00:10:33.229Z"
+}
