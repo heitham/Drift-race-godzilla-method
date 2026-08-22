@@ -59,13 +59,22 @@ export interface ModelDriver {
 /**
  * Turn ceiling.
  *
- * A session that hits it is recorded `partial`, so the ceiling itself becomes
- * a drift signal — which makes a low ceiling actively misleading. The Haiku
- * pilot reached exactly 40 on one raw operation and 38 on another: binding,
- * and binding on the arm with more mechanical work to do. Raised to 60 so the
- * limit is a runaway guard rather than a scoring artifact.
+ * A session that hits it is recorded `partial`, so the ceiling itself becomes a
+ * drift signal — which makes a low ceiling actively misleading, and makes it a
+ * bias against whichever model happens to work in smaller steps.
+ *
+ * The history is instructive. It was 40; the Haiku pilot hit exactly 40 on one
+ * operation and 38 on another, so it went to 60, and Haiku's completed runs then
+ * peaked at 43. Gemini 3.7 Flash spends 52 turns on operation 1 — the simplest
+ * one in the lightest wave — because it makes many small tool calls where Haiku
+ * batches. Waves B and C are far heavier, so 60 would have truncated that model
+ * repeatedly and scored the truncation as drift.
+ *
+ * 120 restores it to what it is meant to be: a guard against a runaway loop, not
+ * a budget. It cannot change a completed run's outcome — only a session that
+ * would otherwise have been cut off reaches it.
  */
-const MAX_TURNS_DEFAULT = 60
+const MAX_TURNS_DEFAULT = 120
 const zeroUsage = (): Usage => ({ input: 0, output: 0, thinking: 0, total: 0, cacheWrite: 0, cacheRead: 0 })
 
 /**
