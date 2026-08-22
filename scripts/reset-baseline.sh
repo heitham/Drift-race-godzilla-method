@@ -13,7 +13,21 @@
 set -euo pipefail
 
 BENCH_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CMS_DIR="${CMS_REPO:?CMS_REPO is not set — see .env.example}"
+# Load .env.local the same way the TypeScript harness does. Parameterising the
+# hard-coded paths made this script depend on the environment without teaching
+# it where the environment lives, so it failed on the first run after that
+# change. Parsed rather than sourced: values contain spaces and would otherwise
+# be executed.
+if [ -f "$BENCH_DIR/.env.local" ]; then
+  while IFS='=' read -r k v; do
+    [ -z "${k:-}" ] && continue
+    case "$k" in \#*) continue ;; esac
+    v="${v%\"}"; v="${v#\"}"
+    export "$k=$v"
+  done < "$BENCH_DIR/.env.local"
+fi
+
+CMS_DIR="${CMS_REPO:?CMS_REPO is not set — add it to .env.local (see .env.example)}"
 DB_URL="${DATABASE_URL:-postgres://localhost:5432/cms_dev}"
 DUMP="$BENCH_DIR/baseline/cms_dev.baseline.dump"
 SITE_ID="32114acb-ccbe-44e4-96d4-64fa594284e2"
