@@ -291,6 +291,30 @@ Both files are regenerated from the baseline and committed before op 1. Without
 this control the benchmark would be measuring information asymmetry, and the
 result would be uninteresting.
 
+### 5.4 Provider parity is not free, and its absence is invisible
+
+Holding a protocol constant across two providers takes more than sending the
+same words. Four asymmetries surfaced only when a second vendor was added, and
+each would have been recorded as a property of the model rather than of the
+harness.
+
+| | What differed | What it would have looked like |
+|---|---|---|
+| **Tool schemas** | Gemini accepts a restricted OpenAPI subset and rejects the request outright on an unknown keyword. RIFT's MCP schemas carry `additionalProperties`; the raw arm's hand-written ones do not. | The governed arm failing on its first call while the raw arm ran thirty operations — the substrate deciding whether the request was even legal. |
+| **Turn ceiling** | Gemini spends 52 turns on the lightest operation where Haiku spends 16, because it makes many small tool calls where Haiku batches. | Every truncation at the old ceiling of 60 scored as drift, penalising a model for working in smaller steps. |
+| **Cache accounting** | Anthropic's `input_tokens` *excludes* cached tokens; Google's `promptTokenCount` *includes* them, and reports the hit in a different field entirely. | Gemini appearing five times more expensive than it is — the harness read no cache field and recorded 90% of its prompt volume at full rate. |
+| **Quota semantics** | Both providers return 429 for "slow down" and for "you have no quota", which need opposite handling. | A run that hangs silently for the length of a backoff schedule, or one that dies on a limit it only had to wait out. |
+
+None of these is exotic, and none announced itself. Each was found by reading
+the artifact — an error body, a turn count, a usage field — rather than by
+anything in the metrics.
+
+The practical rule this leaves: **a second provider is not a configuration
+change.** Adding one exercises code paths the first never touched, and the
+failures it exposes look like results. Every asymmetry above is now normalised
+in `harness/run/drivers.ts`, at the point where the provider difference lives,
+rather than corrected afterwards in the scores.
+
 ## 6. Snapshot mechanism
 
 **Both arms produce a git branch of rendered HTML, one commit per operation.**

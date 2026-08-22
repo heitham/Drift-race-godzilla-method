@@ -1,0 +1,102 @@
+[
+  {
+    "op": 1,
+    "opId": "A1",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "99d915e46d8f43f17df42ebbe842e2b55721de2d",
+    "filesChanged": -1,
+    "turns": 19,
+    "toolCalls": 27,
+    "tokens": {
+      "input": 118247,
+      "output": 5281,
+      "thinking": 7936,
+      "total": 635901,
+      "cacheWrite": 0,
+      "cacheRead": 504437
+    },
+    "latencyMs": 53990
+  },
+  {
+    "op": 2,
+    "opId": "A2",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "4f203779437b2253841db4555813628a9745414c",
+    "filesChanged": 10,
+    "turns": 22,
+    "toolCalls": 29,
+    "tokens": {
+      "input": 144386,
+      "output": 6309,
+      "thinking": 13924,
+      "total": 938465,
+      "cacheWrite": 0,
+      "cacheRead": 773846
+    },
+    "latencyMs": 52779
+  },
+  {
+    "op": 3,
+    "opId": "A3",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "d1ff030531e16e741a3fab5e6ac988ac4e2d02d3",
+    "filesChanged": 18,
+    "turns": 20,
+    "toolCalls": 26,
+    "tokens": {
+      "input": 192966,
+      "output": 5661,
+      "thinking": 7480,
+      "total": 694377,
+      "cacheWrite": 0,
+      "cacheRead": 488270
+    },
+    "latencyMs": 50266
+  },
+  {
+    "op": 4,
+    "opId": "A4",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "1dda3d76a9173f80d010cc81264f6a879df47d71",
+    "filesChanged": 8,
+    "turns": 28,
+    "toolCalls": 35,
+    "tokens": {
+      "input": 224499,
+      "output": 6251,
+      "thinking": 24037,
+      "total": 1186669,
+      "cacheWrite": 0,
+      "cacheRead": 931882
+    },
+    "latencyMs": 74069
+  },
+  {
+    "op": 5,
+    "opId": "A5",
+    "wave": "A",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "3b15dc230877e2e59713272dcb861949ec6b8f8f",
+    "filesChanged": 12,
+    "turns": 26,
+    "toolCalls": 32,
+    "tokens": {
+      "input": 138209,
+      "output": 8419,
+      "thinking": 12556,
+      "total": 1103604,
+      "cacheWrite": 0,
+      "cacheRead": 944420
+    },
+    "latencyMs": 68692
+  }
+]
