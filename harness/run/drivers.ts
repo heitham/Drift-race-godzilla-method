@@ -149,6 +149,45 @@ const addUsage = (a: Usage, b: Partial<Usage>): Usage => ({
 })
 
 /** Retry transient failures. Long runs die to rate limits otherwise. */
+/**
+ * Reduce a JSON Schema to the subset Gemini's function declarations accept.
+ *
+ * Gemini takes a restricted OpenAPI 3.0 subset, not full JSON Schema, and it
+ * rejects the whole request rather than ignoring what it does not know:
+ *   400 Unknown name "additionalProperties" at
+ *       'tools[0].function_declarations[0].parameters'
+ *
+ * The raw arm's schemas are hand-written here and happen to avoid it. RIFT's
+ * come from a live MCP server and use `additionalProperties` on all fifteen
+ * tools, so the governed arm failed on its first call while the raw arm ran
+ * fine — the substrate, not the model, decided whether the request was legal.
+ *
+ * Whitelisting rather than blacklisting: an unknown keyword appearing in some
+ * future tool schema should be dropped silently, not passed through to fail the
+ * run. `minimum`/`maximum` are kept because Gemini accepts them and they carry
+ * real meaning for the model.
+ */
+const GEMINI_SCHEMA_KEYS = new Set([
+  'type', 'format', 'description', 'nullable', 'enum', 'items',
+  'properties', 'required', 'minItems', 'maxItems', 'minimum', 'maximum',
+])
+
+function toGeminiSchema(schema: unknown): unknown {
+  if (Array.isArray(schema)) return schema.map(toGeminiSchema)
+  if (!schema || typeof schema !== 'object') return schema
+
+  const out: Record<string, unknown> = {}
+  for (const [k, v] of Object.entries(schema as Record<string, unknown>)) {
+    if (!GEMINI_SCHEMA_KEYS.has(k)) continue
+    // `properties` maps names to schemas: its KEYS are arbitrary and must not be
+    // filtered, only its values.
+    out[k] = k === 'properties' && v && typeof v === 'object' && !Array.isArray(v)
+      ? Object.fromEntries(Object.entries(v as Record<string, unknown>).map(([n, sub]) => [n, toGeminiSchema(sub)]))
+      : toGeminiSchema(v)
+  }
+  return out
+}
+
 async function withRetry<T>(fn: () => Promise<Response>, label: string, attempts = 8): Promise<T> {
   let lastErr = ''
   for (let i = 1; i <= attempts; i++) {
@@ -357,7 +396,7 @@ export function googleDriver(model: string, thinkingBudget: number, apiKey: stri
               functionDeclarations: opts.tools.map(t => ({
                 name: t.name,
                 description: t.description,
-                parameters: t.inputSchema,
+                parameters: toGeminiSchema(t.inputSchema),
               })),
             }],
             generationConfig: {
