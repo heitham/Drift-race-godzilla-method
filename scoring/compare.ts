@@ -32,6 +32,10 @@ interface Row {
   m5_blastRadius: number
   m6_orphans: number
   m6_unreachable: number
+  m6_unreachableNav?: number
+  m7_capabilityGaps?: string[]
+  m1_newBreaks?: number
+  m1_repairs?: number
   pages: number
 }
 
@@ -96,6 +100,11 @@ const satisfied = (r: Run) => r.rows.filter(x => x.satisfied === true).length
 const checked = (r: Run) => r.rows.filter(x => x.satisfied !== null && x.satisfied !== undefined).length
 /** Churn is the one metric that IS a sum: total pages rewritten over the run. */
 const churn = (r: Run) => r.rows.reduce((n, x) => n + (x.m5_blastRadius ?? 0), 0)
+/** Time-under-damage: area under the M1 curve. An endpoint of zero can hide
+ *  twenty operations spent serving broken links; the integral cannot. */
+const exposure = (r: Run) => r.rows.reduce((n, x) => n + (x.m1_brokenRefs ?? 0), 0)
+const capabilityFails = (r: Run) =>
+  r.rows.filter(x => x.satisfied === false && (x.m7_capabilityGaps?.length ?? 0) > 0).length
 
 const rf = finalOf(raw), gf = finalOf(gov)
 
@@ -106,8 +115,10 @@ const metrics: Metric[] = [
   { key: 'M3', label: 'tokens (total)', raw: sumTokens(raw), gov: sumTokens(gov), lowerIsBetter: true },
   { key: 'M4', label: 'chrome divergence', raw: rf.m4_chromeDivergence, gov: gf.m4_chromeDivergence, lowerIsBetter: true },
   { key: 'M5', label: 'pages rewritten (sum)', raw: churn(raw), gov: churn(gov), lowerIsBetter: true },
+  { key: 'M1', label: 'exposure (area under curve)', raw: exposure(raw), gov: exposure(gov), lowerIsBetter: true },
   { key: 'M6', label: 'orphaned pages', raw: rf.m6_orphans, gov: gf.m6_orphans, lowerIsBetter: true },
   { key: 'M6', label: 'unreachable pages', raw: rf.m6_unreachable, gov: gf.m6_unreachable, lowerIsBetter: true },
+  { key: 'M6', label: 'unreachable incl. nav', raw: rf.m6_unreachableNav ?? rf.m6_unreachable, gov: gf.m6_unreachableNav ?? gf.m6_unreachable, lowerIsBetter: true },
   { key: 'M7', label: 'operations completed', raw: completed(raw), gov: completed(gov), lowerIsBetter: false },
   { key: 'M7', label: 'completed unaided', raw: unaided(raw), gov: unaided(gov), lowerIsBetter: false },
   { key: 'M7', label: 'structure verified', raw: satisfied(raw), gov: satisfied(gov), lowerIsBetter: false },
@@ -140,6 +151,10 @@ if (rest.includes('--json')) {
   const gap = (r: Run, c: number) => c - satisfied(r)
   console.log(`\n  structural verification: raw ${satisfied(raw)}/${cr}, governed ${satisfied(gov)}/${cg}` +
               ` — ${raw.rows.length - cr} operation(s) carry no assertion`)
+  const cf = capabilityFails(gov)
+  if (cf) {
+    console.log(`  ${cf} governed failure(s) are substrate refusals (missing capability), not model failures.`)
+  }
   if (gap(raw, cr) || gap(gov, cg)) {
     console.log('  UNVERIFIED WORK: an arm that did not perform an operation also did not damage')
     console.log('  the site doing it. Read every metric below against this line, not on its own.')

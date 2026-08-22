@@ -50,7 +50,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 1,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 0,
+    "m7_capabilityGaps": []
   },
   {
     "op": 2,
@@ -103,7 +107,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 1,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 0,
+    "m7_capabilityGaps": []
   },
   {
     "op": 3,
@@ -156,7 +164,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 0,
+    "m7_capabilityGaps": []
   },
   {
     "op": 4,
@@ -209,7 +221,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 0,
+    "m7_capabilityGaps": []
   },
   {
     "op": 5,
@@ -262,7 +278,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 0,
+    "m7_capabilityGaps": []
   },
   {
     "op": 6,
@@ -315,7 +335,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 0,
+    "m7_capabilityGaps": []
   },
   {
     "op": 7,
@@ -368,7 +392,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 3,
+    "m7_capabilityGaps": []
   },
   {
     "op": 8,
@@ -421,7 +449,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 3,
+    "m7_capabilityGaps": []
   },
   {
     "op": 9,
@@ -470,7 +502,11 @@
     "m6_orphans": 4,
     "m6_unreachable": 4,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 3,
+    "m1_repairs": 2,
+    "m6_unreachableNav": 3,
+    "m7_capabilityGaps": []
   },
   {
     "op": 10,
@@ -526,7 +562,11 @@
         "absent: \"Handling errors & retries\" still present at /guides/handling-errors-and-retries"
       ]
     },
-    "satisfied": false
+    "satisfied": false,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 3,
+    "m7_capabilityGaps": []
   },
   {
     "op": 11,
@@ -579,7 +619,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 1,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 3,
+    "m7_capabilityGaps": []
   },
   {
     "op": 12,
@@ -632,7 +676,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 17,
+    "m1_repairs": 2,
+    "m6_unreachableNav": 3,
+    "m7_capabilityGaps": []
   },
   {
     "op": 13,
@@ -681,7 +729,11 @@
     "m6_orphans": 6,
     "m6_unreachable": 6,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 4,
+    "m7_capabilityGaps": []
   },
   {
     "op": 14,
@@ -734,7 +786,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 10,
+    "m1_repairs": 3,
+    "m6_unreachableNav": 4,
+    "m7_capabilityGaps": []
   },
   {
     "op": 15,
@@ -787,7 +843,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 9,
+    "m1_repairs": 1,
+    "m6_unreachableNav": 4,
+    "m7_capabilityGaps": []
   },
   {
     "op": 16,
@@ -840,7 +900,11 @@
       "failed": 0,
       "failures": []
     },
-    "satisfied": true
+    "satisfied": true,
+    "m1_newBreaks": 14,
+    "m1_repairs": 9,
+    "m6_unreachableNav": 8,
+    "m7_capabilityGaps": []
   },
   {
     "op": 17,
@@ -889,7 +953,11 @@
     "m6_orphans": 9,
     "m6_unreachable": 15,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 6,
+    "m1_repairs": 1,
+    "m6_unreachableNav": 7,
+    "m7_capabilityGaps": []
   },
   {
     "op": 18,
@@ -938,7 +1006,11 @@
     "m6_orphans": 8,
     "m6_unreachable": 9,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 1,
+    "m1_repairs": 2,
+    "m6_unreachableNav": 6,
+    "m7_capabilityGaps": []
   },
   {
     "op": 19,
@@ -987,7 +1059,11 @@
     "m6_orphans": 8,
     "m6_unreachable": 9,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 6,
+    "m7_capabilityGaps": []
   },
   {
     "op": 20,
@@ -1036,7 +1112,11 @@
     "m6_orphans": 8,
     "m6_unreachable": 9,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 6,
+    "m7_capabilityGaps": []
   },
   {
     "op": 21,
@@ -1085,7 +1165,11 @@
     "m6_orphans": 8,
     "m6_unreachable": 9,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 1,
+    "m6_unreachableNav": 6,
+    "m7_capabilityGaps": []
   },
   {
     "op": 22,
@@ -1134,7 +1218,11 @@
     "m6_orphans": 8,
     "m6_unreachable": 9,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 6,
+    "m7_capabilityGaps": []
   },
   {
     "op": 23,
@@ -1183,7 +1271,11 @@
     "m6_orphans": 8,
     "m6_unreachable": 9,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 1,
+    "m1_repairs": 1,
+    "m6_unreachableNav": 6,
+    "m7_capabilityGaps": []
   },
   {
     "op": 24,
@@ -1232,7 +1324,11 @@
     "m6_orphans": 8,
     "m6_unreachable": 9,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 6,
+    "m7_capabilityGaps": []
   },
   {
     "op": 25,
@@ -1281,7 +1377,11 @@
     "m6_orphans": 8,
     "m6_unreachable": 9,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 6,
+    "m7_capabilityGaps": []
   },
   {
     "op": 26,
@@ -1330,7 +1430,11 @@
     "m6_orphans": 7,
     "m6_unreachable": 8,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 2,
+    "m6_unreachableNav": 5,
+    "m7_capabilityGaps": []
   },
   {
     "op": 27,
@@ -1379,7 +1483,11 @@
     "m6_orphans": 7,
     "m6_unreachable": 8,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 5,
+    "m7_capabilityGaps": []
   },
   {
     "op": 28,
@@ -1428,7 +1536,11 @@
     "m6_orphans": 7,
     "m6_unreachable": 8,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 5,
+    "m7_capabilityGaps": []
   },
   {
     "op": 29,
@@ -1477,7 +1589,11 @@
     "m6_orphans": 7,
     "m6_unreachable": 8,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 0,
+    "m6_unreachableNav": 5,
+    "m7_capabilityGaps": []
   },
   {
     "op": 30,
@@ -1526,6 +1642,10 @@
     "m6_orphans": 7,
     "m6_unreachable": 8,
     "assertions": null,
-    "satisfied": null
+    "satisfied": null,
+    "m1_newBreaks": 0,
+    "m1_repairs": 21,
+    "m6_unreachableNav": 5,
+    "m7_capabilityGaps": []
   }
 ]

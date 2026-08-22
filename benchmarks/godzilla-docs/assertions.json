@@ -21,7 +21,12 @@
     "two legitimate outcomes: the raw arm leaving meta-refresh redirect stubs at",
     "vacated paths (a sound technique when links are literal paths, and one whose",
     "clutter M6 already counts), and operation C1 deliberately publishing a v3",
-    "page alongside the v2 it supersedes. It was encoding a hunch as ground truth."
+    "page alongside the v2 it supersedes. It was encoding a hunch as ground truth.",
+    "",
+    "C2 and C3's absent-assertions carry capability: 'retire' — they demand a",
+    "page's removal, which the governed arm has no tool for. C4's absent is",
+    "deliberately untagged: the combined page can be repurposed into one of the",
+    "halves by rename, so satisfying it needs no deletion."
   ],
   "A1": [
     {
@@ -140,13 +145,15 @@
   "C2": [
     {
       "kind": "absent",
-      "title": "Support / Contact"
+      "title": "Support / Contact",
+      "capability": "retire"
     }
   ],
   "C3": [
     {
       "kind": "absent",
-      "title": "Glossary"
+      "title": "Glossary",
+      "capability": "retire"
     }
   ],
   "C4": [

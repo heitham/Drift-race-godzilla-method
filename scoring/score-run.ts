@@ -88,6 +88,10 @@ console.log('  ──  ────  ─────────  ────  
 
 let prev: SiteCrawl | null = null
 let prevSha = ''
+/** Broken-ref detail strings from the previous snapshot — the basis for the
+ *  NewBreaks/Repairs split the methodology promises (M1): broken now but sound
+ *  before is damage CAUSED this operation; the inverse is damage REPAIRED. */
+let prevBroken = new Set<string>()
 const scored: TimelineEntry[] = []
 
 for (let entry of timeline) {
@@ -113,6 +117,10 @@ for (let entry of timeline) {
   const opAssertions = assertions[entry.opId] ?? []
   const verdict = opAssertions.length ? checkOperation(curr, opAssertions) : null
 
+  const nowBroken = new Set(s.m1_brokenRefs.detail)
+  const newBreaks = [...nowBroken].filter(x => !prevBroken.has(x)).length
+  const repairs = [...prevBroken].filter(x => !nowBroken.has(x)).length
+
   const row: TimelineEntry = {
     ...entry,
     // `status` records whether the session produced a publish; this records
@@ -128,6 +136,8 @@ for (let entry of timeline) {
       deadFragment: s.m1_brokenRefs.deadFragment,
       deadAsset: s.m1_brokenRefs.deadAsset,
     },
+    m1_newBreaks: newBreaks,
+    m1_repairs: repairs,
     m2_styleForks: s.m2_styleForks.hard,
     m2_byRule: s.m2_styleForks.byRule,
     m4_chromeDivergence: s.m4_chromeDivergence.excess,
@@ -135,6 +145,10 @@ for (let entry of timeline) {
     m5_detail: { added: blast.added.length, removed: blast.removed.length, modified: blast.modified.length },
     m6_orphans: s.m6_orphansAndReach.orphans.length,
     m6_unreachable: s.m6_orphansAndReach.unreachable.length,
+    // The reader's question rather than the author's: unreachable even when
+    // generated navigation counts. See scoreOrphans for why both exist.
+    m6_unreachableNav: s.m6_orphansAndReach.unreachableWithNav.length,
+    m7_capabilityGaps: verdict?.capabilityGaps ?? [],
   }
   scored.push(row)
 
@@ -149,6 +163,7 @@ for (let entry of timeline) {
 
   prev = curr
   prevSha = sha
+  prevBroken = nowBroken
 }
 
 writeFileSync(path.join(runDir, 'timeline.json'), JSON.stringify(scored, null, 2))
@@ -160,6 +175,11 @@ const tok = scored.reduce((n, r) => n + Number(r.tokens?.total ?? 0), 0)
 const completed = scored.filter(r => r.status === 'completed').length
 const checked = scored.filter(r => r.satisfied !== null)
 const satisfied = checked.filter(r => r.satisfied === true).length
+// Time-under-damage: the area under the M1 curve. An endpoint of zero can hide
+// twenty operations spent serving broken links; this cannot.
+const exposure = scored.reduce((n, r) => n + Number(r.m1_brokenRefs ?? 0), 0)
+const capFails = checked.filter(r => r.satisfied === false && (r.m7_capabilityGaps as string[])?.length)
+const modelFails = checked.filter(r => r.satisfied === false && !(r.m7_capabilityGaps as string[])?.length)
 
 console.log(`\nfinal state after ${scored.length} operations`)
 console.log(`  broken references   ${last.m1_brokenRefs}`)
@@ -169,6 +189,12 @@ console.log(`  orphaned pages      ${last.m6_orphans}`)
 console.log(`  operations complete ${completed}/${scored.length}`)
 console.log(`  requested structure ${satisfied}/${checked.length} operations verified` +
             (checked.length < scored.length ? `  (${scored.length - checked.length} carry no assertion)` : ''))
+if (capFails.length || modelFails.length) {
+  console.log(`    of the failures: ${modelFails.length} model, ${capFails.length} requiring a capability ` +
+              `(${[...new Set(capFails.flatMap(r => r.m7_capabilityGaps as string[]))].join(', ')})`)
+}
+console.log(`  M1 exposure         ${exposure}  (sum of broken refs across all ${scored.length} snapshots)`)
+console.log(`  unreachable w/ nav  ${scored[scored.length - 1].m6_unreachableNav}  (reader's view; content-only figure above)`)
 console.log(`  tokens              ${tok.toLocaleString()}`)
 // --- plausibility ----------------------------------------------------------
 // Not a metric. A cheap smell test for the failure this run set kept producing:

@@ -39,6 +39,13 @@
       "lowerIsBetter": true
     },
     {
+      "key": "M1",
+      "label": "exposure (area under curve)",
+      "raw": 69,
+      "gov": 4,
+      "lowerIsBetter": true
+    },
+    {
       "key": "M6",
       "label": "orphaned pages",
       "raw": 0,
@@ -50,6 +57,13 @@
       "label": "unreachable pages",
       "raw": 0,
       "gov": 4,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M6",
+      "label": "unreachable incl. nav",
+      "raw": 0,
+      "gov": 0,
       "lowerIsBetter": true
     },
     {

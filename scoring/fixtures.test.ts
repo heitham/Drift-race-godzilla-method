@@ -182,6 +182,22 @@ check('M6 orphan detected when content links are removed',
   }).m6_orphansAndReach.orphans.includes('/changelog'),
   true)
 
+// Nav-aware reachability: stripping the CONTENT links to a page orphans it in
+// the author's view, but the left nav still reaches it, so the reader's view
+// (unreachableWithNav) must not list it. This is the split that stops a
+// centrally-generated nav being scored as a defect of the arm that has one.
+check('M6 nav-aware walk: nav keeps the page reachable (regression)',
+  (() => {
+    const r = withFixture(d => {
+      for (const f of ['index.html', 'migration-guide-v1-to-v2.html', 'release-notes-archive.html', 'troubleshooting.html']) {
+        const p = path.join(d, f)
+        if (existsSync(p)) writeFileSync(p, readFileSync(p, 'utf8').replace(/href="\/changelog"/g, 'href="#"'))
+      }
+    }).m6_orphansAndReach
+    return r.orphans.includes('/changelog') && !r.unreachableWithNav.includes('/changelog')
+  })(),
+  true)
+
 // --- M5: blast radius (the one metric that compares two snapshots) ---------
 
 {

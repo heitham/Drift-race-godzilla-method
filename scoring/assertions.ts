@@ -49,11 +49,20 @@ function norm(s: string): string {
 const find = (crawl: SiteCrawl, title: string): PageRecord | undefined =>
   crawl.pages.find(p => norm(p.title) === norm(title))
 
+/**
+ * `capability` marks an assertion whose satisfaction requires a substrate
+ * capability rather than only correct content work — today, `retire` on the
+ * assertions that demand a page's removal (fold-ins where the husk must go).
+ * A failure of a tagged assertion means different things on different arms:
+ * the raw arm can delete files, so its failure is the model's; the governed
+ * arm currently has no retire tool, so its failure is a substrate refusal.
+ * The scorer reports the split and leaves the interpretation to the reader.
+ */
 export type Assertion =
   /** A page with this title exists. */
-  | { kind: 'exists'; title: string }
+  | { kind: 'exists'; title: string; capability?: string }
   /** No page with this title exists — it was removed, folded in, or renamed. */
-  | { kind: 'absent'; title: string }
+  | { kind: 'absent'; title: string; capability?: string }
   /** These pages all sit in one section together, and not at the site root. */
   | { kind: 'grouped'; titles: string[] }
   /** The section holding this page has its own landing page. */
@@ -119,15 +128,22 @@ export interface OpAssertionOutcome {
   passed: number
   failed: number
   failures: string[]
+  /** Capabilities named by failed assertions that carry a `capability` tag. */
+  capabilityGaps: string[]
 }
 
 export function checkOperation(crawl: SiteCrawl, assertions: Assertion[]): OpAssertionOutcome {
   const failures: string[] = []
+  const capabilityGaps: string[] = []
   let passed = 0
   for (const a of assertions) {
     const r = checkAssertion(crawl, a)
     if (r.ok) passed++
-    else failures.push(`${a.kind}: ${r.detail}`)
+    else {
+      failures.push(`${a.kind}: ${r.detail}`)
+      const cap = (a as { capability?: string }).capability
+      if (cap && !capabilityGaps.includes(cap)) capabilityGaps.push(cap)
+    }
   }
-  return { passed, failed: failures.length, failures }
+  return { passed, failed: failures.length, failures, capabilityGaps }
 }

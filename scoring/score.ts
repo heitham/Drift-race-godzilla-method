@@ -22,7 +22,7 @@ export interface Scores {
   m1_brokenRefs: { total: number; deadPath: number; deadFragment: number; deadAsset: number; detail: string[] }
   m2_styleForks: { hard: number; byRule: Record<string, number>; detail: string[] }
   m4_chromeDivergence: { excess: number; sections: Record<string, number> }
-  m6_orphansAndReach: { orphans: string[]; unreachable: string[] }
+  m6_orphansAndReach: { orphans: string[]; unreachable: string[]; unreachableWithNav: string[] }
   linkEdges: number
 }
 
@@ -119,10 +119,22 @@ function scoreChrome(crawl: SiteCrawl) {
   return { excess, sections: detail }
 }
 
-/** M6 — pages nothing links to, and pages unreachable from the site root. */
+/**
+ * M6 — pages nothing links to, and pages unreachable from the site root.
+ *
+ * Two reachability walks, deliberately. The content-only walk excludes
+ * generated navigation so a nav that lists every page cannot mask a genuinely
+ * unreferenced one — that is the anti-masking property the metric was built
+ * for. But read as "can a reader get there?", it is unfair in exactly one
+ * direction: a hub page reachable from every page via the substrate's own nav
+ * was scored an orphan BECAUSE the substrate generates navigation centrally,
+ * which is the feature. The nav-inclusive walk answers the reader's question;
+ * the content-only walk answers the author's. Both are reported.
+ */
 function scoreOrphans(crawl: SiteCrawl) {
   const inbound = new Map<string, number>(crawl.pages.map(p => [p.path, 0]))
   const adjacency = new Map<string, Set<string>>()
+  const adjacencyNav = new Map<string, Set<string>>()
 
   for (const page of crawl.pages) {
     const targets = new Set<string>()
@@ -135,21 +147,35 @@ function scoreOrphans(crawl: SiteCrawl) {
       }
     }
     adjacency.set(page.path, targets)
+
+    const navTargets = new Set<string>(targets)
+    for (const link of page.chromeLinks) {
+      if (link.external) continue
+      const r = resolve(link, crawl, page.path)
+      if (r.ok && r.page !== page.path) navTargets.add(r.page)
+    }
+    adjacencyNav.set(page.path, navTargets)
   }
 
   const root = crawl.aliases.get('/') ?? crawl.aliases.get('/index') ?? crawl.pages[0]?.path
-  const seen = new Set<string>()
-  const queue = root ? [root] : []
-  while (queue.length) {
-    const cur = queue.shift()!
-    if (seen.has(cur)) continue
-    seen.add(cur)
-    for (const t of adjacency.get(cur) ?? []) if (!seen.has(t)) queue.push(t)
+  const walk = (adj: Map<string, Set<string>>) => {
+    const seen = new Set<string>()
+    const queue = root ? [root] : []
+    while (queue.length) {
+      const cur = queue.shift()!
+      if (seen.has(cur)) continue
+      seen.add(cur)
+      for (const t of adj.get(cur) ?? []) if (!seen.has(t)) queue.push(t)
+    }
+    return seen
   }
+  const seen = walk(adjacency)
+  const seenNav = walk(adjacencyNav)
 
   return {
     orphans: crawl.pages.filter(p => (inbound.get(p.path) ?? 0) === 0 && p.path !== root).map(p => p.path),
     unreachable: crawl.pages.filter(p => !seen.has(p.path)).map(p => p.path),
+    unreachableWithNav: crawl.pages.filter(p => !seenNav.has(p.path)).map(p => p.path),
   }
 }
 
