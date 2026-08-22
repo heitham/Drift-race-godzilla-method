@@ -5,19 +5,19 @@
     "wave": "A",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "99d915e46d8f43f17df42ebbe842e2b55721de2d",
-    "filesChanged": -1,
-    "turns": 19,
-    "toolCalls": 27,
+    "snapshotSha": "744074fc0a441eb150f61502901dd7e29deadb09",
+    "filesChanged": 10,
+    "turns": 46,
+    "toolCalls": 45,
     "tokens": {
-      "input": 118247,
-      "output": 5281,
-      "thinking": 7936,
-      "total": 635901,
+      "input": 238339,
+      "output": 30553,
+      "thinking": 11653,
+      "total": 2133189,
       "cacheWrite": 0,
-      "cacheRead": 504437
+      "cacheRead": 1852644
     },
-    "latencyMs": 53990,
+    "latencyMs": 110960,
     "assertions": {
       "passed": 2,
       "failed": 0,
@@ -25,21 +25,21 @@
     },
     "satisfied": true,
     "pages": 31,
-    "linkEdges": 151,
+    "linkEdges": 154,
     "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
       "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 4,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 3,
       "H7": 0
     },
     "m4_chromeDivergence": 0,
@@ -58,19 +58,19 @@
     "wave": "A",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "4f203779437b2253841db4555813628a9745414c",
-    "filesChanged": 10,
-    "turns": 22,
-    "toolCalls": 29,
+    "snapshotSha": "f8d4c655249acc7436e43e93658042f10762a2f1",
+    "filesChanged": 11,
+    "turns": 37,
+    "toolCalls": 36,
     "tokens": {
-      "input": 144386,
-      "output": 6309,
-      "thinking": 13924,
-      "total": 938465,
+      "input": 201564,
+      "output": 21730,
+      "thinking": 7366,
+      "total": 1358230,
       "cacheWrite": 0,
-      "cacheRead": 773846
+      "cacheRead": 1127570
     },
-    "latencyMs": 52779,
+    "latencyMs": 81812,
     "assertions": {
       "passed": 1,
       "failed": 0,
@@ -78,29 +78,29 @@
     },
     "satisfied": true,
     "pages": 32,
-    "linkEdges": 158,
-    "m1_brokenRefs": 1,
+    "linkEdges": 162,
+    "m1_brokenRefs": 6,
     "m1_detail": {
-      "deadPath": 0,
+      "deadPath": 5,
       "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 4,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 3,
       "H7": 0
     },
     "m4_chromeDivergence": 0,
-    "m5_blastRadius": 3,
+    "m5_blastRadius": 6,
     "m5_detail": {
       "added": 1,
       "removed": 0,
-      "modified": 2
+      "modified": 5
     },
     "m6_orphans": 1,
     "m6_unreachable": 1
@@ -111,19 +111,19 @@
     "wave": "A",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "d1ff030531e16e741a3fab5e6ac988ac4e2d02d3",
-    "filesChanged": 18,
-    "turns": 20,
-    "toolCalls": 26,
+    "snapshotSha": "05ded2abf831a23bde5f3d86dc8da50dfc3addb1",
+    "filesChanged": 19,
+    "turns": 52,
+    "toolCalls": 51,
     "tokens": {
-      "input": 192966,
-      "output": 5661,
-      "thinking": 7480,
-      "total": 694377,
+      "input": 264531,
+      "output": 39534,
+      "thinking": 10302,
+      "total": 2733209,
       "cacheWrite": 0,
-      "cacheRead": 488270
+      "cacheRead": 2418842
     },
-    "latencyMs": 50266,
+    "latencyMs": 121485,
     "assertions": {
       "passed": 1,
       "failed": 0,
@@ -131,32 +131,32 @@
     },
     "satisfied": true,
     "pages": 33,
-    "linkEdges": 168,
-    "m1_brokenRefs": 1,
+    "linkEdges": 99,
+    "m1_brokenRefs": 5,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 1,
+      "deadPath": 5,
+      "deadFragment": 0,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 2,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
-      "H4": 1,
+      "H4": 0,
       "H5": 0,
       "H6": 2,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 4,
+    "m4_chromeDivergence": 1,
+    "m5_blastRadius": 16,
     "m5_detail": {
       "added": 1,
       "removed": 0,
-      "modified": 3
+      "modified": 15
     },
-    "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_orphans": 10,
+    "m6_unreachable": 32
   },
   {
     "op": 4,
@@ -164,19 +164,19 @@
     "wave": "A",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "1dda3d76a9173f80d010cc81264f6a879df47d71",
-    "filesChanged": 8,
-    "turns": 28,
-    "toolCalls": 35,
+    "snapshotSha": "8210e4c285b2a6b43b3203e48f783228084ad5ef",
+    "filesChanged": 9,
+    "turns": 29,
+    "toolCalls": 28,
     "tokens": {
-      "input": 224499,
-      "output": 6251,
-      "thinking": 24037,
-      "total": 1186669,
+      "input": 175458,
+      "output": 14678,
+      "thinking": 12867,
+      "total": 813450,
       "cacheWrite": 0,
-      "cacheRead": 931882
+      "cacheRead": 610447
     },
-    "latencyMs": 74069,
+    "latencyMs": 65142,
     "assertions": {
       "passed": 1,
       "failed": 0,
@@ -184,32 +184,32 @@
     },
     "satisfied": true,
     "pages": 34,
-    "linkEdges": 174,
-    "m1_brokenRefs": 1,
+    "linkEdges": 118,
+    "m1_brokenRefs": 5,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 1,
+      "deadPath": 5,
+      "deadFragment": 0,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 2,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
-      "H4": 1,
+      "H4": 0,
       "H5": 0,
       "H6": 2,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 1,
     "m5_blastRadius": 4,
     "m5_detail": {
       "added": 1,
       "removed": 0,
       "modified": 3
     },
-    "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_orphans": 6,
+    "m6_unreachable": 6
   },
   {
     "op": 5,
@@ -217,19 +217,19 @@
     "wave": "A",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "3b15dc230877e2e59713272dcb861949ec6b8f8f",
-    "filesChanged": 12,
-    "turns": 26,
-    "toolCalls": 32,
+    "snapshotSha": "4581fd011930a754884a8f83e9fa7930bfede6b4",
+    "filesChanged": 13,
+    "turns": 46,
+    "toolCalls": 46,
     "tokens": {
-      "input": 138209,
-      "output": 8419,
-      "thinking": 12556,
-      "total": 1103604,
+      "input": 289773,
+      "output": 24322,
+      "thinking": 13898,
+      "total": 2201297,
       "cacheWrite": 0,
-      "cacheRead": 944420
+      "cacheRead": 1873304
     },
-    "latencyMs": 68692,
+    "latencyMs": 117335,
     "assertions": {
       "passed": 1,
       "failed": 0,
@@ -237,32 +237,32 @@
     },
     "satisfied": true,
     "pages": 35,
-    "linkEdges": 186,
-    "m1_brokenRefs": 0,
+    "linkEdges": 139,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 2,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
-      "H4": 1,
+      "H4": 0,
       "H5": 0,
       "H6": 2,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 5,
+    "m4_chromeDivergence": 1,
+    "m5_blastRadius": 6,
     "m5_detail": {
       "added": 1,
       "removed": 0,
-      "modified": 4
+      "modified": 5
     },
-    "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 6,
@@ -270,19 +270,19 @@
     "wave": "A",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "9e3d218d6d8ad17345abcaa9a7494744de392a61",
-    "filesChanged": 6,
-    "turns": 23,
-    "toolCalls": 31,
+    "snapshotSha": "cfd359eaa9a8fa20507aca9b4083dbf54c3f1dd1",
+    "filesChanged": 11,
+    "turns": 44,
+    "toolCalls": 43,
     "tokens": {
-      "input": 167889,
-      "output": 8478,
-      "thinking": 8065,
-      "total": 823142,
+      "input": 321084,
+      "output": 21693,
+      "thinking": 12915,
+      "total": 2144129,
       "cacheWrite": 0,
-      "cacheRead": 638710
+      "cacheRead": 1788437
     },
-    "latencyMs": 52476,
+    "latencyMs": 103132,
     "assertions": {
       "passed": 4,
       "failed": 0,
@@ -290,32 +290,32 @@
     },
     "satisfied": true,
     "pages": 38,
-    "linkEdges": 204,
-    "m1_brokenRefs": 0,
+    "linkEdges": 171,
+    "m1_brokenRefs": 3,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 0,
+      "deadPath": 2,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 2,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
-      "H4": 1,
+      "H4": 0,
       "H5": 0,
       "H6": 2,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 4,
+    "m4_chromeDivergence": 1,
+    "m5_blastRadius": 8,
     "m5_detail": {
       "added": 3,
       "removed": 0,
-      "modified": 1
+      "modified": 5
     },
-    "m6_orphans": 1,
-    "m6_unreachable": 1
+    "m6_orphans": 3,
+    "m6_unreachable": 3
   },
   {
     "op": 7,
@@ -323,19 +323,19 @@
     "wave": "B",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "2eabb07eb3c464821bda6f2862fce40419a7f82f",
-    "filesChanged": 21,
-    "turns": 26,
-    "toolCalls": 47,
+    "snapshotSha": "b60182978b5b628ecb4154884096c53cad5f2dad",
+    "filesChanged": 24,
+    "turns": 72,
+    "toolCalls": 71,
     "tokens": {
-      "input": 225931,
-      "output": 6232,
-      "thinking": 22097,
-      "total": 1586096,
+      "input": 456306,
+      "output": 38224,
+      "thinking": 24619,
+      "total": 5722814,
       "cacheWrite": 0,
-      "cacheRead": 1331836
+      "cacheRead": 5203665
     },
-    "latencyMs": 65609,
+    "latencyMs": 180669,
     "assertions": {
       "passed": 2,
       "failed": 0,
@@ -343,32 +343,32 @@
     },
     "satisfied": true,
     "pages": 39,
-    "linkEdges": 208,
-    "m1_brokenRefs": 0,
+    "linkEdges": 235,
+    "m1_brokenRefs": 3,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 0,
+      "deadPath": 2,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
     "m4_chromeDivergence": 0,
-    "m5_blastRadius": 11,
+    "m5_blastRadius": 20,
     "m5_detail": {
       "added": 4,
       "removed": 3,
-      "modified": 4
+      "modified": 13
     },
-    "m6_orphans": 2,
-    "m6_unreachable": 2
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 8,
@@ -376,19 +376,19 @@
     "wave": "B",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "02363a11296a4f58eee7cce047918a643c58b3e2",
-    "filesChanged": 15,
-    "turns": 54,
-    "toolCalls": 53,
+    "snapshotSha": "a1e0ee923e4d5e7fffa84ba5bc364df1fd7906a3",
+    "filesChanged": 16,
+    "turns": 57,
+    "toolCalls": 56,
     "tokens": {
-      "input": 266445,
-      "output": 11984,
-      "thinking": 23546,
-      "total": 2992540,
+      "input": 295367,
+      "output": 34302,
+      "thinking": 5644,
+      "total": 2899187,
       "cacheWrite": 0,
-      "cacheRead": 2690565
+      "cacheRead": 2563874
     },
-    "latencyMs": 100580,
+    "latencyMs": 92376,
     "assertions": {
       "passed": 2,
       "failed": 0,
@@ -396,32 +396,32 @@
     },
     "satisfied": true,
     "pages": 39,
-    "linkEdges": 209,
-    "m1_brokenRefs": 0,
+    "linkEdges": 235,
+    "m1_brokenRefs": 3,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 0,
+      "deadPath": 2,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
     "m4_chromeDivergence": 0,
-    "m5_blastRadius": 9,
+    "m5_blastRadius": 10,
     "m5_detail": {
       "added": 0,
       "removed": 0,
-      "modified": 9
+      "modified": 10
     },
-    "m6_orphans": 2,
-    "m6_unreachable": 2
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 9,
@@ -429,48 +429,48 @@
     "wave": "B",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "96a50eb49f83413150e65c3643cd4adf055a4a14",
-    "filesChanged": 33,
-    "turns": 27,
-    "toolCalls": 37,
+    "snapshotSha": "ed96e832c88e8da17e6fd0ee767d28b80118fab6",
+    "filesChanged": 36,
+    "turns": 105,
+    "toolCalls": 104,
     "tokens": {
-      "input": 164891,
-      "output": 3433,
-      "thinking": 9390,
-      "total": 1053005,
+      "input": 492215,
+      "output": 70033,
+      "thinking": 12669,
+      "total": 10769550,
       "cacheWrite": 0,
-      "cacheRead": 875291
+      "cacheRead": 10194633
     },
-    "latencyMs": 53251,
+    "latencyMs": 254042,
     "assertions": null,
     "satisfied": null,
     "pages": 39,
-    "linkEdges": 209,
-    "m1_brokenRefs": 0,
+    "linkEdges": 235,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
     "m4_chromeDivergence": 0,
-    "m5_blastRadius": 39,
+    "m5_blastRadius": 41,
     "m5_detail": {
       "added": 8,
       "removed": 8,
-      "modified": 23
+      "modified": 25
     },
-    "m6_orphans": 2,
-    "m6_unreachable": 2
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 10,
@@ -478,19 +478,19 @@
     "wave": "B",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "0f7c4b5021080a5c29860c0426c7e86fe89c95df",
-    "filesChanged": 18,
-    "turns": 58,
-    "toolCalls": 57,
+    "snapshotSha": "4ffc7340aaf0805003277ebea4905ab17f1f22ac",
+    "filesChanged": 17,
+    "turns": 51,
+    "toolCalls": 50,
     "tokens": {
-      "input": 411993,
-      "output": 19049,
-      "thinking": 30096,
-      "total": 4280044,
+      "input": 235824,
+      "output": 36514,
+      "thinking": 12727,
+      "total": 2757418,
       "cacheWrite": 0,
-      "cacheRead": 3818906
+      "cacheRead": 2472353
     },
-    "latencyMs": 123534,
+    "latencyMs": 109989,
     "assertions": {
       "passed": 2,
       "failed": 0,
@@ -498,32 +498,32 @@
     },
     "satisfied": true,
     "pages": 39,
-    "linkEdges": 210,
-    "m1_brokenRefs": 0,
+    "linkEdges": 235,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
     "m4_chromeDivergence": 0,
-    "m5_blastRadius": 15,
+    "m5_blastRadius": 14,
     "m5_detail": {
       "added": 0,
       "removed": 0,
-      "modified": 15
+      "modified": 14
     },
-    "m6_orphans": 2,
-    "m6_unreachable": 2
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 11,
@@ -531,52 +531,52 @@
     "wave": "B",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "a094433210fd4d9b99c3252c0f78b00e7e3d0ee6",
-    "filesChanged": 16,
-    "turns": 11,
-    "toolCalls": 17,
+    "snapshotSha": "0fbfd3c15bba8ca8a66e8e42b58c329dd197fa76",
+    "filesChanged": 19,
+    "turns": 67,
+    "toolCalls": 66,
     "tokens": {
-      "input": 75431,
-      "output": 1071,
-      "thinking": 2425,
-      "total": 200725,
+      "input": 362164,
+      "output": 32327,
+      "thinking": 15745,
+      "total": 4413358,
       "cacheWrite": 0,
-      "cacheRead": 121798
+      "cacheRead": 4003122
     },
-    "latencyMs": 16999,
+    "latencyMs": 132672,
     "assertions": {
       "passed": 1,
       "failed": 0,
       "failures": []
     },
     "satisfied": true,
-    "pages": 39,
-    "linkEdges": 210,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 243,
+    "m1_brokenRefs": 3,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 0,
+      "deadPath": 2,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 8,
+    "m4_chromeDivergence": 1,
+    "m5_blastRadius": 14,
     "m5_detail": {
-      "added": 2,
+      "added": 3,
       "removed": 2,
-      "modified": 4
+      "modified": 9
     },
-    "m6_orphans": 2,
-    "m6_unreachable": 2
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 12,
@@ -584,52 +584,52 @@
     "wave": "B",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "c546689105e511e0f63a56d2761ed417cc6cb7a9",
-    "filesChanged": 25,
-    "turns": 32,
-    "toolCalls": 47,
+    "snapshotSha": "357a6c42ad99a16ddb2e0355964371559e1ed0e9",
+    "filesChanged": 30,
+    "turns": 52,
+    "toolCalls": 87,
     "tokens": {
-      "input": 220351,
-      "output": 3393,
-      "thinking": 18498,
-      "total": 1393633,
+      "input": 429527,
+      "output": 53654,
+      "thinking": 32291,
+      "total": 5674010,
       "cacheWrite": 0,
-      "cacheRead": 1151391
+      "cacheRead": 5158538
     },
-    "latencyMs": 85520,
+    "latencyMs": 202224,
     "assertions": {
       "passed": 2,
       "failed": 0,
       "failures": []
     },
     "satisfied": true,
-    "pages": 39,
-    "linkEdges": 210,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 237,
+    "m1_brokenRefs": 3,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 0,
+      "deadPath": 2,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 23,
+    "m4_chromeDivergence": 1,
+    "m5_blastRadius": 29,
     "m5_detail": {
-      "added": 4,
-      "removed": 4,
-      "modified": 15
+      "added": 5,
+      "removed": 5,
+      "modified": 19
     },
-    "m6_orphans": 2,
-    "m6_unreachable": 2
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 13,
@@ -637,48 +637,48 @@
     "wave": "C",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "b7da9d2d407ca89580f4d33e6b6ec5b8318e3514",
-    "filesChanged": 14,
-    "turns": 33,
-    "toolCalls": 40,
+    "snapshotSha": "fc1c49575b6db298ccf3ab7ef015f86218099725",
+    "filesChanged": 8,
+    "turns": 28,
+    "toolCalls": 27,
     "tokens": {
-      "input": 181577,
-      "output": 11218,
-      "thinking": 21537,
-      "total": 1905609,
+      "input": 219250,
+      "output": 13940,
+      "thinking": 15522,
+      "total": 1072170,
       "cacheWrite": 0,
-      "cacheRead": 1691277
+      "cacheRead": 823458
     },
-    "latencyMs": 99889,
+    "latencyMs": 98669,
     "assertions": null,
     "satisfied": null,
-    "pages": 40,
-    "linkEdges": 222,
-    "m1_brokenRefs": 0,
+    "pages": 41,
+    "linkEdges": 247,
+    "m1_brokenRefs": 3,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 0,
+      "deadPath": 2,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 6,
+    "m4_chromeDivergence": 1,
+    "m5_blastRadius": 5,
     "m5_detail": {
       "added": 1,
       "removed": 0,
-      "modified": 5
+      "modified": 4
     },
-    "m6_orphans": 2,
-    "m6_unreachable": 2
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 14,
@@ -686,74 +686,19 @@
     "wave": "C",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "648ff73db26c87223fc7760b6a0e748b0e9c7f5d",
-    "filesChanged": 6,
-    "turns": 36,
-    "toolCalls": 43,
+    "snapshotSha": "e77c6edbb06cf9e165f7a64a4f2919c60816af7d",
+    "filesChanged": 10,
+    "turns": 42,
+    "toolCalls": 41,
     "tokens": {
-      "input": 207525,
-      "output": 6933,
-      "thinking": 19409,
-      "total": 1801225,
+      "input": 215188,
+      "output": 20286,
+      "thinking": 8574,
+      "total": 1439462,
       "cacheWrite": 0,
-      "cacheRead": 1567358
+      "cacheRead": 1195414
     },
-    "latencyMs": 91575,
-    "assertions": {
-      "passed": 0,
-      "failed": 1,
-      "failures": [
-        "absent: \"Support / Contact\" still present at /support"
-      ]
-    },
-    "satisfied": false,
-    "pages": 40,
-    "linkEdges": 223,
-    "m1_brokenRefs": 0,
-    "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 0,
-      "deadAsset": 0
-    },
-    "m2_styleForks": 3,
-    "m2_byRule": {
-      "H1": 0,
-      "H2": 0,
-      "H3": 0,
-      "H4": 1,
-      "H5": 0,
-      "H6": 2,
-      "H7": 0
-    },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 4,
-    "m5_detail": {
-      "added": 0,
-      "removed": 0,
-      "modified": 4
-    },
-    "m6_orphans": 3,
-    "m6_unreachable": 3
-  },
-  {
-    "op": 15,
-    "opId": "C3",
-    "wave": "C",
-    "status": "completed",
-    "autoClosed": false,
-    "snapshotSha": "bca3708fc6acede0e35eeaf8bf395de2562e7c95",
-    "filesChanged": 9,
-    "turns": 18,
-    "toolCalls": 24,
-    "tokens": {
-      "input": 153940,
-      "output": 3908,
-      "thinking": 10905,
-      "total": 608326,
-      "cacheWrite": 0,
-      "cacheRead": 439573
-    },
-    "latencyMs": 47095,
+    "latencyMs": 79346,
     "assertions": {
       "passed": 1,
       "failed": 0,
@@ -761,32 +706,85 @@
     },
     "satisfied": true,
     "pages": 40,
-    "linkEdges": 225,
-    "m1_brokenRefs": 0,
+    "linkEdges": 246,
+    "m1_brokenRefs": 3,
     "m1_detail": {
-      "deadPath": 0,
-      "deadFragment": 0,
+      "deadPath": 2,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 2,
+    "m4_chromeDivergence": 1,
+    "m5_blastRadius": 4,
     "m5_detail": {
       "added": 0,
-      "removed": 0,
-      "modified": 2
+      "removed": 1,
+      "modified": 3
     },
-    "m6_orphans": 3,
-    "m6_unreachable": 3
+    "m6_orphans": 1,
+    "m6_unreachable": 1
+  },
+  {
+    "op": 15,
+    "opId": "C3",
+    "wave": "C",
+    "status": "completed",
+    "autoClosed": false,
+    "snapshotSha": "c352f1cd4bbf38ff58da7d0a313957e79b5dcfcb",
+    "filesChanged": 9,
+    "turns": 32,
+    "toolCalls": 31,
+    "tokens": {
+      "input": 186801,
+      "output": 16466,
+      "thinking": 6089,
+      "total": 827192,
+      "cacheWrite": 0,
+      "cacheRead": 617836
+    },
+    "latencyMs": 76979,
+    "assertions": {
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "satisfied": true,
+    "pages": 39,
+    "linkEdges": 233,
+    "m1_brokenRefs": 3,
+    "m1_detail": {
+      "deadPath": 2,
+      "deadFragment": 1,
+      "deadAsset": 0
+    },
+    "m2_styleForks": 5,
+    "m2_byRule": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 1,
+      "H5": 0,
+      "H6": 4,
+      "H7": 0
+    },
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 4,
+    "m5_detail": {
+      "added": 0,
+      "removed": 1,
+      "modified": 3
+    },
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 16,
@@ -794,52 +792,52 @@
     "wave": "C",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "ffded327118d5dacd5f126a676d8fd0d04601c23",
-    "filesChanged": 17,
-    "turns": 37,
-    "toolCalls": 59,
+    "snapshotSha": "efbc43c5614bf2be8e4e69f0b4737e3e9de36c27",
+    "filesChanged": 19,
+    "turns": 80,
+    "toolCalls": 79,
     "tokens": {
-      "input": 230474,
-      "output": 14410,
-      "thinking": 22669,
-      "total": 2878976,
+      "input": 394944,
+      "output": 44199,
+      "thinking": 16569,
+      "total": 6779290,
       "cacheWrite": 0,
-      "cacheRead": 2611423
+      "cacheRead": 6323578
     },
-    "latencyMs": 98737,
+    "latencyMs": 219013,
     "assertions": {
       "passed": 3,
       "failed": 0,
       "failures": []
     },
     "satisfied": true,
-    "pages": 41,
-    "linkEdges": 226,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 246,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 11,
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 14,
     "m5_detail": {
-      "added": 1,
-      "removed": 0,
-      "modified": 10
+      "added": 2,
+      "removed": 1,
+      "modified": 11
     },
-    "m6_orphans": 3,
-    "m6_unreachable": 3
+    "m6_orphans": 0,
+    "m6_unreachable": 0
   },
   {
     "op": 17,
@@ -847,48 +845,48 @@
     "wave": "C",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "dd517983b393723839e17197889a9f8e441546d3",
-    "filesChanged": 4,
-    "turns": 30,
-    "toolCalls": 34,
+    "snapshotSha": "aee8e9d221e3a98f9153a06403f9c61c834c8059",
+    "filesChanged": 6,
+    "turns": 39,
+    "toolCalls": 38,
     "tokens": {
-      "input": 227520,
-      "output": 3276,
-      "thinking": 11733,
-      "total": 1068005,
+      "input": 215927,
+      "output": 11101,
+      "thinking": 11891,
+      "total": 1292420,
       "cacheWrite": 0,
-      "cacheRead": 825476
+      "cacheRead": 1053501
     },
-    "latencyMs": 56065,
+    "latencyMs": 79611,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 225,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 245,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 2,
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 4,
     "m5_detail": {
       "added": 0,
       "removed": 0,
-      "modified": 2
+      "modified": 4
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 18,
@@ -896,48 +894,48 @@
     "wave": "C",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "6543a6dc1250ad4169de1ed69bb054920eaf1526",
-    "filesChanged": 7,
-    "turns": 25,
-    "toolCalls": 40,
+    "snapshotSha": "1f38e68a3c942693d7b712a3b245c786a067aee6",
+    "filesChanged": 6,
+    "turns": 48,
+    "toolCalls": 47,
     "tokens": {
-      "input": 145203,
-      "output": 7802,
-      "thinking": 16317,
-      "total": 1477169,
+      "input": 243558,
+      "output": 16730,
+      "thinking": 16685,
+      "total": 2537806,
       "cacheWrite": 0,
-      "cacheRead": 1307847
+      "cacheRead": 2260833
     },
-    "latencyMs": 69789,
+    "latencyMs": 121125,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 229,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 248,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 2,
     "m5_blastRadius": 5,
     "m5_detail": {
       "added": 0,
       "removed": 0,
       "modified": 5
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 19,
@@ -945,48 +943,48 @@
     "wave": "D",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "af94b6890c8774c1602b795472e64fb189f31ae5",
-    "filesChanged": 2,
-    "turns": 25,
-    "toolCalls": 24,
+    "snapshotSha": "723b0f03c67b1235500f317a79a50139d02f427c",
+    "filesChanged": 1,
+    "turns": 19,
+    "toolCalls": 18,
     "tokens": {
-      "input": 156705,
-      "output": 1818,
-      "thinking": 7044,
-      "total": 620780,
+      "input": 161835,
+      "output": 1899,
+      "thinking": 3232,
+      "total": 207512,
       "cacheWrite": 0,
-      "cacheRead": 455213
+      "cacheRead": 40546
     },
-    "latencyMs": 41876,
+    "latencyMs": 38101,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 229,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 248,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 2,
     "m5_blastRadius": 1,
     "m5_detail": {
       "added": 0,
       "removed": 0,
       "modified": 1
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 20,
@@ -994,48 +992,48 @@
     "wave": "D",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "1dfa1b70d52aaec15373476a3e11f708477cf780",
-    "filesChanged": 5,
-    "turns": 25,
-    "toolCalls": 32,
+    "snapshotSha": "6dd681843ddeca59e47fcde196a694bcac80ceeb",
+    "filesChanged": 4,
+    "turns": 16,
+    "toolCalls": 15,
     "tokens": {
-      "input": 153877,
-      "output": 5560,
-      "thinking": 16651,
-      "total": 953230,
+      "input": 106708,
+      "output": 7199,
+      "thinking": 5325,
+      "total": 306448,
       "cacheWrite": 0,
-      "cacheRead": 777142
+      "cacheRead": 187216
     },
-    "latencyMs": 58198,
+    "latencyMs": 39482,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 229,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 248,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 2,
     "m5_blastRadius": 4,
     "m5_detail": {
       "added": 0,
       "removed": 0,
       "modified": 4
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 21,
@@ -1043,48 +1041,48 @@
     "wave": "D",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "dbc43e7730fb6b098da6f73ef83ec9f3cc4a68cc",
-    "filesChanged": 4,
-    "turns": 22,
-    "toolCalls": 30,
+    "snapshotSha": "27c7d3559fdac6d1ea5c6e935c466f9eaea1504b",
+    "filesChanged": 3,
+    "turns": 26,
+    "toolCalls": 25,
     "tokens": {
-      "input": 161764,
-      "output": 6536,
-      "thinking": 14586,
-      "total": 1226855,
+      "input": 140223,
+      "output": 10886,
+      "thinking": 11074,
+      "total": 830314,
       "cacheWrite": 0,
-      "cacheRead": 1043969
+      "cacheRead": 668131
     },
-    "latencyMs": 61601,
+    "latencyMs": 57345,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 229,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 248,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 2,
     "m5_blastRadius": 3,
     "m5_detail": {
       "added": 0,
       "removed": 0,
       "modified": 3
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 22,
@@ -1092,48 +1090,48 @@
     "wave": "D",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "6f42dbc4475e8bf8a917d9f44377c169cd052d08",
+    "snapshotSha": "8a75ea57d2d44d1a2ff9acf99850a4acefcdc6e4",
     "filesChanged": 11,
-    "turns": 32,
-    "toolCalls": 44,
+    "turns": 52,
+    "toolCalls": 51,
     "tokens": {
-      "input": 182273,
-      "output": 12509,
-      "thinking": 19494,
-      "total": 2007034,
+      "input": 258009,
+      "output": 40740,
+      "thinking": 13956,
+      "total": 2705908,
       "cacheWrite": 0,
-      "cacheRead": 1792758
+      "cacheRead": 2393203
     },
-    "latencyMs": 84536,
+    "latencyMs": 136045,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 229,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 243,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 10,
+    "m4_chromeDivergence": 3,
+    "m5_blastRadius": 11,
     "m5_detail": {
       "added": 0,
       "removed": 0,
-      "modified": 10
+      "modified": 11
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 23,
@@ -1141,48 +1139,48 @@
     "wave": "D",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "fdbdc36dca1da273c5bf97fecf14de3436c25c7e",
-    "filesChanged": 3,
-    "turns": 28,
-    "toolCalls": 29,
+    "snapshotSha": "f6d2c1befcd4a11fbd217a7f1225cd57499b45b7",
+    "filesChanged": 1,
+    "turns": 30,
+    "toolCalls": 30,
     "tokens": {
-      "input": 160850,
-      "output": 2162,
-      "thinking": 11370,
-      "total": 1037288,
+      "input": 189801,
+      "output": 5624,
+      "thinking": 19732,
+      "total": 1184999,
       "cacheWrite": 0,
-      "cacheRead": 862906
+      "cacheRead": 969842
     },
-    "latencyMs": 46824,
+    "latencyMs": 76926,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 229,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 244,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 3,
+    "m2_styleForks": 5,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 0,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 3,
     "m5_blastRadius": 1,
     "m5_detail": {
       "added": 0,
       "removed": 0,
       "modified": 1
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 24,
@@ -1190,48 +1188,48 @@
     "wave": "D",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "f9b7d3eab30bd257e702c23a34a153127c12a357",
-    "filesChanged": 4,
-    "turns": 35,
-    "toolCalls": 44,
+    "snapshotSha": "d05fa615bae65a887fa52f5bf98b8298db9955f4",
+    "filesChanged": 3,
+    "turns": 33,
+    "toolCalls": 32,
     "tokens": {
-      "input": 241107,
-      "output": 7279,
-      "thinking": 20054,
-      "total": 1872837,
+      "input": 224350,
+      "output": 12685,
+      "thinking": 17363,
+      "total": 1387534,
       "cacheWrite": 0,
-      "cacheRead": 1604397
+      "cacheRead": 1133136
     },
-    "latencyMs": 82984,
+    "latencyMs": 81363,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 242,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 258,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 4,
+    "m2_styleForks": 6,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 1,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 3,
     "m5_blastRadius": 3,
     "m5_detail": {
       "added": 0,
       "removed": 0,
       "modified": 3
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 25,
@@ -1239,48 +1237,48 @@
     "wave": "E",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "e9822060e2a19dbe8653ae36db38b29e706f839b",
-    "filesChanged": 5,
-    "turns": 28,
-    "toolCalls": 31,
+    "snapshotSha": "a2d62ecc4287fd39b70c93721e88358723388f9b",
+    "filesChanged": 1,
+    "turns": 21,
+    "toolCalls": 20,
     "tokens": {
-      "input": 170605,
-      "output": 9596,
-      "thinking": 21970,
-      "total": 1367701,
+      "input": 129113,
+      "output": 2331,
+      "thinking": 8029,
+      "total": 416046,
       "cacheWrite": 0,
-      "cacheRead": 1165530
+      "cacheRead": 276573
     },
-    "latencyMs": 78977,
+    "latencyMs": 34393,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 242,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 264,
+    "m1_brokenRefs": 1,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 1,
       "deadAsset": 0
     },
-    "m2_styleForks": 4,
+    "m2_styleForks": 6,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 1,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 4,
+    "m4_chromeDivergence": 2,
+    "m5_blastRadius": 1,
     "m5_detail": {
       "added": 0,
       "removed": 0,
-      "modified": 4
+      "modified": 1
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 26,
@@ -1288,48 +1286,48 @@
     "wave": "E",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "a4264285eddabfbe13c493ebb9cbea964ad08a18",
-    "filesChanged": 8,
-    "turns": 33,
-    "toolCalls": 52,
+    "snapshotSha": "865a3f300354954cdd6f142f38cdb0cf40bfb6ff",
+    "filesChanged": 5,
+    "turns": 39,
+    "toolCalls": 38,
     "tokens": {
-      "input": 230813,
-      "output": 16163,
-      "thinking": 37397,
-      "total": 2788411,
+      "input": 274765,
+      "output": 15044,
+      "thinking": 14106,
+      "total": 1631585,
       "cacheWrite": 0,
-      "cacheRead": 2504038
+      "cacheRead": 1327670
     },
-    "latencyMs": 126061,
+    "latencyMs": 95729,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 252,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 247,
+    "m1_brokenRefs": 5,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 5,
       "deadAsset": 0
     },
-    "m2_styleForks": 4,
+    "m2_styleForks": 6,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 1,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 7,
+    "m4_chromeDivergence": 4,
+    "m5_blastRadius": 5,
     "m5_detail": {
       "added": 0,
       "removed": 0,
-      "modified": 7
+      "modified": 5
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 27,
@@ -1337,48 +1335,48 @@
     "wave": "E",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "47915b042b144d0ebe11aa27f7b45f1b452d7565",
-    "filesChanged": 14,
-    "turns": 25,
-    "toolCalls": 71,
+    "snapshotSha": "c13ec7bdd6abb0cd79572a158ae4b5a75edf2b41",
+    "filesChanged": 15,
+    "turns": 54,
+    "toolCalls": 53,
     "tokens": {
-      "input": 489281,
-      "output": 15224,
-      "thinking": 39035,
-      "total": 2403197,
+      "input": 321272,
+      "output": 34598,
+      "thinking": 13852,
+      "total": 3348378,
       "cacheWrite": 0,
-      "cacheRead": 1859657
+      "cacheRead": 2978656
     },
-    "latencyMs": 109873,
+    "latencyMs": 135570,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 254,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 260,
+    "m1_brokenRefs": 5,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 5,
       "deadAsset": 0
     },
-    "m2_styleForks": 4,
+    "m2_styleForks": 6,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 1,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
-    "m5_blastRadius": 12,
+    "m4_chromeDivergence": 4,
+    "m5_blastRadius": 14,
     "m5_detail": {
       "added": 0,
       "removed": 0,
-      "modified": 12
+      "modified": 14
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 28,
@@ -1386,48 +1384,48 @@
     "wave": "E",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "abe01e492da00f07afb5e1f774ed9892c742630f",
-    "filesChanged": 3,
+    "snapshotSha": "d5fb169d399d0ad41c4492831df813e09e0c4a75",
+    "filesChanged": 2,
     "turns": 24,
-    "toolCalls": 30,
+    "toolCalls": 23,
     "tokens": {
-      "input": 156210,
-      "output": 5945,
-      "thinking": 21401,
-      "total": 1100321,
+      "input": 173761,
+      "output": 3811,
+      "thinking": 18656,
+      "total": 558450,
       "cacheWrite": 0,
-      "cacheRead": 916765
+      "cacheRead": 362222
     },
-    "latencyMs": 76137,
+    "latencyMs": 75657,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 257,
-    "m1_brokenRefs": 0,
+    "pages": 40,
+    "linkEdges": 263,
+    "m1_brokenRefs": 5,
     "m1_detail": {
       "deadPath": 0,
-      "deadFragment": 0,
+      "deadFragment": 5,
       "deadAsset": 0
     },
-    "m2_styleForks": 4,
+    "m2_styleForks": 6,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 1,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 4,
     "m5_blastRadius": 2,
     "m5_detail": {
       "added": 0,
       "removed": 0,
       "modified": 2
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 29,
@@ -1435,96 +1433,96 @@
     "wave": "E",
     "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "21e0a98eb272277e665c3009d4fbb19feffd62ed",
-    "filesChanged": 11,
-    "turns": 45,
-    "toolCalls": 46,
+    "snapshotSha": "f35abddf97a6123296de56e0fcc255fd3826587f",
+    "filesChanged": 10,
+    "turns": 35,
+    "toolCalls": 34,
     "tokens": {
-      "input": 233697,
-      "output": 13092,
-      "thinking": 30864,
-      "total": 2820397,
+      "input": 195389,
+      "output": 21515,
+      "thinking": 8125,
+      "total": 1206034,
       "cacheWrite": 0,
-      "cacheRead": 2542744
+      "cacheRead": 981005
     },
-    "latencyMs": 117300,
+    "latencyMs": 77822,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 257,
+    "pages": 40,
+    "linkEdges": 275,
     "m1_brokenRefs": 0,
     "m1_detail": {
       "deadPath": 0,
       "deadFragment": 0,
       "deadAsset": 0
     },
-    "m2_styleForks": 4,
+    "m2_styleForks": 6,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 1,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
-    "m4_chromeDivergence": 0,
+    "m4_chromeDivergence": 2,
     "m5_blastRadius": 10,
     "m5_detail": {
       "added": 0,
       "removed": 0,
       "modified": 10
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 1,
+    "m6_unreachable": 1
   },
   {
     "op": 30,
     "opId": "E6",
     "wave": "E",
-    "status": "partial",
+    "status": "completed",
     "autoClosed": false,
-    "snapshotSha": "21e0a98eb272277e665c3009d4fbb19feffd62ed",
-    "filesChanged": 0,
-    "turns": 19,
-    "toolCalls": 54,
+    "snapshotSha": "130e43348c95aea5f3d4e8cd634294250d0e7768",
+    "filesChanged": 13,
+    "turns": 40,
+    "toolCalls": 68,
     "tokens": {
-      "input": 165203,
-      "output": 4865,
-      "thinking": 20870,
-      "total": 1157485,
+      "input": 257630,
+      "output": 25070,
+      "thinking": 19179,
+      "total": 3653429,
       "cacheWrite": 0,
-      "cacheRead": 966547
+      "cacheRead": 3351550
     },
-    "latencyMs": 50101,
+    "latencyMs": 115864,
     "assertions": null,
     "satisfied": null,
-    "pages": 41,
-    "linkEdges": 257,
+    "pages": 40,
+    "linkEdges": 288,
     "m1_brokenRefs": 0,
     "m1_detail": {
       "deadPath": 0,
       "deadFragment": 0,
       "deadAsset": 0
     },
-    "m2_styleForks": 4,
+    "m2_styleForks": 6,
     "m2_byRule": {
       "H1": 0,
       "H2": 0,
       "H3": 0,
       "H4": 1,
       "H5": 1,
-      "H6": 2,
+      "H6": 4,
       "H7": 0
     },
     "m4_chromeDivergence": 0,
-    "m5_blastRadius": 0,
+    "m5_blastRadius": 8,
     "m5_detail": {
       "added": 0,
       "removed": 0,
-      "modified": 0
+      "modified": 8
     },
-    "m6_orphans": 4,
-    "m6_unreachable": 4
+    "m6_orphans": 0,
+    "m6_unreachable": 0
   }
 ]

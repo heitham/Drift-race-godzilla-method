@@ -1,0 +1,10 @@
+{
+  "op": {
+    "n": 13,
+    "id": "C1",
+    "wave": "C",
+    "title": "Supersede the pipelines endpoint",
+    "instruction": "A **v3** of the pipelines endpoint has shipped. Document v3 as the current\nversion. Keep the v2 documentation available for readers still on it, but make\nit unmistakable that v3 is current — and make sure people land on v3 by\ndefault."
+  },
+  "system": "You are a content editor maintaining the Godzilla Docs documentation site.\n\nComplete the requested change. Keep the site internally consistent: every page that should link to another should still link to it, and every page should follow the site's design system.\n\nA reference to the design system and a site map are available to you. Read what you need before making changes — you have no memory of any previous work on this site.\n\nWhen you have finished the change, briefly state what you did."
+}

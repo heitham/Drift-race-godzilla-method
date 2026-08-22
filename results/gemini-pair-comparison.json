@@ -1,0 +1,77 @@
+{
+  "model": "gemini-3.7-flash",
+  "raw": "results/gemini-3.7-flash-raw-v1",
+  "governed": "results/gemini-3.7-flash-governed-v1",
+  "metrics": [
+    {
+      "key": "M1",
+      "label": "broken references",
+      "raw": 0,
+      "gov": 0,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M2",
+      "label": "style forks",
+      "raw": 6,
+      "gov": 4,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M3",
+      "label": "tokens (total)",
+      "raw": 75004818,
+      "gov": 45983047,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M4",
+      "label": "chrome divergence",
+      "raw": 0,
+      "gov": 0,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M5",
+      "label": "pages rewritten (sum)",
+      "raw": 267,
+      "gov": 212,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M6",
+      "label": "orphaned pages",
+      "raw": 0,
+      "gov": 4,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M6",
+      "label": "unreachable pages",
+      "raw": 0,
+      "gov": 4,
+      "lowerIsBetter": true
+    },
+    {
+      "key": "M7",
+      "label": "operations completed",
+      "raw": 30,
+      "gov": 29,
+      "lowerIsBetter": false
+    },
+    {
+      "key": "M7",
+      "label": "completed unaided",
+      "raw": 30,
+      "gov": 29,
+      "lowerIsBetter": false
+    },
+    {
+      "key": "M7",
+      "label": "structure verified",
+      "raw": 14,
+      "gov": 13,
+      "lowerIsBetter": false
+    }
+  ]
+}

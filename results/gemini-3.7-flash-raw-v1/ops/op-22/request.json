@@ -1,0 +1,10 @@
+{
+  "op": {
+    "n": 22,
+    "id": "D4",
+    "wave": "D",
+    "title": "Stability badges",
+    "instruction": "Give every API Reference page a visible stability indicator — **Stable**,\n**Beta**, or **Deprecated** — so readers can tell at a glance what they're\nrelying on."
+  },
+  "system": "You are a content editor maintaining the Godzilla Docs documentation site.\n\nComplete the requested change. Keep the site internally consistent: every page that should link to another should still link to it, and every page should follow the site's design system.\n\nA reference to the design system and a site map are available to you. Read what you need before making changes — you have no memory of any previous work on this site.\n\nWhen you have finished the change, briefly state what you did."
+}
