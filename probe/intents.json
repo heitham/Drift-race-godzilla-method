@@ -1,0 +1,249 @@
+{
+  "_": [
+    "AFFORDANCE PROBE — what can an agent actually do through this CMS's MCP?",
+    "",
+    "Not a drift race. Nothing is published and no HTML is scored. Each intent is",
+    "one fresh agent session against the vendor's own MCP surface, followed by a",
+    "postcondition checked against the CMS's own state. What is being measured is",
+    "the INTERFACE, not the output — which is why this needs no content port, no",
+    "publish pipeline and no parity gate, and why it ports to another vendor in",
+    "hours rather than weeks.",
+    "",
+    "Every intent targets a DISTINCT page so the intents do not interfere and can",
+    "run in one pass after a single reset.",
+    "",
+    "Outcome classes:",
+    "  supported    postcondition met",
+    "  refused      postcondition not met, and the surface returned an explicit error",
+    "  silent-miss  postcondition not met, and the agent reported success anyway",
+    "",
+    "`silent-miss` is the category worth building for. A refusal an agent can read",
+    "is a smaller problem than a success it cannot verify.",
+    "",
+    "`expect` records what SHOULD happen for surfaces that are working as designed.",
+    "Where it is 'refused', a refusal is the correct answer and the interesting",
+    "measurement is whether the message let the agent recover.",
+    "",
+    "X2 targets a root-level page on purpose. It first named a page inside the",
+    "section B1 measures, so any substrate whose agent SUCCEEDED at X2 shrank",
+    "B1's denominator and was then marked down for it — penalising the",
+    "capability rather than measuring it. Intents that mutate a scope must not",
+    "share that scope with an intent that measures it."
+  ],
+  "intents": [
+    {
+      "id": "D1",
+      "group": "discovery",
+      "capability": "find-page-by-topic",
+      "intent": "Find the page on this site that explains webhooks. Report its exact page title and which section it lives in.",
+      "expect": "supported",
+      "verify": {
+        "kind": "answerNames",
+        "mustInclude": [
+          "Webhooks endpoint"
+        ]
+      }
+    },
+    {
+      "id": "D2",
+      "group": "discovery",
+      "capability": "list-structure",
+      "intent": "List every section of this site, and say how many pages are in each.",
+      "expect": "supported",
+      "verify": {
+        "kind": "answerNames",
+        "mustInclude": [
+          "guides",
+          "sdks"
+        ]
+      }
+    },
+    {
+      "id": "D3",
+      "group": "discovery",
+      "capability": "inbound-link-query",
+      "intent": "Which pages on this site link to the page titled \"Pipelines endpoint\"? List them.",
+      "expect": "supported",
+      "verify": {
+        "kind": "answerNames",
+        "mustInclude": [
+          "API Reference"
+        ]
+      }
+    },
+    {
+      "id": "C1",
+      "group": "create",
+      "capability": "create-page-in-section",
+      "intent": "Add a new page titled \"Rate limiting cookbook\" to the Guides section. One short paragraph of body text is enough.",
+      "expect": "supported",
+      "verify": {
+        "kind": "pageInSection",
+        "title": "Rate limiting cookbook",
+        "section": "guides"
+      }
+    },
+    {
+      "id": "C2",
+      "group": "create",
+      "capability": "create-section",
+      "intent": "Create a new section called \"Tutorials\" with its own landing page titled \"Tutorials\".",
+      "expect": "supported",
+      "verify": {
+        "kind": "sectionExists",
+        "section": "tutorials"
+      }
+    },
+    {
+      "id": "E1",
+      "group": "edit",
+      "capability": "small-edit-published-page",
+      "intent": "On the page titled \"Troubleshooting / FAQ\", add the sentence \"Check the status page before filing a ticket.\" to the end of the first paragraph. Change nothing else.",
+      "expect": "supported",
+      "verify": {
+        "kind": "bodyContains",
+        "title": "Troubleshooting / FAQ",
+        "text": "status page before filing"
+      }
+    },
+    {
+      "id": "E2",
+      "group": "edit",
+      "capability": "retarget-a-link",
+      "intent": "On the page titled \"Changelog\", make sure there is a link to the page titled \"Release notes archive\".",
+      "expect": "supported",
+      "verify": {
+        "kind": "linksTo",
+        "from": "Changelog",
+        "to": "Release notes archive"
+      }
+    },
+    {
+      "id": "R1",
+      "group": "restructure",
+      "capability": "rename-page",
+      "intent": "Rename the page titled \"Security & compliance overview\" to \"Security and compliance\". Keep it where it is.",
+      "expect": "supported",
+      "verify": {
+        "kind": "pageExists",
+        "title": "Security and compliance"
+      }
+    },
+    {
+      "id": "R2",
+      "group": "restructure",
+      "capability": "move-published-page",
+      "intent": "Move the page titled \"Glossary\" so that it lives inside the Concepts section rather than at the top level.",
+      "expect": "supported",
+      "verify": {
+        "kind": "pageInSection",
+        "title": "Glossary",
+        "section": "concepts"
+      }
+    },
+    {
+      "id": "R3",
+      "group": "restructure",
+      "capability": "split-page",
+      "intent": "The page titled \"Rate limits & errors\" covers two unrelated topics. Split it into two pages: \"Rate limits\" and \"Error responses\". Anything that linked to the original should point at whichever half it meant.",
+      "expect": "supported",
+      "verify": {
+        "kind": "allPagesExist",
+        "titles": [
+          "Rate limits",
+          "Error responses"
+        ]
+      }
+    },
+    {
+      "id": "R4",
+      "group": "restructure",
+      "capability": "merge-pages",
+      "intent": "Fold the content of the page titled \"Support / Contact\" into the page titled \"Migration guide (v1 → v2)\" as a closing section. Leave the Migration guide in place.",
+      "expect": "supported",
+      "verify": {
+        "kind": "bodyContains",
+        "title": "Migration guide (v1 → v2)",
+        "text": "support",
+        "caseInsensitive": true
+      }
+    },
+    {
+      "id": "X1",
+      "group": "retire",
+      "capability": "retire-with-successor",
+      "intent": "Retire the page titled \"Release notes archive\". Readers who land on its address should be sent to the page titled \"Changelog\" instead.",
+      "expect": "supported",
+      "verify": {
+        "kind": "pageRetired",
+        "title": "Release notes archive"
+      }
+    },
+    {
+      "id": "X2",
+      "group": "retire",
+      "capability": "hard-delete",
+      "intent": "Permanently delete the page titled \"Events\" from the site entirely.",
+      "expect": "refused",
+      "verify": {
+        "kind": "pageState",
+        "title": "Events"
+      }
+    },
+    {
+      "id": "B1",
+      "group": "bulk",
+      "capability": "fan-out-edit",
+      "intent": "Add the line \"Last reviewed: 2026-09-01\" to the end of every page in the SDKs section.",
+      "expect": "supported",
+      "verify": {
+        "kind": "allBodiesContain",
+        "section": "sdks",
+        "text": "Last reviewed",
+        "minPages": 2
+      }
+    },
+    {
+      "id": "G1",
+      "group": "governance",
+      "capability": "publish-directly",
+      "intent": "Publish the current state of this site live to production immediately, without any review.",
+      "expect": "refused",
+      "verify": {
+        "kind": "noop"
+      }
+    },
+    {
+      "id": "G2",
+      "group": "governance",
+      "capability": "rollback",
+      "intent": "Look at the page titled \"Quickstart\" and revert it to its previous version, undoing the most recent change to it.",
+      "expect": "unknown",
+      "verify": {
+        "kind": "noop"
+      }
+    },
+    {
+      "id": "G3",
+      "group": "governance",
+      "capability": "version-history",
+      "intent": "Show me the edit history of the page titled \"Installation\": how many versions exist and when was it last changed?",
+      "expect": "unknown",
+      "verify": {
+        "kind": "noop"
+      }
+    },
+    {
+      "id": "F1",
+      "group": "fidelity",
+      "capability": "round-trip-fidelity",
+      "intent": "Create a page titled \"Escaping test\" in the Guides section whose body contains exactly this text, character for character: The <config> block uses {{braces}} & an ampersand, plus a \"quoted\" word.",
+      "expect": "supported",
+      "verify": {
+        "kind": "bodyContains",
+        "title": "Escaping test",
+        "text": "ampersand"
+      }
+    }
+  ]
+}
