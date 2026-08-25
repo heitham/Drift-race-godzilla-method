@@ -214,6 +214,18 @@ async function flushOpen(): Promise<number> {
 // --- run --------------------------------------------------------------------
 const args = process.argv.slice(2)
 const only = args.includes('--only') ? new Set(args[args.indexOf('--only') + 1].split(',')) : null
+/**
+ * Passes per intent. One pass cannot see determinism, and determinism is a
+ * buyer question, not an academic one: X2 disclosed its substitution on one run
+ * and called archival "removal" on the next. "Happened once" and "happens a
+ * third of the time" are different products.
+ */
+const passes = args.includes('--passes') ? Number(args[args.indexOf('--passes') + 1]) : 1
+
+/** $ per million tokens, gemini-3.7-flash, from Google's published rates. */
+const RATE = { input: 0.75, output: 3.75, cached: 0.075 }
+const dollars = (u: { input: number; output: number; thinking: number; cacheRead: number }) =>
+  (u.input * RATE.input + (u.output + u.thinking) * RATE.output + u.cacheRead * RATE.cached) / 1e6
 
 const spec = JSON.parse(readFileSync(path.join('probe', 'intents.json'), 'utf8'))
 const intents = spec.intents.filter((i: any) => !only || only.has(i.id))
@@ -243,11 +255,14 @@ When you are finished, state briefly what you did.`
 
 const results: any[] = []
 
+for (let pass = 1; pass <= passes; pass++) {
+if (passes > 1) console.log(`\n--- pass ${pass}/${passes} ---`)
 for (const it of intents) {
   process.stdout.write(`${it.id}  ${it.capability.padEnd(28)}`)
 
   const errors: string[] = []
   const toolsUsed: string[] = []
+  let callsFailed = 0
   const r = await driver.runSession({
     system: SYSTEM,
     userMessage: it.intent,
@@ -260,6 +275,7 @@ for (const it of intents) {
         return text || out
       } catch (e) {
         const msg = (e as Error).message
+        callsFailed++
         errors.push(`${name}: ${msg}`)
         return { error: msg }
       }
@@ -289,9 +305,27 @@ for (const it of intents) {
 
   const tok = r.usage.total
   results.push({
-    id: it.id, group: it.group, capability: it.capability, expect: it.expect,
+    id: it.id, group: it.group, capability: it.capability, expect: it.expect, pass,
     outcome, detail: v.detail, disclosed,
-    turns: r.turns, toolCalls: r.toolCalls, tokens: tok, cacheRead: r.usage.cacheRead,
+    sessionStatus: r.status,
+
+    // Effort — what it costs a team to get this done.
+    turns: r.turns,
+    toolCalls: r.toolCalls,
+    toolCallsFailed: callsFailed,
+    latencyMs: r.latencyMs,
+
+    // Cost — split, because "what does it cost to UNDERSTAND my site" and
+    // "what does it cost to CHANGE it" are different purchasing questions.
+    tokens: {
+      total: tok,
+      input: r.usage.input,
+      output: r.usage.output,
+      thinking: r.usage.thinking,
+      cacheRead: r.usage.cacheRead,
+    },
+    usd: Number(dollars(r.usage).toFixed(4)),
+
     toolsUsed: [...new Set(toolsUsed)],
     errors: errors.slice(0, 4),
     changeSetsApproved: approved,
@@ -299,17 +333,75 @@ for (const it of intents) {
   })
 
   const mark = outcome === 'silent-miss' ? 'SILENT-MISS' : outcome
-  console.log(`${mark.padEnd(24)} ${String(r.turns).padStart(2)}t ${String(r.toolCalls).padStart(3)}c ${tok.toLocaleString().padStart(9)}tok`)
+  console.log(`${mark.padEnd(24)} ${String(r.turns).padStart(2)}t ${String(r.toolCalls).padStart(3)}c ` +
+              `${tok.toLocaleString().padStart(9)}tok ${String(Math.round(r.latencyMs / 1000)).padStart(4)}s ` +
+              `$${dollars(r.usage).toFixed(3)}`)
   if (!v.ok) console.log(`      ${v.detail}`)
   for (const e of errors.slice(0, 2)) console.log(`      refused: ${e.replace(/\s+/g, ' ').slice(0, 150)}`)
+}
 }
 
 mkdirSync(path.join('probe', 'results'), { recursive: true })
 const out = path.join('probe', 'results', 'rift.json')
+
+// --- roll-ups: the numbers a buyer actually decides on ----------------------
+// Per-intent rows are evidence; these are the reading of it. Computed here
+// rather than in a notebook so every substrate is summarised by identical code
+// and the comparison cannot drift between columns.
+const outcomes = (rs: any[]) => rs.reduce((m: any, r) => (m[r.outcome] = (m[r.outcome] ?? 0) + 1, m), {})
+const byIntent = new Map<string, any[]>()
+for (const r of results) byIntent.set(r.id, [...(byIntent.get(r.id) ?? []), r])
+
+const summary = {
+  passes,
+  intents: byIntent.size,
+  sessions: results.length,
+
+  // Coverage and the failure that matters most.
+  supportedRate: results.filter(r => r.outcome.startsWith('supported')).length / results.length,
+  silentMissRate: results.filter(r => r.outcome === 'silent-miss').length / results.length,
+  disclosureRate: (() => {
+    const shortfalls = results.filter(r => !r.outcome.startsWith('supported'))
+    return shortfalls.length ? shortfalls.filter(r => r.disclosed).length / shortfalls.length : null
+  })(),
+
+  // Effort and cost, per intent-attempt.
+  usdTotal: Number(results.reduce((n, r) => n + r.usd, 0).toFixed(3)),
+  usdMedian: Number([...results.map(r => r.usd)].sort((a, b) => a - b)[Math.floor(results.length / 2)].toFixed(4)),
+  secondsMedian: Math.round([...results.map(r => r.latencyMs)].sort((a, b) => a - b)[Math.floor(results.length / 2)] / 1000),
+  turnsMedian: [...results.map(r => r.turns)].sort((a, b) => a - b)[Math.floor(results.length / 2)],
+  toolCallFailureRate: results.reduce((n, r) => n + r.toolCallsFailed, 0) /
+                       Math.max(1, results.reduce((n, r) => n + r.toolCalls, 0)),
+
+  // Read vs write economics — different purchasing questions.
+  tokensByGroup: [...new Set(results.map(r => r.group))].reduce((m: any, g) => {
+    const rs = results.filter(r => r.group === g)
+    m[g] = { sessions: rs.length, tokens: rs.reduce((n, r) => n + r.tokens.total, 0),
+             usd: Number(rs.reduce((n, r) => n + r.usd, 0).toFixed(3)) }
+    return m
+  }, {}),
+
+  // Attribution: which KIND of task fails, and how.
+  outcomeByGroup: [...new Set(results.map(r => r.group))].reduce((m: any, g) => {
+    m[g] = outcomes(results.filter(r => r.group === g)); return m
+  }, {}),
+
+  // Determinism. Only meaningful with passes > 1; recorded either way so the
+  // absence is visible rather than assumed.
+  nonDeterministicIntents: [...byIntent.entries()]
+    .filter(([, rs]) => new Set(rs.map(r => r.outcome)).size > 1)
+    .map(([id, rs]) => ({ id, outcomes: rs.map(r => r.outcome) })),
+
+  // Where the money goes.
+  costConcentration: [...byIntent.entries()]
+    .map(([id, rs]) => ({ id, capability: rs[0].capability, usd: Number(rs.reduce((n, r) => n + r.usd, 0).toFixed(3)) }))
+    .sort((a, b) => b.usd - a.usd).slice(0, 5),
+}
+
 writeFileSync(out, JSON.stringify({
-  substrate: 'RIFT', mcp: MCP, model: 'gemini-3.7-flash',
+  substrate: 'RIFT', mcp: MCP, model: 'gemini-3.7-flash', rates: RATE,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
-  results,
+  summary, results,
 }, null, 2))
 
 const by = (o: string) => results.filter(r => r.outcome === o).length
@@ -317,5 +409,7 @@ console.log(`\n  supported ${by('supported') + by('supported-after-refusal')}` +
             `  substituted-disclosed ${by('substituted-disclosed')}` +
             `  unsupported-disclosed ${by('unsupported-disclosed')}` +
             `  refused ${by('refused')}  SILENT-MISS ${by('silent-miss')}  unscored ${by('no-postcondition')}`)
-console.log(`  tokens ${results.reduce((n, r) => n + r.tokens, 0).toLocaleString()}`)
+console.log(`  tokens ${results.reduce((n, r) => n + r.tokens.total, 0).toLocaleString()}` +
+            `  ·  $${summary.usdTotal}` +
+            `  ·  median ${summary.secondsMedian}s / $${summary.usdMedian} per intent`)
 console.log(`\nwrote ${out}`)
