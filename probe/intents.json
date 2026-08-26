@@ -28,7 +28,8 @@
     "section B1 measures, so any substrate whose agent SUCCEEDED at X2 shrank",
     "B1's denominator and was then marked down for it — penalising the",
     "capability rather than measuring it. Intents that mutate a scope must not",
-    "share that scope with an intent that measures it."
+    "share that scope with an intent that measures it.",
+    "X1 targets its own page. It first named \"Release notes archive\", which E2 asks the agent to LINK TO — so on any substrate where X1 ran first, E2 was marked down for a link the probe itself had just destroyed. Same defect as the old X2/B1 overlap: an intent that mutates a page must not share it with an intent that measures it."
   ],
   "intents": [
     {
@@ -172,11 +173,11 @@
       "id": "X1",
       "group": "retire",
       "capability": "retire-with-successor",
-      "intent": "Retire the page titled \"Release notes archive\". Readers who land on its address should be sent to the page titled \"Changelog\" instead.",
+      "intent": "Retire the page titled \"Legacy authentication (deprecated)\". Readers who land on its address should be sent to the page titled \"Authentication\" instead.",
       "expect": "supported",
       "verify": {
         "kind": "pageRetired",
-        "title": "Release notes archive"
+        "title": "Legacy authentication (deprecated)"
       }
     },
     {

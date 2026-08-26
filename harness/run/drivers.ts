@@ -172,19 +172,95 @@ const GEMINI_SCHEMA_KEYS = new Set([
   'properties', 'required', 'minItems', 'maxItems', 'minimum', 'maximum',
 ])
 
+/** Union keywords Gemini has no equivalent for; the first branch is kept. */
+const GEMINI_UNION_KEYS = ['anyOf', 'oneOf', 'allOf'] as const
+
 function toGeminiSchema(schema: unknown): unknown {
   if (Array.isArray(schema)) return schema.map(toGeminiSchema)
   if (!schema || typeof schema !== 'object') return schema
 
+  const src = schema as Record<string, unknown>
+
+  // JSON Schema unions have no Gemini equivalent. Payload emits `type: [...]`
+  // for nullable and polymorphic fields; Gemini's proto has a single `type` and
+  // rejects the whole tool list with a 400 if it sees a list. Collapse to the
+  // first non-null member and carry the nullability across, which is the part
+  // that actually changes what the model may send.
+  //
+  // Vendor schemas are DATA, not something to hand-fix per vendor: a column
+  // that needed its schemas edited by hand would be measuring our patience
+  // rather than the product. Everything here is a mechanical, lossy-but-honest
+  // projection applied identically to every substrate.
   const out: Record<string, unknown> = {}
-  for (const [k, v] of Object.entries(schema as Record<string, unknown>)) {
+  for (const [k, v0] of Object.entries(src)) {
     if (!GEMINI_SCHEMA_KEYS.has(k)) continue
+    let v = v0
+    // Gemini rejects an enum member that is the empty string, and Payload's
+    // Lexical schemas use "" as the no-format sentinel throughout. Dropping the
+    // MEMBER would delete a legal value from the model's menu; dropping the
+    // whole `enum` keeps every legal value and only loses the hint. Losing a
+    // hint is a fair trade, silently outlawing a value the substrate requires
+    // is not.
+    if (k === 'enum' && Array.isArray(v)) {
+      if ((v as unknown[]).some(m => m === '' || m === null)) continue
+    }
+    if (k === 'type' && Array.isArray(v)) {
+      const members = (v as unknown[]).filter(t => t !== 'null')
+      if ((v as unknown[]).includes('null')) out.nullable = true
+      v = members[0] ?? 'string'
+    }
     // `properties` maps names to schemas: its KEYS are arbitrary and must not be
     // filtered, only its values.
     out[k] = k === 'properties' && v && typeof v === 'object' && !Array.isArray(v)
       ? Object.fromEntries(Object.entries(v as Record<string, unknown>).map(([n, sub]) => [n, toGeminiSchema(sub)]))
       : toGeminiSchema(v)
   }
+
+  // Union branches. Gemini's function-declaration schema has no anyOf/oneOf, so
+  // the union has to be projected onto one node.
+  //
+  // Taking the FIRST branch — the obvious move, and the one this did first — is
+  // actively destructive when the union is a discriminated one over object
+  // shapes. Payload types a page's `layout` as anyOf over its block types;
+  // keeping only the first showed the model the CTA block and hid the content
+  // block entirely, so every attempt to edit body prose failed validation. That
+  // read as "Payload cannot edit page bodies through MCP", which is false, and
+  // it was the harness that made it false.
+  //
+  // So: object branches are MERGED — the union of their properties, with
+  // `required` dropped, since which fields are required depends on the branch
+  // the model picks. Scalar branches (the nullable-field idiom) still collapse
+  // to the first non-null member. Lossy in the direction of permitting too
+  // much, which lets the substrate's own validator be the judge rather than
+  // this projection.
+  if (out.type === undefined) {
+    for (const key of GEMINI_UNION_KEYS) {
+      const branches = src[key]
+      if (!Array.isArray(branches) || !branches.length) continue
+
+      const live = branches.filter(b => (b as any)?.type !== 'null')
+      const nullable = live.length !== branches.length
+      const objects = live.filter(b => (b as any)?.type === 'object' || (b as any)?.properties)
+
+      if (objects.length > 1) {
+        const props: Record<string, unknown> = {}
+        for (const b of objects) {
+          const sub = toGeminiSchema(b) as Record<string, unknown>
+          Object.assign(props, (sub.properties as Record<string, unknown>) ?? {})
+        }
+        out.type = 'object'
+        out.properties = props
+      } else {
+        const one = toGeminiSchema(objects[0] ?? live[0] ?? branches[0])
+        Object.assign(out, one as object, out)
+      }
+      if (nullable) out.nullable = true
+      break
+    }
+  }
+
+  // Gemini rejects an object schema declaring no properties.
+  if (out.type === 'object' && !out.properties) out.properties = {}
   return out
 }
 
