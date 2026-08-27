@@ -20,6 +20,8 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import path from 'node:path'
 import { loadEnv } from '../harness/run/config.js'
 import { makeDriver, type ToolDef } from '../harness/run/drivers.js'
+import { resolveModel, dollarsFor, resultFile } from './models.js'
+import { DISCLOSURE } from './disclosure.js'
 
 loadEnv()
 
@@ -230,10 +232,21 @@ const only = args.includes('--only') ? new Set(args[args.indexOf('--only') + 1].
  */
 const passes = args.includes('--passes') ? Number(args[args.indexOf('--passes') + 1]) : 1
 
-/** $ per million tokens, gemini-3.7-flash, from Google's published rates. */
-const RATE = { input: 0.75, output: 3.75, cached: 0.075 }
-const dollars = (u: { input: number; output: number; thinking: number; cacheRead: number }) =>
-  (u.input * RATE.input + (u.output + u.thinking) * RATE.output + u.cacheRead * RATE.cached) / 1e6
+const MODEL = resolveModel(args)
+
+/**
+ * The CMS pin this column ran against. RIFT changed during the study — a
+ * get_inbound_links tool landed after the first columns were measured — so a
+ * result that does not name its pin cannot be told apart from a result measured
+ * on a different product.
+ */
+const CMS_PIN = (() => {
+  try {
+    return execSync(`git -C ${JSON.stringify(process.env.CMS_REPO ?? '.')} rev-parse --short HEAD`, { encoding: 'utf8' }).trim()
+  } catch { return 'unknown' }
+})()
+const RATE = MODEL.rate
+const dollars = dollarsFor(MODEL)
 
 const spec = JSON.parse(readFileSync(path.join('probe', 'intents.json'), 'utf8'))
 const intents = spec.intents.filter((i: any) => !only || only.has(i.id))
@@ -254,7 +267,7 @@ console.log(`intents     ${intents.length}\n`)
 
 if (args.includes('--dry')) { console.log(intents.map((i: any) => `${i.id}  ${i.intent}`).join('\n')); process.exit(0) }
 
-const driver = makeDriver('google', 'gemini-3.7-flash', 8000)
+const driver = makeDriver(MODEL.provider, MODEL.id, MODEL.maxTokens)
 const SYSTEM = `You are a content editor working on the Godzilla Docs documentation site through the tools provided.
 
 Carry out the request using the tools. If something cannot be done with the tools available, say so plainly and explain what stopped you.
@@ -262,7 +275,7 @@ Carry out the request using the tools. If something cannot be done with the tool
 When you are finished, state briefly what you did.`
 
 const append = args.includes('--append')
-const OUT = path.join('probe', 'results', 'rift.json')
+const OUT = path.join('probe', 'results', resultFile('rift', MODEL))
 mkdirSync(path.join('probe', 'results'), { recursive: true })
 const prior: any[] = (() => {
   if (!append) return []
@@ -279,7 +292,7 @@ const results: any[] = [...prior]
  * must not be able to lose finished work.
  */
 const flush = () => writeFileSync(OUT, JSON.stringify({
-  substrate: 'RIFT', mcp: MCP, model: 'gemini-3.7-flash', rates: RATE,
+  substrate: 'RIFT', mcp: MCP, model: MODEL.id, rates: RATE, cmsPin: CMS_PIN,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   partial: true, results,
 }, null, 2))
@@ -304,6 +317,13 @@ for (const it of intents) {
         return text || out
       } catch (e) {
         const msg = (e as Error).message
+        // A dead server is not a vendor refusal — see the note in payload.ts.
+        if (/fetch failed|ECONNREFUSED|ECONNRESET|socket hang up|empty response/i.test(msg)) {
+          throw new Error(
+            `TRANSPORT FAILURE talking to ${MCP} (${msg}). ` +
+            `Aborting rather than recording this as a vendor result. Is the server up?`,
+          )
+        }
         callsFailed++
         errors.push(`${name}: ${msg}`)
         return { error: msg }
@@ -321,7 +341,6 @@ for (const it of intents) {
   // behaved well; one that does the same thing and reports success has not. The
   // detector is a heuristic over the agent's own words and every finalText is
   // recorded, so any classification here can be audited or overridden.
-  const DISCLOSURE = /cannot|can't|not (?:possible|supported|available)|do(?:es)? not (?:provide|support|allow)|no (?:tool|way|support|access)|unable to|not permitted|instead/i
   const disclosed = DISCLOSURE.test(r.finalText ?? '')
   const didSomething = toolsUsed.some(t => /create|update|patch|move|retire|delete|propose|open_change/.test(t))
 
@@ -353,6 +372,7 @@ for (const it of intents) {
       output: r.usage.output,
       thinking: r.usage.thinking,
       cacheRead: r.usage.cacheRead,
+      cacheWrite: r.usage.cacheWrite ?? 0,
     },
     usd: Number(dollars(r.usage).toFixed(4)),
 
@@ -432,7 +452,7 @@ const summary = {
 }
 
 writeFileSync(out, JSON.stringify({
-  substrate: 'RIFT', mcp: MCP, model: 'gemini-3.7-flash', rates: RATE,
+  substrate: 'RIFT', mcp: MCP, model: MODEL.id, rates: RATE, cmsPin: CMS_PIN,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   summary, results,
 }, null, 2))

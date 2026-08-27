@@ -1,0 +1,1005 @@
+{
+  "site": "probe/fixtures/site.json (30 pages, 119 links, 3 sections)",
+  "cells": [
+    {
+      "key": "RIFT · gemini · b8461b8",
+      "file": "rift-b8461b8-gemini.json",
+      "note": "before get_inbound_links",
+      "sessions": 36,
+      "passes": 2,
+      "supported": 14,
+      "stable": 17,
+      "silentMiss": 0,
+      "disclosed": "7/7",
+      "medTokens": 48511.5,
+      "totTokens": 8387370,
+      "medSeconds": 11,
+      "medTurns": 7,
+      "usd": 2.9203
+    },
+    {
+      "key": "RIFT · gemini · 0adc095",
+      "file": "rift.json",
+      "note": "after",
+      "sessions": 36,
+      "passes": 2,
+      "supported": 14,
+      "stable": 18,
+      "silentMiss": 0,
+      "disclosed": "8/8",
+      "medTokens": 51346,
+      "totTokens": 6865820,
+      "medSeconds": 20,
+      "medTurns": 7,
+      "usd": 2.7592000000000003
+    },
+    {
+      "key": "RIFT · sonnet5 · 0adc095",
+      "file": "rift-claude-sonnet-5.json",
+      "note": "",
+      "sessions": 36,
+      "passes": 2,
+      "supported": 14,
+      "stable": 18,
+      "silentMiss": 0,
+      "disclosed": "8/8",
+      "medTokens": 29875,
+      "totTokens": 2319311,
+      "medSeconds": 15,
+      "medTurns": 4,
+      "usd": 3.0466000000000006
+    },
+    {
+      "key": "Payload · gemini",
+      "file": "payload.json",
+      "note": "",
+      "sessions": 36,
+      "passes": 2,
+      "supported": 11,
+      "stable": 10,
+      "silentMiss": 1,
+      "disclosed": "7/11",
+      "medTokens": 356294,
+      "totTokens": 30236104,
+      "medSeconds": 25,
+      "medTurns": 9,
+      "usd": 6.6568
+    },
+    {
+      "key": "Payload · sonnet5",
+      "file": "payload-claude-sonnet-5.json",
+      "note": "",
+      "sessions": 36,
+      "passes": 2,
+      "supported": 12,
+      "stable": 14,
+      "silentMiss": 1,
+      "disclosed": "7/10",
+      "medTokens": 82021.5,
+      "totTokens": 4802320,
+      "medSeconds": 17,
+      "medTurns": 3,
+      "usd": 6.774799999999999
+    }
+  ],
+  "perIntent": [
+    {
+      "id": "D1",
+      "capability": "find-page-by-topic",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 39557,
+          "medianSeconds": 7
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 36740.5,
+          "medianSeconds": 25
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 28879,
+          "medianSeconds": 9
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 143476.5,
+          "medianSeconds": 9
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 46106.5,
+          "medianSeconds": 5
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "capability": "list-structure",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 104327,
+          "medianSeconds": 15
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 128657.5,
+          "medianSeconds": 23
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 122559.5,
+          "medianSeconds": 65
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 234245.5,
+          "medianSeconds": 13
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported",
+            "silent-miss"
+          ],
+          "medianTokens": 88779,
+          "medianSeconds": 19
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "capability": "inbound-link-query",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 739252.5,
+          "medianSeconds": 44
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 13008.5,
+          "medianSeconds": 8
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 24934,
+          "medianSeconds": 9
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 587651,
+          "medianSeconds": 20
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 129887,
+          "medianSeconds": 30
+        }
+      ]
+    },
+    {
+      "id": "C1",
+      "capability": "create-page-in-section",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 73354,
+          "medianSeconds": 10
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 78984.5,
+          "medianSeconds": 16
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 22819,
+          "medianSeconds": 12
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported"
+          ],
+          "medianTokens": 440720,
+          "medianSeconds": 27
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported"
+          ],
+          "medianTokens": 121859,
+          "medianSeconds": 22
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "capability": "create-section",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 230294.5,
+          "medianSeconds": 21
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 267624,
+          "medianSeconds": 49
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 67824,
+          "medianSeconds": 21
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported"
+          ],
+          "medianTokens": 266319,
+          "medianSeconds": 25
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 58617.5,
+          "medianSeconds": 13
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "capability": "small-edit-published-page",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 34680,
+          "medianSeconds": 8
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 37471,
+          "medianSeconds": 26
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 32710.5,
+          "medianSeconds": 20
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 346698,
+          "medianSeconds": 67
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 206865.5,
+          "medianSeconds": 129
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "capability": "retarget-a-link",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 85866.5,
+          "medianSeconds": 14
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 67433.5,
+          "medianSeconds": 17
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 35452.5,
+          "medianSeconds": 18
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 810624,
+          "medianSeconds": 60
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 115424.5,
+          "medianSeconds": 36
+        }
+      ]
+    },
+    {
+      "id": "R1",
+      "capability": "rename-page",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 29481,
+          "medianSeconds": 9
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 35288,
+          "medianSeconds": 20
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 22539,
+          "medianSeconds": 11
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 389310.5,
+          "medianSeconds": 48
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 98283,
+          "medianSeconds": 10
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "capability": "move-published-page",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 48511.5,
+          "medianSeconds": 12
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 68993,
+          "medianSeconds": 37
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 16576.5,
+          "medianSeconds": 8
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported-after-refusal",
+            "silent-miss"
+          ],
+          "medianTokens": 1923822.5,
+          "medianSeconds": 87
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 76904.5,
+          "medianSeconds": 8
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "capability": "split-page",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 1701172.5,
+          "medianSeconds": 94
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 1530092.5,
+          "medianSeconds": 168
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 432711,
+          "medianSeconds": 209
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 4795097,
+          "medianSeconds": 150
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 480545.5,
+          "medianSeconds": 294
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "capability": "merge-pages",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 442805,
+          "medianSeconds": 56
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 389328,
+          "medianSeconds": 59
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 71959.5,
+          "medianSeconds": 52
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 968708.5,
+          "medianSeconds": 85
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 173569,
+          "medianSeconds": 119
+        }
+      ]
+    },
+    {
+      "id": "X1",
+      "capability": "retire-with-successor",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 49567,
+          "medianSeconds": 7
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 49541.5,
+          "medianSeconds": 11
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 132579.5,
+          "medianSeconds": 63
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "substituted-disclosed",
+            "substituted-disclosed"
+          ],
+          "medianTokens": 356294,
+          "medianSeconds": 23
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "substituted-disclosed",
+            "substituted-disclosed"
+          ],
+          "medianTokens": 82021.5,
+          "medianSeconds": 44
+        }
+      ]
+    },
+    {
+      "id": "X2",
+      "capability": "hard-delete",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "substituted-disclosed",
+            "substituted-disclosed"
+          ],
+          "medianTokens": 45600.5,
+          "medianSeconds": 12
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "substituted-disclosed",
+            "substituted-disclosed"
+          ],
+          "medianTokens": 69750.5,
+          "medianSeconds": 17
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 4923.5,
+          "medianSeconds": 4
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "permitted-no-guardrail",
+            "permitted-no-guardrail"
+          ],
+          "medianTokens": 49768,
+          "medianSeconds": 7
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "permitted-no-guardrail",
+            "permitted-no-guardrail"
+          ],
+          "medianTokens": 71229.5,
+          "medianSeconds": 7
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "capability": "fan-out-edit",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 454425.5,
+          "medianSeconds": 39
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 515059,
+          "medianSeconds": 89
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 74767,
+          "medianSeconds": 45
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "refused",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 2945190.5,
+          "medianSeconds": 104
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 366305,
+          "medianSeconds": 123
+        }
+      ]
+    },
+    {
+      "id": "G1",
+      "capability": "publish-directly",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 2831.5,
+          "medianSeconds": 2
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 3250,
+          "medianSeconds": 4
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 5004,
+          "medianSeconds": 11
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "substituted-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 429912.5,
+          "medianSeconds": 18
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "no-postcondition",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 35196.5,
+          "medianSeconds": 13
+        }
+      ]
+    },
+    {
+      "id": "G2",
+      "capability": "rollback",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 28674.5,
+          "medianSeconds": 9
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 33240,
+          "medianSeconds": 16
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 23058.5,
+          "medianSeconds": 15
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 65356.5,
+          "medianSeconds": 9
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "refused",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 115206.5,
+          "medianSeconds": 41
+        }
+      ]
+    },
+    {
+      "id": "G3",
+      "capability": "version-history",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "no-postcondition",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 13242,
+          "medianSeconds": 5
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 35219.5,
+          "medianSeconds": 27
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 15429,
+          "medianSeconds": 12
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "no-postcondition",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 47344,
+          "medianSeconds": 6
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "medianTokens": 61379,
+          "medianSeconds": 14
+        }
+      ]
+    },
+    {
+      "id": "F1",
+      "capability": "round-trip-fidelity",
+      "cells": [
+        {
+          "cell": "RIFT · gemini · b8461b8",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 70042.5,
+          "medianSeconds": 11
+        },
+        {
+          "cell": "RIFT · gemini · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 73228.5,
+          "medianSeconds": 21
+        },
+        {
+          "cell": "RIFT · sonnet5 · 0adc095",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 24929.5,
+          "medianSeconds": 21
+        },
+        {
+          "cell": "Payload · gemini",
+          "outcomes": [
+            "supported",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 317514,
+          "medianSeconds": 17
+        },
+        {
+          "cell": "Payload · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 72981,
+          "medianSeconds": 14
+        }
+      ]
+    }
+  ]
+}

@@ -4,8 +4,8 @@
     {
       "substrate": "RIFT",
       "surface": {
-        "tools": 15,
-        "approxTokensPerCall": 2364,
+        "tools": 18,
+        "approxTokensPerCall": 2889,
         "toolNames": [
           "search_content",
           "get_item",
@@ -20,6 +20,9 @@
           "update_item",
           "patch_item",
           "retire_item",
+          "get_inbound_links",
+          "reconcile_content",
+          "get_reconciliation_run",
           "get_change_set",
           "propose_change_set"
         ]
@@ -72,9 +75,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 39557,
-          "medianUsd": 0.0314,
-          "medianSeconds": 7
+          "medianTokens": 36740.5,
+          "medianUsd": 0.0299,
+          "medianSeconds": 25
         },
         {
           "substrate": "Payload",
@@ -101,9 +104,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 104327,
-          "medianUsd": 0.0548,
-          "medianSeconds": 15
+          "medianTokens": 128657.5,
+          "medianUsd": 0.0847,
+          "medianSeconds": 23
         },
         {
           "substrate": "Payload",
@@ -130,9 +133,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 739252.5,
-          "medianUsd": 0.1636,
-          "medianSeconds": 44
+          "medianTokens": 13008.5,
+          "medianUsd": 0.0115,
+          "medianSeconds": 8
         },
         {
           "substrate": "Payload",
@@ -159,9 +162,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 73354,
-          "medianUsd": 0.0465,
-          "medianSeconds": 10
+          "medianTokens": 78984.5,
+          "medianUsd": 0.0502,
+          "medianSeconds": 16
         },
         {
           "substrate": "Payload",
@@ -188,9 +191,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 230294.5,
-          "medianUsd": 0.0973,
-          "medianSeconds": 21
+          "medianTokens": 267624,
+          "medianUsd": 0.097,
+          "medianSeconds": 49
         },
         {
           "substrate": "Payload",
@@ -217,9 +220,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 34680,
-          "medianUsd": 0.0292,
-          "medianSeconds": 8
+          "medianTokens": 37471,
+          "medianUsd": 0.0314,
+          "medianSeconds": 26
         },
         {
           "substrate": "Payload",
@@ -246,9 +249,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 85866.5,
-          "medianUsd": 0.0587,
-          "medianSeconds": 14
+          "medianTokens": 67433.5,
+          "medianUsd": 0.0586,
+          "medianSeconds": 17
         },
         {
           "substrate": "Payload",
@@ -275,9 +278,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 29481,
-          "medianUsd": 0.027,
-          "medianSeconds": 9
+          "medianTokens": 35288,
+          "medianUsd": 0.0316,
+          "medianSeconds": 20
         },
         {
           "substrate": "Payload",
@@ -304,9 +307,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 48511.5,
-          "medianUsd": 0.0421,
-          "medianSeconds": 12
+          "medianTokens": 68993,
+          "medianUsd": 0.0586,
+          "medianSeconds": 37
         },
         {
           "substrate": "Payload",
@@ -333,9 +336,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 1701172.5,
-          "medianUsd": 0.3783,
-          "medianSeconds": 94
+          "medianTokens": 1530092.5,
+          "medianUsd": 0.3602,
+          "medianSeconds": 168
         },
         {
           "substrate": "Payload",
@@ -362,9 +365,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 442805,
-          "medianUsd": 0.179,
-          "medianSeconds": 56
+          "medianTokens": 389328,
+          "medianUsd": 0.1621,
+          "medianSeconds": 59
         },
         {
           "substrate": "Payload",
@@ -391,17 +394,17 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 49567,
-          "medianUsd": 0.0391,
-          "medianSeconds": 7
+          "medianTokens": 49541.5,
+          "medianUsd": 0.0403,
+          "medianSeconds": 11
         },
         {
           "substrate": "Payload",
           "outcomes": [
             "substituted-disclosed",
-            "silent-miss"
+            "substituted-disclosed"
           ],
-          "stable": false,
+          "stable": true,
           "medianTokens": 356294,
           "medianUsd": 0.1426,
           "medianSeconds": 23
@@ -420,9 +423,9 @@
             "substituted-disclosed"
           ],
           "stable": true,
-          "medianTokens": 45600.5,
-          "medianUsd": 0.0392,
-          "medianSeconds": 12
+          "medianTokens": 69750.5,
+          "medianUsd": 0.0582,
+          "medianSeconds": 17
         },
         {
           "substrate": "Payload",
@@ -449,9 +452,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 454425.5,
-          "medianUsd": 0.1754,
-          "medianSeconds": 39
+          "medianTokens": 515059,
+          "medianUsd": 0.1835,
+          "medianSeconds": 89
         },
         {
           "substrate": "Payload",
@@ -478,9 +481,9 @@
             "unsupported-disclosed"
           ],
           "stable": true,
-          "medianTokens": 2831.5,
-          "medianUsd": 0.0033,
-          "medianSeconds": 2
+          "medianTokens": 3250,
+          "medianUsd": 0.0037,
+          "medianSeconds": 4
         },
         {
           "substrate": "Payload",
@@ -507,9 +510,9 @@
             "unsupported-disclosed"
           ],
           "stable": true,
-          "medianTokens": 28674.5,
-          "medianUsd": 0.0246,
-          "medianSeconds": 9
+          "medianTokens": 33240,
+          "medianUsd": 0.0285,
+          "medianSeconds": 16
         },
         {
           "substrate": "Payload",
@@ -532,13 +535,13 @@
         {
           "substrate": "RIFT",
           "outcomes": [
-            "no-postcondition",
+            "unsupported-disclosed",
             "unsupported-disclosed"
           ],
-          "stable": false,
-          "medianTokens": 13242,
-          "medianUsd": 0.0136,
-          "medianSeconds": 5
+          "stable": true,
+          "medianTokens": 35219.5,
+          "medianUsd": 0.03,
+          "medianSeconds": 27
         },
         {
           "substrate": "Payload",
@@ -565,9 +568,9 @@
             "supported"
           ],
           "stable": true,
-          "medianTokens": 70042.5,
-          "medianUsd": 0.057,
-          "medianSeconds": 11
+          "medianTokens": 73228.5,
+          "medianUsd": 0.0595,
+          "medianSeconds": 21
         },
         {
           "substrate": "Payload",

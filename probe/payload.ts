@@ -22,6 +22,8 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import path from 'node:path'
 import { loadEnv } from '../harness/run/config.js'
 import { makeDriver, type ToolDef } from '../harness/run/drivers.js'
+import { resolveModel, dollarsFor, resultFile } from './models.js'
+import { DISCLOSURE } from './disclosure.js'
 
 loadEnv()
 
@@ -242,9 +244,9 @@ const args = process.argv.slice(2)
 const only = args.includes('--only') ? new Set(args[args.indexOf('--only') + 1].split(',')) : null
 const passes = args.includes('--passes') ? Number(args[args.indexOf('--passes') + 1]) : 1
 
-const RATE = { input: 0.75, output: 3.75, cached: 0.075 }
-const dollars = (u: { input: number; output: number; thinking: number; cacheRead: number }) =>
-  (u.input * RATE.input + (u.output + u.thinking) * RATE.output + u.cacheRead * RATE.cached) / 1e6
+const MODEL = resolveModel(args)
+const RATE = MODEL.rate
+const dollars = dollarsFor(MODEL)
 
 const spec = JSON.parse(readFileSync(path.join('probe', 'intents.json'), 'utf8'))
 const intents = spec.intents.filter((i: any) => !only || only.has(i.id))
@@ -259,7 +261,7 @@ console.log(`intents     ${intents.length}\n`)
 
 if (args.includes('--dry')) { console.log(intents.map((i: any) => `${i.id}  ${i.intent}`).join('\n')); process.exit(0) }
 
-const driver = makeDriver('google', 'gemini-3.7-flash', 8000)
+const driver = makeDriver(MODEL.provider, MODEL.id, MODEL.maxTokens)
 const SYSTEM = `You are a content editor working on the Godzilla Docs documentation site through the tools provided.
 
 Carry out the request using the tools. If something cannot be done with the tools available, say so plainly and explain what stopped you.
@@ -269,7 +271,7 @@ When you are finished, state briefly what you did.`
 const append = args.includes('--append')
 const prior: any[] = (() => {
   if (!append) return []
-  try { return JSON.parse(readFileSync(path.join('probe', 'results', 'payload.json'), 'utf8')).results ?? [] }
+  try { return JSON.parse(readFileSync(path.join('probe', 'results', resultFile('payload', MODEL)), 'utf8')).results ?? [] }
   catch { return [] }
 })()
 const passOffset = prior.length ? Math.max(...prior.map((r: any) => r.pass ?? 1)) : 0
@@ -284,10 +286,10 @@ const reseedFailed = new Set<number>()
  * last intent and the write discarded a complete pass once; a run this
  * expensive must not be able to lose finished work.
  */
-const OUT = path.join('probe', 'results', 'payload.json')
+const OUT = path.join('probe', 'results', resultFile('payload', MODEL))
 mkdirSync(path.join('probe', 'results'), { recursive: true })
 const flush = () => writeFileSync(OUT, JSON.stringify({
-  substrate: 'Payload', mcp: MCP, model: 'gemini-3.7-flash', rates: RATE,
+  substrate: 'Payload', mcp: MCP, model: MODEL.id, rates: RATE,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   partial: true, results,
 }, null, 2))
@@ -346,6 +348,17 @@ for (const it of intents) {
         return text || out
       } catch (e) {
         const msg = (e as Error).message
+        // A dead server is not a vendor refusal. When the CMS stopped answering
+        // mid-column, every subsequent tool call failed with `fetch failed` and
+        // four intents were recorded as `refused` — an instrument outage dressed
+        // up as a product limitation, and exactly the kind of thing that gets
+        // published. Transport failure aborts the run instead of scoring it.
+        if (/fetch failed|ECONNREFUSED|ECONNRESET|socket hang up|empty response/i.test(msg)) {
+          throw new Error(
+            `TRANSPORT FAILURE talking to ${MCP} (${msg}). ` +
+            `Aborting rather than recording this as a vendor result. Is the server up?`,
+          )
+        }
         callsFailed++
         errors.push(`${name}: ${msg}`)
         return { error: msg }
@@ -355,7 +368,6 @@ for (const it of intents) {
 
   const v = check(it.verify, r.finalText ?? '')
 
-  const DISCLOSURE = /cannot|can't|not (?:possible|supported|available)|do(?:es)? not (?:provide|support|allow)|no (?:tool|way|support|access)|unable to|not permitted|instead/i
   const disclosed = DISCLOSURE.test(r.finalText ?? '')
   const didSomething = toolsUsed.some(t => /^(create|update|delete)/.test(t))
 
@@ -374,7 +386,7 @@ for (const it of intents) {
     sessionStatus: r.status,
     sessionError: (r as any).error ?? null,
     turns: r.turns, toolCalls: r.toolCalls, toolCallsFailed: callsFailed, latencyMs: r.latencyMs,
-    tokens: { total: tok, input: r.usage.input, output: r.usage.output, thinking: r.usage.thinking, cacheRead: r.usage.cacheRead },
+    tokens: { total: tok, input: r.usage.input, output: r.usage.output, thinking: r.usage.thinking, cacheRead: r.usage.cacheRead, cacheWrite: r.usage.cacheWrite ?? 0 },
     usd: Number(dollars(r.usage).toFixed(4)),
     toolsUsed: [...new Set(toolsUsed)],
     errors: errors.slice(0, 4),
@@ -432,7 +444,7 @@ const summary = {
 }
 
 writeFileSync(out, JSON.stringify({
-  substrate: 'Payload', mcp: MCP, model: 'gemini-3.7-flash', rates: RATE,
+  substrate: 'Payload', mcp: MCP, model: MODEL.id, rates: RATE,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   summary, results,
 }, null, 2))

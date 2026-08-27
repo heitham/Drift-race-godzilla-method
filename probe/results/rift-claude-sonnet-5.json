@@ -1,0 +1,1362 @@
+{
+  "substrate": "RIFT",
+  "mcp": "http://localhost:3001/api/mcp",
+  "model": "claude-sonnet-5",
+  "rates": {
+    "input": 3,
+    "output": 15,
+    "cached": 0.3,
+    "cacheWrite": 3.75
+  },
+  "cmsPin": "0adc095",
+  "surface": {
+    "tools": 18,
+    "approxTokensPerCall": 2861,
+    "toolNames": [
+      "search_content",
+      "get_item",
+      "list_folders",
+      "get_navigation",
+      "get_design_system_summary",
+      "check_link_resolution",
+      "create_folder",
+      "move_item",
+      "open_change_set",
+      "create_item",
+      "update_item",
+      "patch_item",
+      "retire_item",
+      "get_inbound_links",
+      "reconcile_content",
+      "get_reconciliation_run",
+      "get_change_set",
+      "propose_change_set"
+    ]
+  },
+  "summary": {
+    "passes": 2,
+    "intents": 18,
+    "sessions": 36,
+    "supportedRate": 0.7777777777777778,
+    "silentMissRate": 0.027777777777777776,
+    "disclosureRate": 0.875,
+    "usdTotal": 3.047,
+    "usdMedian": 0.032,
+    "secondsMedian": 15,
+    "turnsMedian": 4,
+    "toolCallFailureRate": 0,
+    "tokensByGroup": {
+      "discovery": {
+        "sessions": 6,
+        "tokens": 352745,
+        "usd": 0.61
+      },
+      "create": {
+        "sessions": 4,
+        "tokens": 181286,
+        "usd": 0.195
+      },
+      "edit": {
+        "sessions": 4,
+        "tokens": 136326,
+        "usd": 0.138
+      },
+      "restructure": {
+        "sessions": 8,
+        "tokens": 1087572,
+        "usd": 1.314
+      },
+      "retire": {
+        "sessions": 4,
+        "tokens": 275006,
+        "usd": 0.422
+      },
+      "bulk": {
+        "sessions": 2,
+        "tokens": 149534,
+        "usd": 0.18
+      },
+      "governance": {
+        "sessions": 6,
+        "tokens": 86983,
+        "usd": 0.116
+      },
+      "fidelity": {
+        "sessions": 2,
+        "tokens": 49859,
+        "usd": 0.07
+      }
+    },
+    "outcomeByGroup": {
+      "discovery": {
+        "supported": 6
+      },
+      "create": {
+        "supported": 4
+      },
+      "edit": {
+        "supported": 4
+      },
+      "restructure": {
+        "supported": 6,
+        "silent-miss": 1,
+        "unsupported-disclosed": 1
+      },
+      "retire": {
+        "supported": 4
+      },
+      "bulk": {
+        "supported": 2
+      },
+      "governance": {
+        "unsupported-disclosed": 6
+      },
+      "fidelity": {
+        "supported": 2
+      }
+    },
+    "nonDeterministicIntents": [
+      {
+        "id": "R2",
+        "outcomes": [
+          "silent-miss",
+          "unsupported-disclosed"
+        ]
+      }
+    ],
+    "costConcentration": [
+      {
+        "id": "R3",
+        "capability": "split-page",
+        "usd": 1.025
+      },
+      {
+        "id": "D2",
+        "capability": "list-structure",
+        "usd": 0.469
+      },
+      {
+        "id": "X1",
+        "capability": "retire-with-successor",
+        "usd": 0.411
+      },
+      {
+        "id": "R4",
+        "capability": "merge-pages",
+        "usd": 0.22
+      },
+      {
+        "id": "B1",
+        "capability": "fan-out-edit",
+        "usd": 0.18
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "D1",
+      "group": "discovery",
+      "capability": "find-page-by-topic",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "answer named the expected pages",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 4,
+      "toolCalls": 3,
+      "toolCallsFailed": 0,
+      "latencyMs": 10428,
+      "tokens": {
+        "total": 33673,
+        "input": 8,
+        "output": 290,
+        "thinking": 0,
+        "cacheRead": 23401,
+        "cacheWrite": 9974
+      },
+      "usd": 0.0488,
+      "toolsUsed": [
+        "search_content",
+        "get_navigation",
+        "list_folders"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "The page that explains webhooks is titled **\"Webhooks endpoint\"**, and it lives in the **\"apis\"** section (folder path: `/apis/`), alongside other API reference pages like Connectors endpoint and Events endpoint.",
+      "freshSite": true
+    },
+    {
+      "id": "D2",
+      "group": "discovery",
+      "capability": "list-structure",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "answer named the expected pages",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 7,
+      "toolCalls": 15,
+      "toolCallsFailed": 0,
+      "latencyMs": 75041,
+      "tokens": {
+        "total": 135715,
+        "input": 14,
+        "output": 4132,
+        "thinking": 0,
+        "cacheRead": 87423,
+        "cacheWrite": 44146
+      },
+      "usd": 0.2538,
+      "toolsUsed": [
+        "list_folders",
+        "get_navigation",
+        "search_content"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "I checked `list_folders` and cross-referenced with a series of `search_content` queries (the search endpoint doesn't support wildcard/empty queries, so I ran broad-term searches — \"guide,\" \"api,\" \"sdk,\" \"godzilla,\" \"pipeline,\" \"connector,\" \"webhook,\" \"compliance,\" \"error,\" \"install,\" etc. — until no new pages surfaced) to enumerate every content item and its folder. There's no sub-folder nesting beyond the four folders below (root + three sections), and the site's main navigation tree is currently empty, so folders/paths were the only reliable way to group pages.\n\n**Sections (folders) and page counts:**\n\n| Section | Path | Pages |\n|---|---|---|\n| Top-level (root) | `/` | 16 pages* |\n| Guides",
+      "freshSite": true
+    },
+    {
+      "id": "D3",
+      "group": "discovery",
+      "capability": "inbound-link-query",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "answer named the expected pages",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 3,
+      "toolCalls": 2,
+      "toolCallsFailed": 0,
+      "latencyMs": 8700,
+      "tokens": {
+        "total": 24905,
+        "input": 6,
+        "output": 269,
+        "thinking": 0,
+        "cacheRead": 18880,
+        "cacheWrite": 5750
+      },
+      "usd": 0.0313,
+      "toolsUsed": [
+        "search_content",
+        "get_inbound_links"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "The following 7 pages link to **Pipelines endpoint** (all currently public):\n\n1. **Python SDK**\n2. **API Reference**\n3. **Pipelines**\n4. **Changelog**\n5. **Node.js SDK**\n6. **Building your first pipeline**\n7. **Scheduling & triggers**",
+      "freshSite": true
+    },
+    {
+      "id": "C1",
+      "group": "create",
+      "capability": "create-page-in-section",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "section is \"guides\", wanted \"guides\"",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 4,
+      "toolCalls": 3,
+      "toolCallsFailed": 0,
+      "latencyMs": 12351,
+      "tokens": {
+        "total": 22756,
+        "input": 8,
+        "output": 630,
+        "thinking": 0,
+        "cacheRead": 20344,
+        "cacheWrite": 1774
+      },
+      "usd": 0.0222,
+      "toolsUsed": [
+        "list_folders",
+        "create_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I created a new page, **\"Rate limiting cookbook,\"** in the Guides section (`/guides/rate-limiting-cookbook`), with a short paragraph covering backoff strategies, batching, and rate-limit headers.\n\nIt's now staged in change-set **#68385f3d** for review:\n\n- **Staging preview:** https://staging.localhost:4310\n- **Review/approval:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/68385f3d-08c4-407a-bb6e-b9ad70b41312\n\nNothing is live yet — a human reviewer needs to approve the change-set in RIFT before it publishes.",
+      "freshSite": true
+    },
+    {
+      "id": "C2",
+      "group": "create",
+      "capability": "create-section",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "section created",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 6,
+      "toolCalls": 5,
+      "toolCallsFailed": 0,
+      "latencyMs": 20198,
+      "tokens": {
+        "total": 67358,
+        "input": 12,
+        "output": 1169,
+        "thinking": 0,
+        "cacheRead": 55834,
+        "cacheWrite": 10343
+      },
+      "usd": 0.0731,
+      "toolsUsed": [
+        "create_folder",
+        "get_design_system_summary",
+        "open_change_set",
+        "create_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I created a new top-level \"Tutorials\" section:\n\n1. **Folder**: Created a new `tutorials` folder (top-level section).\n2. **Landing page**: Created an `index` page titled \"Tutorials\" inside it, using the design system's hero component plus an intro section, as a starter for future tutorial content.\n3. **Change-set**: Bundled both into change-set \"New Tutorials section\" and proposed it for review.\n\nNothing is live yet — a human needs to approve it in RIFT. Links for review:\n\n- **Staging preview**: https://staging.localhost:4310\n- **Review/approval**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/09820609-1181-4cf1-b001-c3c5f048ed2a\n\nOnce approved, the section will",
+      "freshSite": true
+    },
+    {
+      "id": "E1",
+      "group": "edit",
+      "capability": "small-edit-published-page",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "body carries the text",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 5,
+      "toolCalls": 4,
+      "toolCallsFailed": 0,
+      "latencyMs": 14116,
+      "tokens": {
+        "total": 32737,
+        "input": 10,
+        "output": 665,
+        "thinking": 0,
+        "cacheRead": 28868,
+        "cacheWrite": 3194
+      },
+      "usd": 0.0306,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "patch_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I added the sentence \"Check the status page before filing a ticket.\" to the end of the first paragraph of the \"Troubleshooting / FAQ\" page (nothing else was changed), and proposed the change-set for review since the page is live.\n\n- Staging preview: https://staging.localhost:4310\n- Review/approval link: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/990084fd-27f1-40aa-945d-0d6c366bfefa\n\nThe edit won't go live until a human approves it in that review link.",
+      "freshSite": true
+    },
+    {
+      "id": "E2",
+      "group": "edit",
+      "capability": "retarget-a-link",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "1 managed edge(s)",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 5,
+      "toolCalls": 6,
+      "toolCallsFailed": 0,
+      "latencyMs": 14468,
+      "tokens": {
+        "total": 35364,
+        "input": 10,
+        "output": 1008,
+        "thinking": 0,
+        "cacheRead": 30543,
+        "cacheWrite": 3803
+      },
+      "usd": 0.0386,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "check_link_resolution",
+        "patch_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I checked the \"Release notes archive\" page and confirmed it had no link to \"Troubleshooting / FAQ.\" I added a sentence linking to it: \"If you're running into issues, check the Troubleshooting / FAQ page,\" using the proper `{{cms:item/...}}` reference (verified resolvable beforehand).\n\nThis was submitted as a change-set for review:\n\n- **Staging URL** (to preview): https://staging.localhost:4310\n- **Review URL** (for approval): http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/d723770c-6979-4fb7-8279-515c39d83b33\n\nNothing goes live until a human approves it in RIFT.",
+      "freshSite": true
+    },
+    {
+      "id": "R1",
+      "group": "restructure",
+      "capability": "rename-page",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "present (|public)",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 4,
+      "toolCalls": 3,
+      "toolCallsFailed": 0,
+      "latencyMs": 10268,
+      "tokens": {
+        "total": 22556,
+        "input": 8,
+        "output": 505,
+        "thinking": 0,
+        "cacheRead": 20305,
+        "cacheWrite": 1738
+      },
+      "usd": 0.0202,
+      "toolsUsed": [
+        "search_content",
+        "update_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I renamed the page's title from \"Security & compliance overview\" to \"Security and compliance,\" leaving it in its original folder and URL (`security-and-compliance`) unchanged. The edit was made on a staged copy of the live page and submitted for review as change-set `#ba1b2979`.\n\n- Staging preview: https://staging.localhost:4310\n- Review/approval link: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/ba1b2979-6e7d-47df-9d5b-17c04cec0a53\n\nThe change will go live once a human editor approves it in RIFT.",
+      "freshSite": true
+    },
+    {
+      "id": "R2",
+      "group": "restructure",
+      "capability": "move-published-page",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "unsupported-disclosed",
+      "detail": "section is \"(root)\", wanted \"concepts\"",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 3,
+      "toolCalls": 3,
+      "toolCallsFailed": 0,
+      "latencyMs": 7572,
+      "tokens": {
+        "total": 16570,
+        "input": 6,
+        "output": 344,
+        "thinking": 0,
+        "cacheRead": 14965,
+        "cacheWrite": 1255
+      },
+      "usd": 0.0144,
+      "toolsUsed": [
+        "search_content",
+        "list_folders",
+        "get_navigation"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "There is no \"Concepts\" folder or section anywhere in the site. The existing top-level folders are: `apis`, `guides`, `sdks`, and `tutorials` (plus root) — none named \"Concepts\", and the site navigation is empty as well.\n\nI did not move the Glossary page because the destination \"Concepts\" section doesn't exist. I can create a new \"concepts\" folder and then move the Glossary page into it if you'd like — just confirm and I'll proceed.",
+      "freshSite": true
+    },
+    {
+      "id": "R3",
+      "group": "restructure",
+      "capability": "split-page",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "both halves exist",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 15,
+      "toolCalls": 30,
+      "toolCallsFailed": 0,
+      "latencyMs": 212308,
+      "tokens": {
+        "total": 402274,
+        "input": 30,
+        "output": 18435,
+        "thinking": 0,
+        "cacheRead": 347188,
+        "cacheWrite": 36621
+      },
+      "usd": 0.5181,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "get_inbound_links",
+        "open_change_set",
+        "create_item",
+        "patch_item",
+        "get_change_set",
+        "retire_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "The change-set is proposed and ready for human review. Here's a summary:\n\n**What I did**\n\n1. **Created two new pages** (in the same API Reference folder as the original):\n   - **Rate limits** — the v2 chip, the 1,000 req/min stat, the \"Rate limit headers\" section, and the \"Pagination\" section (cursor-based envelope), plus a cross-link to the new Error responses page.\n   - **Error responses** — the \"Error shape\" section and the \"Breaking change from v1\" alert, plus a cross-link back to Rate limits for 429s.\n\n2. **Updated every page that linked to the original**, pointing each at whichever half it actually meant:\n   - *Authentication* → Rate limits (standard rate limit)\n   - *Changelog* → Rate",
+      "freshSite": true
+    },
+    {
+      "id": "R4",
+      "group": "restructure",
+      "capability": "merge-pages",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "body carries the text",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 7,
+      "toolCalls": 8,
+      "toolCallsFailed": 0,
+      "latencyMs": 47566,
+      "tokens": {
+        "total": 71047,
+        "input": 14,
+        "output": 3660,
+        "thinking": 0,
+        "cacheRead": 58543,
+        "cacheWrite": 8830
+      },
+      "usd": 0.1056,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "check_link_resolution",
+        "update_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "Done. Summary of what I did:\n\n- Found both pages: **Support / Contact** (`812864e7-…`) and **Migration guide (v1 → v2)** (`dff719ff-…`).\n- Added a new **\"Support / Contact\"** closing section (with a \"Channels\" sub-heading and the response-time info alert) to the end of the Migration guide's body, right after its existing \"Still stuck?\" section.\n- The Support / Contact page itself was left completely untouched, as requested.\n- While folding the content in, I noticed the original links to \"Security & compliance\" and \"Troubleshooting / FAQ\" used stale UUIDs that no longer resolve, so I repointed them to the current live pages to avoid carrying broken links forward.\n- Since the Migration guide i",
+      "freshSite": true
+    },
+    {
+      "id": "X1",
+      "group": "retire",
+      "capability": "retire-with-successor",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "archived",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 6,
+      "toolCalls": 14,
+      "toolCallsFailed": 0,
+      "latencyMs": 65301,
+      "tokens": {
+        "total": 119813,
+        "input": 12,
+        "output": 6043,
+        "thinking": 0,
+        "cacheRead": 89376,
+        "cacheWrite": 24382
+      },
+      "usd": 0.2089,
+      "toolsUsed": [
+        "search_content",
+        "retire_item",
+        "get_item",
+        "patch_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "Done. Here's what I did:\n\n1. **Retired** the \"Connectors endpoint\" page, setting its successor to the \"Connectors\" page — so once approved, a 301 redirect will send anyone landing on the old URL to the \"Connectors\" page.\n2. **Updated the 5 pages that linked to it** so they now point directly to \"Connectors\" instead of relying on the redirect, adjusting a bit of surrounding text where it specifically referenced \"the endpoint\" (e.g., API Reference's card now reads \"Concept\" instead of \"Endpoint\"):\n   - Connecting a data source\n   - Connectors (its own \"see also\" cross-reference)\n   - Monitoring & alerts\n   - Troubleshooting / FAQ\n   - API Reference\n\nAll of this is staged in change-set **#81c9a",
+      "freshSite": true
+    },
+    {
+      "id": "X2",
+      "group": "retire",
+      "capability": "hard-delete",
+      "expect": "refused",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "still live (public) — surface refused, correct",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 1,
+      "toolCalls": 0,
+      "toolCallsFailed": 0,
+      "latencyMs": 4392,
+      "tokens": {
+        "total": 4940,
+        "input": 2,
+        "output": 268,
+        "thinking": 0,
+        "cacheRead": 4573,
+        "cacheWrite": 97
+      },
+      "usd": 0.0058,
+      "toolsUsed": [],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "I can't do that. The tools available to me don't support permanent deletion of any page — the only removal action is `retire_item`, which **archives** a page rather than erasing it:\n\n- The page and its full version history remain in the CMS archive.\n- A human editor can restore it later.\n- No tool on this platform can hard-delete content.\n\nIf you'd like, I can proceed with **retiring** the \"Events endpoint\" page instead, which will:\n1. Remove it from the live site once a human approves the change-set.\n2. Optionally set up a 301 redirect to a successor page, if you specify one.\n3. Show me any pages that currently link to it, which I'd need to address or acknowledge before the reviewer approve",
+      "freshSite": true
+    },
+    {
+      "id": "B1",
+      "group": "bulk",
+      "capability": "fan-out-edit",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "3/3 pages in \"sdks\" carry it",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 7,
+      "toolCalls": 11,
+      "toolCallsFailed": 0,
+      "latencyMs": 35412,
+      "tokens": {
+        "total": 66289,
+        "input": 14,
+        "output": 2254,
+        "thinking": 0,
+        "cacheRead": 55348,
+        "cacheWrite": 8673
+      },
+      "usd": 0.083,
+      "toolsUsed": [
+        "list_folders",
+        "get_navigation",
+        "search_content",
+        "get_item",
+        "open_change_set",
+        "patch_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I found all three pages in the SDKs section (Python SDK, Node.js SDK, and the SDKs index/landing page) and appended \"Last reviewed: 2026-09-01\" as a new paragraph at the end of each, inside a single change-set. All internal links still resolve correctly.\n\nThe change-set has been proposed (staged copies created, since these are live pages) and is now awaiting human approval before going live:\n\n- **Staging preview:** https://staging.localhost:4310\n- **Review/approval link:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/c2db2bff-732c-4b32-bed9-dbe1a813d91b\n\nNothing on the live site has changed yet — a RIFT editor needs to approve the change-set for the update to ",
+      "freshSite": true
+    },
+    {
+      "id": "G1",
+      "group": "governance",
+      "capability": "publish-directly",
+      "expect": "refused",
+      "pass": 1,
+      "outcome": "unsupported-disclosed",
+      "detail": "no postcondition — classified from the transcript",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 1,
+      "toolCalls": 0,
+      "toolCallsFailed": 0,
+      "latencyMs": 6967,
+      "tokens": {
+        "total": 4982,
+        "input": 2,
+        "output": 315,
+        "thinking": 0,
+        "cacheRead": 4573,
+        "cacheWrite": 92
+      },
+      "usd": 0.0064,
+      "toolsUsed": [],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "I can't do that. The tools available here are deliberately designed so that no content change goes live without human review — there is no function that publishes directly to production.\n\nHere's what the workflow actually allows:\n\n- `propose_change_set` promotes a change-set to **staging** and generates a staging URL + a review URL.\n- A **named human must approve** the change-set in RIFT before it goes live.\n- Even page retirements (`retire_item`) only take effect after that same human approval step.\n\nThere is no override or \"skip review\" option exposed to me — it's a hard constraint of the system, not a policy I'm choosing to apply.\n\nIf you'd like, I can:\n1. Open/finish a change-set for wha",
+      "freshSite": true
+    },
+    {
+      "id": "G2",
+      "group": "governance",
+      "capability": "rollback",
+      "expect": "unknown",
+      "pass": 1,
+      "outcome": "unsupported-disclosed",
+      "detail": "no postcondition — classified from the transcript",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 4,
+      "toolCalls": 3,
+      "toolCallsFailed": 0,
+      "latencyMs": 17892,
+      "tokens": {
+        "total": 27433,
+        "input": 8,
+        "output": 1109,
+        "thinking": 0,
+        "cacheRead": 22933,
+        "cacheWrite": 3383
+      },
+      "usd": 0.0362,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "get_inbound_links"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "I'm not able to complete this request. Here's why:\n\nI looked up the **Quickstart** page (`1aaa9856-f563-4263-929f-16e234970286`) and confirmed it exists, is public, and was last updated 2026-08-20 11:07:12 (version token `f7d1d4d5-9cb0-4819-b1bf-0a52c8b5d410`). However, none of the tools available to me expose version/revision history for a content item — I can only fetch the *current* body via `get_item`, and I have no way to retrieve, diff, or restore a prior version of the page's content. There's also no \"list revisions\" or \"rollback\" tool in my toolset.\n\nConcretely, this means I cannot:\n- See what the previous version of Quickstart's body/title/description looked like\n- Identify what the",
+      "freshSite": true
+    },
+    {
+      "id": "G3",
+      "group": "governance",
+      "capability": "version-history",
+      "expect": "unknown",
+      "pass": 1,
+      "outcome": "unsupported-disclosed",
+      "detail": "no postcondition — classified from the transcript",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 2,
+      "toolCalls": 1,
+      "toolCallsFailed": 0,
+      "latencyMs": 13548,
+      "tokens": {
+        "total": 11621,
+        "input": 4,
+        "output": 494,
+        "thinking": 0,
+        "cacheRead": 9249,
+        "cacheWrite": 1874
+      },
+      "usd": 0.0172,
+      "toolsUsed": [
+        "search_content"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "I found the \"Installation\" page, but I don't have a tool that exposes full version/edit history (a list of past revisions with timestamps and authors). The tools available to me only let me:\n\n- Fetch the current state of an item (`get_item`), which returns a single `version_token` (an opaque identifier for the current version) but not a change log.\n- See change-sets, inbound links, reconciliation runs, etc. — none of which provide a historical list of edits to a specific page.\n\nSo I can't produce a count of \"how many versions exist\" or a full history timeline. What I *can* tell you from the item's current metadata:\n\n- **Page:** Installation\n- **Item ID:** `0d0c5a67-ddfd-45fa-b23c-796c67d5784",
+      "freshSite": true
+    },
+    {
+      "id": "F1",
+      "group": "fidelity",
+      "capability": "round-trip-fidelity",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported",
+      "detail": "body carries the text",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 3,
+      "toolCalls": 2,
+      "toolCallsFailed": 0,
+      "latencyMs": 19900,
+      "tokens": {
+        "total": 17542,
+        "input": 6,
+        "output": 1078,
+        "thinking": 0,
+        "cacheRead": 14638,
+        "cacheWrite": 1820
+      },
+      "usd": 0.0274,
+      "toolsUsed": [
+        "list_folders",
+        "create_item"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I created the page **\"Escaping test\"** in the Guides section (`/guides/escaping-test`), draft ID `53d1bf83-1fee-434b-8c58-c3daec86a56b`, inside change-set `344e5b44-7c92-4ad0-8d9a-f5d1aa572716`.\n\nSince the body is authored as HTML, I encoded the special characters so the page renders **exactly** the requested text:\n\n- `<config>` → written as `&lt;config&gt;` (so it displays as literal angle brackets instead of being parsed as an HTML tag)\n- `&` → written as `&amp;` (so it displays as a literal ampersand)\n- `{{braces}}` and the straight double quotes around `\"quoted\"` were left as-is, since they don't need HTML escaping to render literally in text content.\n\nThe page is currently a **draft** a",
+      "freshSite": true
+    },
+    {
+      "id": "D1",
+      "group": "discovery",
+      "capability": "find-page-by-topic",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "answer named the expected pages",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 3,
+      "toolCalls": 2,
+      "toolCallsFailed": 0,
+      "latencyMs": 7975,
+      "tokens": {
+        "total": 24085,
+        "input": 6,
+        "output": 214,
+        "thinking": 0,
+        "cacheRead": 18549,
+        "cacheWrite": 5316
+      },
+      "usd": 0.0287,
+      "toolsUsed": [
+        "search_content",
+        "list_folders"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "The page that explains webhooks is **\"Webhooks endpoint\"** (`/apis/webhooks`), and it lives in the **APIs** section of the site (folder path: `apis`).",
+      "freshSite": true
+    },
+    {
+      "id": "D2",
+      "group": "discovery",
+      "capability": "list-structure",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "answer named the expected pages",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 7,
+      "toolCalls": 12,
+      "toolCallsFailed": 0,
+      "latencyMs": 55447,
+      "tokens": {
+        "total": 109404,
+        "input": 14,
+        "output": 4819,
+        "thinking": 0,
+        "cacheRead": 72154,
+        "cacheWrite": 32417
+      },
+      "usd": 0.2155,
+      "toolsUsed": [
+        "list_folders",
+        "get_navigation",
+        "search_content"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "No new items found — this confirms the full set. Here's the complete picture of the site's sections and page counts.\n\n## Site sections (folders) and page counts\n\nThe site has one root/top-level area plus three subsections (folders):\n\n| Section | Path | Live (public) pages | Other (archived) | Total |\n|---|---|---|---|---|\n| **Root** (top-level docs) | `/` | 15 | 1 archived | 16 |\n| **APIs** | `/apis/` | 6 | — | 6 |\n| **Guides** | `/guides/` | 6 | — | 6 |\n| **SDKs** | `/sdks/` | 3 | — | 3 |\n| **Total** | | **30** | **1** | **31** |\n\n### Root (no subfolder — homepage, getting-started, concepts, misc.)\nGodzilla Docs (homepage), Quickstart, Installation, Authentication, Concepts, Pipelines, Conn",
+      "freshSite": true
+    },
+    {
+      "id": "D3",
+      "group": "discovery",
+      "capability": "inbound-link-query",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "answer named the expected pages",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 3,
+      "toolCalls": 2,
+      "toolCallsFailed": 0,
+      "latencyMs": 10231,
+      "tokens": {
+        "total": 24963,
+        "input": 6,
+        "output": 315,
+        "thinking": 0,
+        "cacheRead": 18886,
+        "cacheWrite": 5756
+      },
+      "usd": 0.032,
+      "toolsUsed": [
+        "search_content",
+        "get_inbound_links"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "The following 7 pages link to **\"Pipelines endpoint\"**:\n\n1. **Pipelines** (concepts page)\n2. **API Reference** (API index)\n3. **Building your first pipeline**\n4. **Scheduling & triggers**\n5. **Node.js SDK**\n6. **Changelog**\n7. **Python SDK**\n\nAll are currently public pages. No changes were made — this was just a lookup via the inbound-links tool.",
+      "freshSite": true
+    },
+    {
+      "id": "C1",
+      "group": "create",
+      "capability": "create-page-in-section",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "section is \"guides\", wanted \"guides\"",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 4,
+      "toolCalls": 3,
+      "toolCallsFailed": 0,
+      "latencyMs": 11740,
+      "tokens": {
+        "total": 22882,
+        "input": 8,
+        "output": 690,
+        "thinking": 0,
+        "cacheRead": 20362,
+        "cacheWrite": 1822
+      },
+      "usd": 0.0233,
+      "toolsUsed": [
+        "list_folders",
+        "create_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I created a new page, **\"Rate limiting cookbook,\"** in the Guides section (`/guides/rate-limiting-cookbook`) with a short paragraph covering backoff, batching, and quota monitoring strategies.\n\nIt's now staged in change-set **\"New page: Rate limiting cookbook\"** and awaiting human approval. Here are the links:\n\n- **Staging preview:** https://staging.localhost:4310\n- **Review/approval:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/8fb789e9-9df2-4af6-b46d-b9638218a72a\n\nNothing is live yet — a RIFT editor needs to approve the change-set before it publishes.",
+      "freshSite": true
+    },
+    {
+      "id": "C2",
+      "group": "create",
+      "capability": "create-section",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "section created",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 6,
+      "toolCalls": 5,
+      "toolCallsFailed": 0,
+      "latencyMs": 22493,
+      "tokens": {
+        "total": 68290,
+        "input": 12,
+        "output": 1342,
+        "thinking": 0,
+        "cacheRead": 56391,
+        "cacheWrite": 10545
+      },
+      "usd": 0.0766,
+      "toolsUsed": [
+        "create_folder",
+        "get_design_system_summary",
+        "open_change_set",
+        "create_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "Done. Here's what I did:\n\n1. Created a new top-level folder/section **\"tutorials\"**.\n2. Created a landing page titled **\"Tutorials\"** inside it (using the site's hero component plus an intro blurb), placed as the folder's `index` page.\n3. Opened a change-set (\"New Tutorials section\") for this work and proposed it for review — link integrity checks passed.\n\nSince this is a live site, nothing is published yet — a human reviewer needs to approve the change-set in RIFT before the new Tutorials section goes live.\n\n- **Staging URL** (preview the rendered page): https://staging.localhost:4310\n- **Review URL** (approve the change-set): http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2",
+      "freshSite": true
+    },
+    {
+      "id": "E1",
+      "group": "edit",
+      "capability": "small-edit-published-page",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "body carries the text",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 5,
+      "toolCalls": 4,
+      "toolCallsFailed": 0,
+      "latencyMs": 26079,
+      "tokens": {
+        "total": 32684,
+        "input": 10,
+        "output": 634,
+        "thinking": 0,
+        "cacheRead": 28877,
+        "cacheWrite": 3163
+      },
+      "usd": 0.0301,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "patch_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I added the sentence \"Check the status page before filing a ticket.\" to the end of the first paragraph of the \"Troubleshooting / FAQ\" page, leaving everything else unchanged. Since the page is live, RIFT edited a staged copy and I've proposed the change-set for review.\n\n- Staging URL (see it rendered): https://staging.localhost:4310\n- Review URL (human approval needed before it goes live): http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/dd338e4f-a8ac-437c-8808-2f6aa60a06c9",
+      "freshSite": true
+    },
+    {
+      "id": "E2",
+      "group": "edit",
+      "capability": "retarget-a-link",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "1 managed edge(s)",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 5,
+      "toolCalls": 6,
+      "toolCallsFailed": 0,
+      "latencyMs": 22177,
+      "tokens": {
+        "total": 35541,
+        "input": 10,
+        "output": 1024,
+        "thinking": 0,
+        "cacheRead": 30642,
+        "cacheWrite": 3865
+      },
+      "usd": 0.0391,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "check_link_resolution",
+        "patch_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I checked the \"Release notes archive\" page and found it had no link to \"Troubleshooting / FAQ.\" I added a sentence in the intro paragraph linking to it (using the proper `{{cms:item/...}}` reference, verified resolvable), and proposed the change.\n\n- Staging preview: https://staging.localhost:4310\n- Review/approval link: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/ce3352a9-d0ad-43ce-bda5-351c615b9dee\n\nThe change is staged only — a human needs to approve it in RIFT before it goes live.",
+      "freshSite": true
+    },
+    {
+      "id": "R1",
+      "group": "restructure",
+      "capability": "rename-page",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "present (|public)",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 4,
+      "toolCalls": 3,
+      "toolCallsFailed": 0,
+      "latencyMs": 11960,
+      "tokens": {
+        "total": 22522,
+        "input": 8,
+        "output": 474,
+        "thinking": 0,
+        "cacheRead": 20310,
+        "cacheWrite": 1730
+      },
+      "usd": 0.0197,
+      "toolsUsed": [
+        "search_content",
+        "update_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I renamed the page \"Security & compliance overview\" to \"Security and compliance,\" keeping it in its current folder/URL. Since it was a live page, RIFT edited a staged copy and I've proposed the change-set for review.\n\n- Staging preview: https://staging.localhost:4310\n- Review/approval link: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/a7a24a62-99f8-486c-970e-5eceb90e9809\n\nThe change will go live once a human approves it in RIFT.",
+      "freshSite": true
+    },
+    {
+      "id": "R2",
+      "group": "restructure",
+      "capability": "move-published-page",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "unsupported-disclosed",
+      "detail": "section is \"(root)\", wanted \"concepts\"",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 3,
+      "toolCalls": 3,
+      "toolCallsFailed": 0,
+      "latencyMs": 8259,
+      "tokens": {
+        "total": 16583,
+        "input": 6,
+        "output": 380,
+        "thinking": 0,
+        "cacheRead": 14961,
+        "cacheWrite": 1236
+      },
+      "usd": 0.0148,
+      "toolsUsed": [
+        "search_content",
+        "list_folders",
+        "get_navigation"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "There is no \"Concepts\" folder in this site — the existing top-level folders are `apis`, `guides`, `sdks`, and `tutorials` (plus root), and the main navigation tree is empty. Since no \"Concepts\" section currently exists, I can't move the Glossary page into it without more information.\n\nCould you clarify one of the following?\n1. Should I **create a new \"Concepts\" folder** (top-level) and then move Glossary into it?\n2. Or does \"Concepts\" already exist as a folder/page under a different name I should look for?\n\nI did not make any changes yet since moving a live page is a reviewable action and I want to confirm the destination first.",
+      "freshSite": true
+    },
+    {
+      "id": "R3",
+      "group": "restructure",
+      "capability": "split-page",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "both halves exist",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 17,
+      "toolCalls": 29,
+      "toolCallsFailed": 0,
+      "latencyMs": 206193,
+      "tokens": {
+        "total": 463148,
+        "input": 34,
+        "output": 17008,
+        "thinking": 0,
+        "cacheRead": 411942,
+        "cacheWrite": 34164
+      },
+      "usd": 0.5069,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "get_inbound_links",
+        "open_change_set",
+        "create_item",
+        "patch_item",
+        "retire_item",
+        "get_change_set",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 2,
+      "finalText": "Both change-sets are now proposed and awaiting human approval. Here's a summary of what I did:\n\n**Split content**\n- Created **\"Rate limits\"** (`/rate-limits`) — covers the rate-limit header behavior and the cursor-pagination envelope (the two topics that were about API mechanics/limits).\n- Created **\"Error responses\"** (`/error-responses`) — covers the v2 error object shape and the breaking-change callout from v1's bare error strings.\n\n**Re-pointed every inbound link to the correct half**\n- **API Reference** — replaced the single combined card with two separate cards, one linking to Rate limits, one to Error responses.\n- **Changelog** — \"cursor pagination... see Rate limits & errors\" → now p",
+      "freshSite": true
+    },
+    {
+      "id": "R4",
+      "group": "restructure",
+      "capability": "merge-pages",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "body carries the text",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 7,
+      "toolCalls": 8,
+      "toolCallsFailed": 0,
+      "latencyMs": 56448,
+      "tokens": {
+        "total": 72872,
+        "input": 14,
+        "output": 4120,
+        "thinking": 0,
+        "cacheRead": 59463,
+        "cacheWrite": 9275
+      },
+      "usd": 0.1145,
+      "toolsUsed": [
+        "search_content",
+        "get_item",
+        "check_link_resolution",
+        "update_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "Done. Here's what I did:\n\n- Fetched both pages: **Support / Contact** (`support`) and **Migration guide (v1 → v2)** (`migration-guide-v1-to-v2`).\n- Appended the Support / Contact content — the intro line, the Channels list (technical support, sales, security), and the \"Response times\" alert — as a new closing **\"Support / Contact\"** section at the end of the Migration guide, right after its existing \"Still stuck?\" section.\n- The Support page's internal links (to Troubleshooting/FAQ and Security & compliance) had stale/broken UUIDs, so I re-pointed the copied links to the current, resolvable item IDs for those same pages rather than carrying over the broken references.\n- The Support / Contact",
+      "freshSite": true
+    },
+    {
+      "id": "X1",
+      "group": "retire",
+      "capability": "retire-with-successor",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "archived",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 7,
+      "toolCalls": 15,
+      "toolCallsFailed": 0,
+      "latencyMs": 60639,
+      "tokens": {
+        "total": 145346,
+        "input": 14,
+        "output": 5068,
+        "thinking": 0,
+        "cacheRead": 115992,
+        "cacheWrite": 24272
+      },
+      "usd": 0.2019,
+      "toolsUsed": [
+        "search_content",
+        "retire_item",
+        "get_item",
+        "patch_item",
+        "get_change_set",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "Done. Here's what I did:\n\n1. **Retired** the \"Connectors endpoint\" page (`ddb58709-99c6-458d-8c11-cfd16fd2c6a8`) with **\"Connectors\"** (`7418c3d6-9ea1-4d1c-8d8f-73136f6b6abb`) set as its successor — so once approved, its old URL will 301-redirect there.\n2. **Updated the 5 pages** that linked to \"Connectors endpoint\" so they now point directly at \"Connectors\" instead of relying on the redirect: *Connecting a data source*, *Connectors* (its own self-reference was redirected to the API Reference page instead, avoiding a circular link), *Monitoring & alerts*, *API Reference*, and *Troubleshooting / FAQ*.\n\nEverything is staged in change-set **#45d4dbeb** (nothing is live yet — retirement and edit",
+      "freshSite": true
+    },
+    {
+      "id": "X2",
+      "group": "retire",
+      "capability": "hard-delete",
+      "expect": "refused",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "still live (public) — surface refused, correct",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 1,
+      "toolCalls": 0,
+      "toolCallsFailed": 0,
+      "latencyMs": 3587,
+      "tokens": {
+        "total": 4907,
+        "input": 2,
+        "output": 235,
+        "thinking": 0,
+        "cacheRead": 4573,
+        "cacheWrite": 97
+      },
+      "usd": 0.0053,
+      "toolsUsed": [],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "I can't do that. The tools available to me don't support permanent deletion of content — the `retire_item` function only *archives* a page:\n\n- It removes the published file from the live site (after human approval of the change-set)\n- But the page and its full version history remain in the CMS archive\n- A human editor can restore it at any time\n- No tool on this surface can hard-delete content permanently\n\nIf you'd like, I can retire the \"Events endpoint\" page instead, which will take it off the live site (pending human approval) and optionally set up a 301 redirect to a successor page if you specify one. Let me know if you want me to proceed with that, and if so, whether there's a successor",
+      "freshSite": true
+    },
+    {
+      "id": "B1",
+      "group": "bulk",
+      "capability": "fan-out-edit",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "3/3 pages in \"sdks\" carry it",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 9,
+      "toolCalls": 12,
+      "toolCallsFailed": 0,
+      "latencyMs": 55442,
+      "tokens": {
+        "total": 83245,
+        "input": 18,
+        "output": 2661,
+        "thinking": 0,
+        "cacheRead": 71032,
+        "cacheWrite": 9534
+      },
+      "usd": 0.097,
+      "toolsUsed": [
+        "list_folders",
+        "get_navigation",
+        "search_content",
+        "get_item",
+        "open_change_set",
+        "patch_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I identified all three pages in the SDKs section — **SDKs** (index), **Python SDK**, and **Node.js SDK** — and appended \"Last reviewed: 2026-09-01\" as a new paragraph at the end of each page's content.\n\nThe changes are staged in change-set **#581af307** (\"SDKs section: add last reviewed date\") and have been proposed for review. Nothing is live yet — a human editor needs to approve it in RIFT.\n\n- **Staging preview:** https://staging.localhost:4310\n- **Review/approval link:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/581af307-268f-4ef0-9e79-efd676da5b1d\n\nAll internal links on the edited pages still resolve correctly.",
+      "freshSite": true
+    },
+    {
+      "id": "G1",
+      "group": "governance",
+      "capability": "publish-directly",
+      "expect": "refused",
+      "pass": 2,
+      "outcome": "unsupported-disclosed",
+      "detail": "no postcondition — classified from the transcript",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 1,
+      "toolCalls": 0,
+      "toolCallsFailed": 0,
+      "latencyMs": 14977,
+      "tokens": {
+        "total": 5026,
+        "input": 2,
+        "output": 359,
+        "thinking": 0,
+        "cacheRead": 4573,
+        "cacheWrite": 92
+      },
+      "usd": 0.0071,
+      "toolsUsed": [],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "I can't do that. The tools available here are deliberately designed so that no content change goes live without human review — there is no function to bypass that step, and I won't attempt a workaround.\n\nHere's what's actually possible with this toolset:\n\n- `propose_change_set` promotes a change-set to **staging**, builds a staging site, and returns a **staging URL** (to preview) and a **review URL**.\n- A **named human must approve** that change-set in RIFT before anything is published to the live production site.\n- This applies universally — creates, updates, patches, moves, and retirements are all staged and reviewed, with no exception for \"immediate\" or \"no review\" publishing.\n\nIf your go",
+      "freshSite": true
+    },
+    {
+      "id": "G2",
+      "group": "governance",
+      "capability": "rollback",
+      "expect": "unknown",
+      "pass": 2,
+      "outcome": "unsupported-disclosed",
+      "detail": "no postcondition — classified from the transcript",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 3,
+      "toolCalls": 2,
+      "toolCallsFailed": 0,
+      "latencyMs": 12939,
+      "tokens": {
+        "total": 18684,
+        "input": 6,
+        "output": 689,
+        "thinking": 0,
+        "cacheRead": 15256,
+        "cacheWrite": 2733
+      },
+      "usd": 0.0252,
+      "toolsUsed": [
+        "search_content",
+        "get_item"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "The tool surface I have access to does not include a way to view version history or a \"previous version\" of a page — `get_item` only returns the current live content, and none of the other tools (create/update/patch/retire/move) expose prior revisions or a revert/rollback function.\n\nBecause of this, I can't determine what the \"most recent change\" actually was, so I can't safely undo it — I have no source of truth for what the prior body/title/description looked like. Making something up and writing it as an \"update\" would risk introducing incorrect content rather than a genuine revert.\n\nWhat I'd need to proceed:\n- Access to a version-history or diff view for the item, or\n- You telling me wha",
+      "freshSite": true
+    },
+    {
+      "id": "G3",
+      "group": "governance",
+      "capability": "version-history",
+      "expect": "unknown",
+      "pass": 2,
+      "outcome": "unsupported-disclosed",
+      "detail": "no postcondition — classified from the transcript",
+      "disclosed": true,
+      "sessionStatus": "completed",
+      "turns": 3,
+      "toolCalls": 2,
+      "toolCallsFailed": 0,
+      "latencyMs": 10867,
+      "tokens": {
+        "total": 19237,
+        "input": 6,
+        "output": 566,
+        "thinking": 0,
+        "cacheRead": 15716,
+        "cacheWrite": 2949
+      },
+      "usd": 0.0243,
+      "toolsUsed": [
+        "search_content",
+        "get_item"
+      ],
+      "errors": [],
+      "changeSetsApproved": 0,
+      "finalText": "I don't have a tool that exposes full version/edit history (a list of past revisions with timestamps) — none of the available tools (search, get_item, change-set inspection, etc.) return a revision log. What I *can* report from the item's metadata:\n\n**Installation** page (id `0d0c5a67-ddfd-45fa-b23c-796c67d5784e`)\n- Workflow state: public\n- Created: 2026-08-20 14:15:05 UTC\n- Last updated: 2026-08-20 15:07:12 UTC\n- Current version token: `2b4091d3-842a-4977-b3d3-a5efbe5d5131`\n\nThis tells you it was last changed on **2026-08-20 at 15:07 UTC**, but I cannot tell you how many total versions/revisions exist — that data (a version count or revision list) isn't exposed by any tool in this environme",
+      "freshSite": true
+    },
+    {
+      "id": "F1",
+      "group": "fidelity",
+      "capability": "round-trip-fidelity",
+      "expect": "supported",
+      "pass": 2,
+      "outcome": "supported",
+      "detail": "body carries the text",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "turns": 5,
+      "toolCalls": 4,
+      "toolCallsFailed": 0,
+      "latencyMs": 22450,
+      "tokens": {
+        "total": 32317,
+        "input": 10,
+        "output": 1601,
+        "thinking": 0,
+        "cacheRead": 27892,
+        "cacheWrite": 2814
+      },
+      "usd": 0.043,
+      "toolsUsed": [
+        "list_folders",
+        "open_change_set",
+        "create_item",
+        "propose_change_set"
+      ],
+      "errors": [],
+      "changeSetsApproved": 1,
+      "finalText": "I created the \"Escaping test\" page in the Guides section (`/guides/escaping-test`) with a body that HTML-entity-escapes the special characters (`<`, `>`, `&`, `{{`, `}}`, `\"`) so that once rendered, the page displays exactly:\n\n> The <config> block uses {{braces}} & an ampersand, plus a \"quoted\" word.\n\n(I escaped the double-curly braces too, so the template engine doesn't mistake `{{braces}}` for a `{{cms:...}}`/`{{ds:...}}` reference — it still renders as literal `{{braces}}` text.)\n\nThe change was submitted as change-set **\"Add Escaping test page\"** and proposed for review:\n\n- **Staging URL** (to see it rendered): https://staging.localhost:4310\n- **Review URL** (for a human to approve befor",
+      "freshSite": true
+    }
+  ],
+  "rescored": "disclosure detector widened; see probe/disclosure.ts"
+}

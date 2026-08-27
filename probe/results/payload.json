@@ -1206,9 +1206,9 @@
       "capability": "retire-with-successor",
       "expect": "supported",
       "pass": 2,
-      "outcome": "silent-miss",
+      "outcome": "substituted-disclosed",
       "detail": "deleted outright rather than retired — content destroyed, no successor",
-      "disclosed": false,
+      "disclosed": true,
       "sessionStatus": "completed",
       "sessionError": null,
       "turns": 7,
@@ -1430,5 +1430,6 @@
       "finalText": "I have created the page titled **\"Escaping test\"** under the **Guides** section (slug: `escaping-test`, parent: Guides).\n\nThe body content was set to the exact string requested:\n`The <config> block uses {{braces}} & an ampersand, plus a \"quoted\" word.`",
       "freshSite": true
     }
-  ]
+  ],
+  "rescored": "disclosure detector widened; see probe/disclosure.ts"
 }

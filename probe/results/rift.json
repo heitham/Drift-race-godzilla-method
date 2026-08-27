@@ -5,11 +5,13 @@
   "rates": {
     "input": 0.75,
     "output": 3.75,
-    "cached": 0.075
+    "cached": 0.075,
+    "cacheWrite": 0.75
   },
+  "cmsPin": "0adc095",
   "surface": {
-    "tools": 15,
-    "approxTokensPerCall": 2364,
+    "tools": 18,
+    "approxTokensPerCall": 2889,
     "toolNames": [
       "search_content",
       "get_item",
@@ -24,6 +26,9 @@
       "update_item",
       "patch_item",
       "retire_item",
+      "get_inbound_links",
+      "reconcile_content",
+      "get_reconciliation_run",
       "get_change_set",
       "propose_change_set"
     ]
@@ -34,52 +39,52 @@
     "sessions": 36,
     "supportedRate": 0.7777777777777778,
     "silentMissRate": 0,
-    "disclosureRate": 0.875,
-    "usdTotal": 2.92,
-    "usdMedian": 0.0422,
-    "secondsMedian": 11,
+    "disclosureRate": 1,
+    "usdTotal": 2.759,
+    "usdMedian": 0.0458,
+    "secondsMedian": 20,
     "turnsMedian": 7,
     "toolCallFailureRate": 0,
     "tokensByGroup": {
       "discovery": {
         "sessions": 6,
-        "tokens": 1766273,
-        "usd": 0.5
+        "tokens": 356813,
+        "usd": 0.252
       },
       "create": {
         "sessions": 4,
-        "tokens": 607297,
-        "usd": 0.288
+        "tokens": 693217,
+        "usd": 0.294
       },
       "edit": {
         "sessions": 4,
-        "tokens": 241093,
-        "usd": 0.176
+        "tokens": 209809,
+        "usd": 0.18
       },
       "restructure": {
         "sessions": 8,
-        "tokens": 4443940,
-        "usd": 1.253
+        "tokens": 4047403,
+        "usd": 1.225
       },
       "retire": {
         "sessions": 4,
-        "tokens": 190335,
-        "usd": 0.157
+        "tokens": 238584,
+        "usd": 0.197
       },
       "bulk": {
         "sessions": 2,
-        "tokens": 908851,
-        "usd": 0.351
+        "tokens": 1030118,
+        "usd": 0.367
       },
       "governance": {
         "sessions": 6,
-        "tokens": 89496,
-        "usd": 0.083
+        "tokens": 143419,
+        "usd": 0.124
       },
       "fidelity": {
         "sessions": 2,
-        "tokens": 140085,
-        "usd": 0.114
+        "tokens": 146457,
+        "usd": 0.119
       }
     },
     "outcomeByGroup": {
@@ -103,47 +108,38 @@
         "supported": 2
       },
       "governance": {
-        "unsupported-disclosed": 5,
-        "no-postcondition": 1
+        "unsupported-disclosed": 6
       },
       "fidelity": {
         "supported": 2
       }
     },
-    "nonDeterministicIntents": [
-      {
-        "id": "G3",
-        "outcomes": [
-          "no-postcondition",
-          "unsupported-disclosed"
-        ]
-      }
-    ],
+    "nonDeterministicIntents": [],
     "costConcentration": [
       {
         "id": "R3",
         "capability": "split-page",
-        "usd": 0.757
-      },
-      {
-        "id": "R4",
-        "capability": "merge-pages",
-        "usd": 0.358
+        "usd": 0.72
       },
       {
         "id": "B1",
         "capability": "fan-out-edit",
-        "usd": 0.351
+        "usd": 0.367
       },
       {
-        "id": "D3",
-        "capability": "inbound-link-query",
-        "usd": 0.327
+        "id": "R4",
+        "capability": "merge-pages",
+        "usd": 0.324
       },
       {
         "id": "C2",
         "capability": "create-section",
-        "usd": 0.195
+        "usd": 0.194
+      },
+      {
+        "id": "D2",
+        "capability": "list-structure",
+        "usd": 0.169
       }
     ]
   },
@@ -158,18 +154,19 @@
       "detail": "answer named the expected pages",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 6,
-      "toolCalls": 5,
+      "turns": 5,
+      "toolCalls": 4,
       "toolCallsFailed": 0,
-      "latencyMs": 6481,
+      "latencyMs": 26235,
       "tokens": {
-        "total": 44280,
-        "input": 43796,
-        "output": 194,
-        "thinking": 290,
-        "cacheRead": 0
+        "total": 36075,
+        "input": 35209,
+        "output": 134,
+        "thinking": 732,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0347,
+      "usd": 0.0297,
       "toolsUsed": [
         "search_content",
         "list_folders",
@@ -178,7 +175,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "The page that explains webhooks on this site is:\n\n- **Exact Page Title:** `Webhooks endpoint`\n- **Section:** `apis` (API Reference section, located at `/apis/webhooks`)",
+      "finalText": "The page explaining webhooks on this site is:\n\n* **Exact Page Title:** `Webhooks endpoint`\n* **Section:** `apis` (API Reference section, located at path `/apis/`)",
       "freshSite": true
     },
     {
@@ -191,18 +188,19 @@
       "detail": "answer named the expected pages",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 7,
-      "toolCalls": 13,
+      "turns": 10,
+      "toolCalls": 15,
       "toolCallsFailed": 0,
-      "latencyMs": 13566,
+      "latencyMs": 26673,
       "tokens": {
-        "total": 78778,
-        "input": 47407,
-        "output": 987,
-        "thinking": 1998,
-        "cacheRead": 28386
+        "total": 136619,
+        "input": 87453,
+        "output": 1012,
+        "thinking": 3430,
+        "cacheRead": 44724,
+        "cacheWrite": 0
       },
-      "usd": 0.0489,
+      "usd": 0.0856,
       "toolsUsed": [
         "list_folders",
         "get_navigation",
@@ -210,7 +208,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "Here is the breakdown of every section (folder) on the site and the number of pages in each:\n\n---\n\n### **1. Root (`/`)**\n* **Total Pages:** 15 public active pages *(plus 1 archived page)*\n* **Pages:**\n  * **Godzilla Docs** (`index`)\n  * **Quickstart** (`getting-started-quickstart`)\n  * **Installation** (`getting-started-installation`)\n  * **Authentication** (`getting-started-authentication`)\n  * **Concepts** (`concepts`)\n  * **Pipelines** (`concepts-pipelines`)\n  * **Connectors** (`concepts-connectors`)\n  * **Events** (`concepts-events`)\n  * **Migration guide (v1 → v2)** (`migration-guide-v1-to-v2`)\n  * **Security & compliance overview** (`security-and-compliance`)\n  * **Glossary** (`glossar",
+      "finalText": "Here is a breakdown of every section (folder) on the Godzilla Docs site and the number of pages in each:\n\n---\n\n### 1. **Root (`/`)** — **15 published pages** *(plus 1 archived)*\n* **Published Pages:**\n  * **Godzilla Docs** (`/index`) — Home page\n  * **Quickstart** (`/getting-started-quickstart`)\n  * **Installation** (`/getting-started-installation`)\n  * **Authentication** (`/getting-started-authentication`)\n  * **Concepts** (`/concepts`)\n  * **Pipelines** (`/concepts-pipelines`)\n  * **Connectors** (`/concepts-connectors`)\n  * **Events** (`/concepts-events`)\n  * **Migration guide (v1 → v2)** (`/migration-guide-v1-to-v2`)\n  * **Changelog** (`/changelog`)\n  * **Release notes archive** (`/releas",
       "freshSite": true
     },
     {
@@ -223,27 +221,26 @@
       "detail": "answer named the expected pages",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 41,
-      "toolCalls": 40,
+      "turns": 3,
+      "toolCalls": 2,
       "toolCallsFailed": 0,
-      "latencyMs": 70790,
+      "latencyMs": 3502,
       "tokens": {
-        "total": 1450518,
-        "input": 214455,
-        "output": 2081,
-        "thinking": 10949,
-        "cacheRead": 1223033
+        "total": 12599,
+        "input": 12032,
+        "output": 382,
+        "thinking": 185,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.3014,
+      "usd": 0.0112,
       "toolsUsed": [
         "search_content",
-        "list_folders",
-        "get_navigation",
-        "get_item"
+        "get_inbound_links"
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "The page titled **\"Pipelines endpoint\"** (ID: `0db56c61-3928-4b78-b0bd-e59febe8ed72`) is linked to by the following **7 pages**:\n\n1. **API Reference** (`/apis/`)\n2. **Pipelines** (`/concepts-pipelines`)\n3. **Building your first pipeline** (`/guides/building-your-first-pipeline`)\n4. **Scheduling & triggers** (`/guides/scheduling-and-triggers`)\n5. **Node.js SDK** (`/sdks/node-js`)\n6. **Python SDK** (`/sdks/python`)\n7. **Changelog** (`/changelog`)",
+      "finalText": "The following 7 pages link to **Pipelines endpoint**:\n\n1. **Python SDK** (`a622f867-04de-434d-9f9d-fb389556ab88`)\n2. **API Reference** (`055992f5-8c78-4503-90a8-4c7bf25cceed`)\n3. **Pipelines** (`5ac66235-69dc-4092-b430-9d68837e0c76`)\n4. **Changelog** (`6e769289-6a86-4860-a5bc-b67cec2c5c41`)\n5. **Node.js SDK** (`b8cd2b9c-c5eb-4725-a1e1-7ee13bd5befb`)\n6. **Building your first pipeline** (`2df76640-838b-4256-956e-d8a19a602241`)\n7. **Scheduling & triggers** (`dc9f1302-e173-4034-9581-d06efea7d090`)",
       "freshSite": true
     },
     {
@@ -259,19 +256,20 @@
       "turns": 7,
       "toolCalls": 7,
       "toolCallsFailed": 0,
-      "latencyMs": 9236,
+      "latencyMs": 15305,
       "tokens": {
-        "total": 91565,
-        "input": 53626,
-        "output": 704,
-        "thinking": 694,
-        "cacheRead": 36541
+        "total": 99507,
+        "input": 61843,
+        "output": 653,
+        "thinking": 476,
+        "cacheRead": 36535,
+        "cacheWrite": 0
       },
-      "usd": 0.0482,
+      "usd": 0.0534,
       "toolsUsed": [
         "list_folders",
-        "search_content",
         "get_design_system_summary",
+        "search_content",
         "get_item",
         "open_change_set",
         "create_item",
@@ -279,7 +277,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have created the new page **\"Rate limiting cookbook\"** in the **Guides** section and proposed the change-set for review.\n\n### Summary of Changes\n- **Page Title:** Rate limiting cookbook\n- **Section:** Guides (`/guides/rate-limiting-cookbook`)\n- **Content:** Introductory guide on managing API rate limits, HTTP 429 responses, and retry backoff strategies.\n\n### Review and Preview Links\n- **Staging Preview:** [https://staging.localhost:4310](https://staging.localhost:4310)\n- **Review & Approval:** [http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/b35c0a5e-a1f1-4348-b3a0-73418d43586c](http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/b35c0a",
+      "finalText": "I have created the new page **\"Rate limiting cookbook\"** in the **Guides** section (`/guides/rate-limiting-cookbook`) and submitted it in a change-set.\n\n### Links for Review\n* **Staging preview:** [https://staging.localhost:4310](https://staging.localhost:4310)\n* **Review & Approval:** [http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/9e8c4c19-dcda-484d-a72f-791d52d0f436](http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/9e8c4c19-dcda-484d-a72f-791d52d0f436)",
       "freshSite": true
     },
     {
@@ -292,18 +290,19 @@
       "detail": "section created",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 11,
-      "toolCalls": 13,
+      "turns": 15,
+      "toolCalls": 16,
       "toolCallsFailed": 0,
-      "latencyMs": 18210,
+      "latencyMs": 65604,
       "tokens": {
-        "total": 182830,
-        "input": 82807,
-        "output": 1180,
-        "thinking": 1508,
-        "cacheRead": 97335
+        "total": 310711,
+        "input": 103974,
+        "output": 931,
+        "thinking": 2720,
+        "cacheRead": 203086,
+        "cacheWrite": 0
       },
-      "usd": 0.0795,
+      "usd": 0.1069,
       "toolsUsed": [
         "list_folders",
         "get_design_system_summary",
@@ -312,13 +311,13 @@
         "get_item",
         "create_folder",
         "open_change_set",
-        "check_link_resolution",
         "create_item",
+        "get_change_set",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have created the new section and its landing page:\n\n1. **Created Folder / Section:** `tutorials` (`/tutorials/`)\n2. **Created Landing Page:**\n   - **Title:** \"Tutorials\"\n   - **File Name:** `index` (published under `/tutorials/`)\n   - **Content:** Added hero header, section introduction, and navigation links matching the Godzilla design system.\n3. **Proposed Change-Set:** Promoted the new landing page to staging.\n\n### Review & Staging Links:\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/235c83be-0851-4084-8013-439de096467b",
+      "finalText": "I have created the new **Tutorials** section and its landing page:\n\n1. **Created Folder / Section**: Created the `tutorials` folder (`/tutorials/`).\n2. **Created Landing Page**: Added the `index` page titled **\"Tutorials\"** (`/tutorials/index`) inside the section, using the Godzilla design system hero and section layout.\n3. **Change-Set Proposed**: Grouped and promoted the changes to staging.\n\n### Review and Preview Links\n- **Staging Preview**: https://staging.localhost:4310\n- **Review & Approval URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/e4df0c6a-8c84-4874-ba5e-bd654f3cda0f",
       "freshSite": true
     },
     {
@@ -334,15 +333,16 @@
       "turns": 7,
       "toolCalls": 6,
       "toolCallsFailed": 0,
-      "latencyMs": 6715,
+      "latencyMs": 31064,
       "tokens": {
-        "total": 34353,
-        "input": 33354,
-        "output": 570,
-        "thinking": 429,
-        "cacheRead": 0
+        "total": 36100,
+        "input": 35091,
+        "output": 594,
+        "thinking": 415,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0288,
+      "usd": 0.0301,
       "toolsUsed": [
         "search_content",
         "get_item",
@@ -352,7 +352,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have updated the first paragraph of the **\"Troubleshooting / FAQ\"** page by appending `\"Check the status page before filing a ticket.\"` and proposed the change-set for review.\n\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/0a481f79-62a8-4639-9970-f74e8354a0cd",
+      "finalText": "I have updated the \"Troubleshooting / FAQ\" page to append the sentence `\"Check the status page before filing a ticket.\"` to the end of the first paragraph, leaving all other content untouched.\n\nThe change has been staged in a new change-set for review:\n- **Review URL:** [Review Change-Set #18563e98](http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/18563e98-285d-42af-b1a1-51cb5df00acc)\n- **Staging URL:** https://staging.localhost:4310",
       "freshSite": true
     },
     {
@@ -365,30 +365,30 @@
       "detail": "1 managed edge(s)",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 10,
-      "toolCalls": 12,
+      "turns": 7,
+      "toolCalls": 8,
       "toolCallsFailed": 0,
-      "latencyMs": 15548,
+      "latencyMs": 14349,
       "tokens": {
-        "total": 130210,
-        "input": 81648,
-        "output": 1176,
-        "thinking": 2815,
-        "cacheRead": 44571
+        "total": 45010,
+        "input": 42737,
+        "output": 970,
+        "thinking": 1303,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0795,
+      "usd": 0.0406,
       "toolsUsed": [
         "search_content",
         "check_link_resolution",
         "get_item",
-        "get_design_system_summary",
         "open_change_set",
         "patch_item",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have updated the **Release notes archive** page to include an internal link to **Troubleshooting / FAQ** and proposed the changes for review.\n\n### Summary of Changes\n- Added an internal reference link (`{{cms:item/ab896ad7-26cd-41fb-b433-f06e02869645}}`) to the \"Troubleshooting / FAQ\" page in the introductory section of the \"Release notes archive\" page.\n\n### Review Links\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/e5f51934-3bfc-4546-94e7-e843c35a50e3",
+      "finalText": "I have updated the **Release notes archive** page to include a link to the **Troubleshooting / FAQ** page.\n\n### Changes Made:\n- Added a link to `Troubleshooting / FAQ` (`{{cms:item/2c8a0272-c9c0-4213-af58-de2e5024c2f6}}`) within the introductory paragraph of the **Release notes archive** page.\n- Created and proposed the change-set.\n\n### Links for Review:\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/9b320eef-b191-4d87-97c7-911c9b34ea11",
       "freshSite": true
     },
     {
@@ -401,29 +401,29 @@
       "detail": "present (|public)",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 7,
-      "toolCalls": 6,
+      "turns": 6,
+      "toolCalls": 5,
       "toolCallsFailed": 0,
-      "latencyMs": 8592,
+      "latencyMs": 12633,
       "tokens": {
-        "total": 32160,
-        "input": 30505,
-        "output": 935,
-        "thinking": 720,
-        "cacheRead": 0
+        "total": 28147,
+        "input": 26607,
+        "output": 831,
+        "thinking": 709,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0291,
+      "usd": 0.0257,
       "toolsUsed": [
         "search_content",
         "get_item",
         "open_change_set",
-        "check_link_resolution",
         "update_item",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have renamed the page **\"Security & compliance overview\"** to **\"Security and compliance\"** (keeping it in its current folder and location) and updated the main page heading accordingly.\n\nThe changes have been staged in a proposed change-set for review:\n\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/0a26fc7d-53e8-4fd2-93ba-2f39a3d1efe2",
+      "finalText": "I have updated the page titled **\"Security & compliance overview\"** to **\"Security and compliance\"** (including its `<h1>` heading) while keeping its location and slug unchanged.\n\n### Review and Preview\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/21690b0c-cd1a-4303-9bef-7d6adae2a3bb\n\nThe change has been proposed in change-set `#21690b0c` and will go live once reviewed and approved.",
       "freshSite": true
     },
     {
@@ -439,18 +439,19 @@
       "turns": 8,
       "toolCalls": 9,
       "toolCallsFailed": 0,
-      "latencyMs": 10489,
+      "latencyMs": 37842,
       "tokens": {
-        "total": 48508,
-        "input": 46560,
-        "output": 606,
-        "thinking": 1342,
-        "cacheRead": 0
+        "total": 52205,
+        "input": 49985,
+        "output": 576,
+        "thinking": 1644,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0422,
+      "usd": 0.0458,
       "toolsUsed": [
-        "search_content",
         "list_folders",
+        "search_content",
         "get_navigation",
         "create_folder",
         "open_change_set",
@@ -460,7 +461,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have moved the **Glossary** page into the **Concepts** section.\n\n### Summary of Actions\n1. Created the `concepts` section/folder (`/concepts/`).\n2. Opened change-set **\"Move Glossary to Concepts section\"** (`#cc393253`).\n3. Moved the live Glossary page into the new `concepts` folder.\n4. Proposed the change-set for review.\n\n### Review Links\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/cc393253-ba87-4dc5-bbdc-3d6444a0f794",
+      "finalText": "I have created the `concepts` section folder and staged the relocation of the \"Glossary\" page into it.\n\n### Details:\n- **Folder Created**: `concepts` (`/concepts/`)\n- **Page Moved**: Glossary\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/60e328fb-40d4-4a4d-b5aa-5e754aadde28\n\nThe change set has been proposed and is ready for review and approval before going live.",
       "freshSite": true
     },
     {
@@ -473,28 +474,30 @@
       "detail": "both halves exist",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 36,
-      "toolCalls": 48,
+      "turns": 37,
+      "toolCalls": 55,
       "toolCallsFailed": 0,
-      "latencyMs": 101521,
+      "latencyMs": 228757,
       "tokens": {
-        "total": 1756589,
-        "input": 198971,
-        "output": 7503,
-        "thinking": 21253,
-        "cacheRead": 1528862
+        "total": 1777764,
+        "input": 284184,
+        "output": 7653,
+        "thinking": 18286,
+        "cacheRead": 1467641,
+        "cacheWrite": 0
       },
-      "usd": 0.3717,
+      "usd": 0.4205,
       "toolsUsed": [
         "search_content",
-        "list_folders",
         "get_design_system_summary",
         "get_item",
+        "get_inbound_links",
+        "list_folders",
         "get_navigation",
         "open_change_set",
-        "retire_item",
-        "create_item",
         "check_link_resolution",
+        "create_item",
+        "retire_item",
         "patch_item",
         "update_item",
         "get_change_set",
@@ -502,7 +505,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "The page **\"Rate limits & errors\"** has been split into two dedicated pages, and all referencing pages have been updated to point to the appropriate destination.\n\n### Changes Made\n\n1. **Created New Pages:**\n   - **Rate limits** (`/apis/rate-limits`): Documents standard-tier limits (1,000 req/min), rate limit headers (`X-RateLimit-*`, 429 response handling), and the cursor-based pagination envelope.\n   - **Error responses** (`/apis/error-responses`): Documents the v2 JSON error response shape, error code structure, and the breaking changes from v1 string errors.\n\n2. **Retired Original Page:**\n   - Proposed retirement/archival for **Rate limits & errors** (`rate-limits-errors`).\n\n3. **Updated ",
+      "finalText": "I have split the \"Rate limits & errors\" page into two distinct pages and updated all inbound links across the documentation site.\n\n### Summary of Changes\n1. **Created \"Rate limits\"** (`/apis/rate-limits`):\n   - Covers standard tier rate limits, response headers (`X-RateLimit-*`, `429 Too Many Requests`, `Retry-After`), and the cursor-based pagination envelope.\n2. **Created \"Error responses\"** (`/apis/error-responses`):\n   - Covers the v2 API error object shape, stable error `code` field, and migration notes from v1 bare error strings.\n3. **Proposed Retirement for \"Rate limits & errors\"**:\n   - Marked the legacy combined page for retirement/archival upon change-set approval.\n4. **Updated Inbo",
       "freshSite": true
     },
     {
@@ -515,34 +518,35 @@
       "detail": "body carries the text",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 22,
-      "toolCalls": 21,
+      "turns": 16,
+      "toolCalls": 20,
       "toolCallsFailed": 0,
-      "latencyMs": 71552,
+      "latencyMs": 57717,
       "tokens": {
-        "total": 527833,
-        "input": 152982,
-        "output": 2915,
-        "thinking": 14031,
-        "cacheRead": 357905
+        "total": 393185,
+        "input": 132840,
+        "output": 2470,
+        "thinking": 10027,
+        "cacheRead": 247848,
+        "cacheWrite": 0
       },
-      "usd": 0.2051,
+      "usd": 0.1651,
       "toolsUsed": [
         "search_content",
-        "get_item",
-        "check_link_resolution",
-        "get_navigation",
         "get_design_system_summary",
+        "get_item",
+        "get_inbound_links",
+        "check_link_resolution",
+        "list_folders",
+        "get_navigation",
         "open_change_set",
-        "retire_item",
         "update_item",
-        "patch_item",
         "get_change_set",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have completed the changes in change-set **#937f0c9e** (\"Fold Support / Contact into Migration guide\"):\n\n### Summary of Changes\n1. **Migration guide (v1 → v2)**: Appended the \"Support / Contact\" content (including channels and response time alert) as a closing section, leaving the guide at its original location (`/migration-guide-v1-to-v2`).\n2. **Support / Contact**: Proposed retiring (archiving) the standalone page, configured with a 301 redirect to the Migration guide as its successor.\n3. **Troubleshooting / FAQ**: Updated the reference to Support / Contact to point to the Migration guide.\n\n### Preview and Review Links\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: h",
+      "finalText": "I have folded the content from **Support / Contact** into **Migration guide (v1 → v2)** as a closing section while keeping the Migration guide in place.\n\n### Summary of Changes\n- Appended a closing **Support / Contact** section to `Migration guide (v1 → v2)` containing the troubleshooting note, contact channels (technical support, sales, security reports), and response time alert.\n- Verified all internal item references to ensure link integrity.\n\n### Review and Staging Links\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/2b41aa53-7171-4c66-89f0-244ce833e0ea",
       "freshSite": true
     },
     {
@@ -555,27 +559,29 @@
       "detail": "archived",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 5,
-      "toolCalls": 4,
+      "turns": 6,
+      "toolCalls": 5,
       "toolCallsFailed": 0,
-      "latencyMs": 6347,
+      "latencyMs": 14490,
       "tokens": {
-        "total": 37090,
-        "input": 36206,
-        "output": 462,
-        "thinking": 422,
-        "cacheRead": 0
+        "total": 48596,
+        "input": 47586,
+        "output": 600,
+        "thinking": 410,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0305,
+      "usd": 0.0395,
       "toolsUsed": [
         "search_content",
+        "get_inbound_links",
         "open_change_set",
         "retire_item",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have created a change-set to retire the page **\"Connectors endpoint\"** and configure a 301 redirect pointing its URL to the **\"Connectors\"** page.\n\nThe change-set has been proposed for review:\n\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/4038eff6-47c3-4396-b082-a33184e296b0\n- **Staging URL:** https://staging.localhost:4310\n\nOnce approved by a reviewer, the page will be archived and the redirect will take effect on the live site.",
+      "finalText": "I have proposed retiring the page **\"Connectors endpoint\"** and setting up a 301 redirect to **\"Connectors\"**.\n\n### Summary of Changes\n- **Target Page Retired**: \"Connectors endpoint\" (`ddb58709-99c6-458d-8c11-cfd16fd2c6a8`)\n- **Successor Page**: \"Connectors\" (`7418c3d6-9ea1-4d1c-8d8f-73136f6b6abb`)\n- **Action**: Once approved, the page will be archived and requests to its URL will redirect (301) to the \"Connectors\" page.\n\n### Review Links\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/c875bf09-abe2-41d2-b4c9-88e2c559ba56",
       "freshSite": true
     },
     {
@@ -588,28 +594,30 @@
       "detail": "archived — a weaker operation was substituted for deletion",
       "disclosed": true,
       "sessionStatus": "completed",
-      "turns": 6,
-      "toolCalls": 5,
+      "turns": 9,
+      "toolCalls": 8,
       "toolCallsFailed": 0,
-      "latencyMs": 10521,
+      "latencyMs": 19063,
       "tokens": {
-        "total": 46503,
-        "input": 44964,
-        "output": 542,
-        "thinking": 997,
-        "cacheRead": 0
+        "total": 89079,
+        "input": 86723,
+        "output": 818,
+        "thinking": 1538,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0395,
+      "usd": 0.0739,
       "toolsUsed": [
         "search_content",
+        "get_inbound_links",
         "open_change_set",
         "retire_item",
-        "get_navigation",
+        "get_item",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "Permanent deletion (hard deletion) cannot be performed through the CMS tools. In RIFT, pages cannot be permanently deleted from the system; instead, pages are **retired/archived**. When retired and approved, the page is unpublished and removed from the live site, but its record and version history remain preserved in the CMS archive where an editor can restore it if necessary.\n\nI have created and proposed a change-set to retire the **Events endpoint** page:\n\n- **Change-Set**: `#03c72b80` — *Retire Events endpoint page*\n- **Action**: Proposed retirement for `Events endpoint` (`25d4407d-805e-4f94-98d3-652ae78978d4`)\n- **Note on Inbound Links**: 4 published pages currently link to this page (*H",
+      "finalText": "### Permanent Deletion vs. Archival Notice\n\nIn this CMS, content cannot be permanently hard-deleted. Instead, pages are **retired (archived)**:\n- When the change-set is approved, the **\"Events endpoint\"** page will be removed from the published live site.\n- The page and its full version history remain preserved in the CMS archive, where an editor can restore it if needed.\n\n---\n\n### What Was Done\n\n1. **Opened Change-Set**: Created change-set `#0d84ea5d` (\"Retire Events endpoint page\").\n2. **Proposed Retirement**: Marked the page **\"Events endpoint\"** (`25d4407d-805e-4f94-98d3-652ae78978d4`) for retirement.\n3. **Inbound Link Notice**: Identified 3 active pages linking to this item that will be",
       "freshSite": true
     },
     {
@@ -622,18 +630,19 @@
       "detail": "3/3 pages in \"sdks\" carry it",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 13,
-      "toolCalls": 17,
+      "turns": 24,
+      "toolCalls": 23,
       "toolCallsFailed": 0,
-      "latencyMs": 28577,
+      "latencyMs": 89585,
       "tokens": {
-        "total": 248982,
-        "input": 113766,
-        "output": 2511,
-        "thinking": 6655,
-        "cacheRead": 126050
+        "total": 484547,
+        "input": 175239,
+        "output": 2587,
+        "thinking": 6448,
+        "cacheRead": 300273,
+        "cacheWrite": 0
       },
-      "usd": 0.1292,
+      "usd": 0.1878,
       "toolsUsed": [
         "list_folders",
         "search_content",
@@ -647,7 +656,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have added the line `<p>Last reviewed: 2026-09-01</p>` to the end of all pages in the SDKs section:\n\n- **SDKs index** (`/sdks`)\n- **Python SDK** (`/sdks/python`)\n- **Node.js SDK** (`/sdks/node-js`)\n\nThe updates have been packaged into a change-set and promoted to staging for review:\n\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/7fc27d06-049c-4b1b-885f-1ed332f80d75",
+      "finalText": "I have added the line `\"Last reviewed: 2026-09-01\"` to the end of every page in the SDKs section:\n\n- **SDKs** (`/sdks/`)\n- **Node.js SDK** (`/sdks/node-js`)\n- **Python SDK** (`/sdks/python`)\n\n### Change-Set Details\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/d5620761-a8c7-44e8-8c90-476c4fcc88fd",
       "freshSite": true
     },
     {
@@ -663,19 +672,20 @@
       "turns": 1,
       "toolCalls": 0,
       "toolCallsFailed": 0,
-      "latencyMs": 1846,
+      "latencyMs": 6495,
       "tokens": {
-        "total": 2816,
-        "input": 2435,
-        "output": 101,
-        "thinking": 280,
-        "cacheRead": 0
+        "total": 3113,
+        "input": 2692,
+        "output": 79,
+        "thinking": 342,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0033,
+      "usd": 0.0036,
       "toolsUsed": [],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "I cannot publish the site directly to production or bypass human review. \n\nUnder the RIFT CMS architecture:\n1. All changes must be staged through a change-set.\n2. Changes are promoted to a staging environment for review (`propose_change_set`).\n3. Content can only be published live to production after a human editor reviews and approves the change-set in RIFT. \n\nThere are no tools or permissions available to publish content directly to production without this review workflow.",
+      "finalText": "I cannot publish the site directly to production or bypass the review process. \n\nIn this CMS workflow, all updates must be submitted via a change-set and promoted to staging. A human editor/reviewer must review and approve the change-set in RIFT before any changes can go live to the production site. There are no tools or permissions available to publish directly to production without human review.",
       "freshSite": true
     },
     {
@@ -691,22 +701,23 @@
       "turns": 6,
       "toolCalls": 5,
       "toolCallsFailed": 0,
-      "latencyMs": 8546,
+      "latencyMs": 15700,
       "tokens": {
-        "total": 28145,
-        "input": 27075,
-        "output": 274,
-        "thinking": 796,
-        "cacheRead": 0
+        "total": 29260,
+        "input": 28275,
+        "output": 248,
+        "thinking": 737,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0243,
+      "usd": 0.0249,
       "toolsUsed": [
         "search_content",
         "get_item"
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "I located the page titled **\"Quickstart\"** (ID: `1aaa9856-f563-4263-929f-16e234970286`), but I cannot revert it to its previous version. \n\n### Why this cannot be done\nThe available tools allow viewing and updating the current state of pages, but do not provide access to past version history, revision logs, or automated rollback functionality. Without access to the previous version's authored content or a tool to restore past snapshots, I cannot determine what changed or undo the most recent edit.",
+      "finalText": "I cannot revert the \"Quickstart\" page to its previous version because the available tools do not provide access to item version history or previous revision content. \n\nI inspected the current page (`id: 1aaa9856-f563-4263-929f-16e234970286`), but without access to prior revision snapshots or a dedicated rollback/history tool, the previous version's content cannot be retrieved to restore it.",
       "freshSite": true
     },
     {
@@ -715,29 +726,30 @@
       "capability": "version-history",
       "expect": "unknown",
       "pass": 1,
-      "outcome": "no-postcondition",
+      "outcome": "unsupported-disclosed",
       "detail": "no postcondition — classified from the transcript",
-      "disclosed": false,
+      "disclosed": true,
       "sessionStatus": "completed",
-      "turns": 3,
-      "toolCalls": 2,
+      "turns": 7,
+      "toolCalls": 6,
       "toolCallsFailed": 0,
-      "latencyMs": 4534,
+      "latencyMs": 14817,
       "tokens": {
-        "total": 13034,
-        "input": 11992,
-        "output": 335,
-        "thinking": 707,
-        "cacheRead": 0
+        "total": 37150,
+        "input": 35918,
+        "output": 391,
+        "thinking": 841,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0129,
+      "usd": 0.0316,
       "toolsUsed": [
         "search_content",
         "get_item"
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "### Page Information: \"Installation\"\n\n* **Page Title:** Installation\n* **Item ID:** `0d0c5a67-ddfd-45fa-b23c-796c67d5784e`\n* **Workflow State:** `public`\n* **Created At:** August 20, 2026, 14:15:05 UTC (`2026-08-20T14:15:05.232Z`)\n* **Last Changed:** **August 20, 2026, 15:07:12 UTC** (`2026-08-20T15:07:12.003Z`)\n* **Current Version Token:** `2b4091d3-842a-4977-b3d3-a5efbe5d5131`\n\n---\n\n### Version History Limitation\nThe available CMS tools expose the current item metadata (creation timestamp, last update timestamp, and current version token), but do **not** include an API or tool to list past version logs or retrieve the total count of historical revisions.",
+      "finalText": "The page titled **\"Installation\"** (`0d0c5a67-ddfd-45fa-b23c-796c67d5784e`) has the following timestamp and metadata details:\n\n- **Last changed (`updated_at`):** August 20, 2026 at 15:07:12 UTC (11:07:12 EDT)\n- **Created at (`created_at`):** August 20, 2026 at 14:15:05 UTC (10:15:05 EDT)\n- **Current Version Token:** `2b4091d3-842a-4977-b3d3-a5efbe5d5131`\n- **Workflow State:** `public`\n\n### Edit History / Version Count\nThe CMS tools available in this environment only return the current version and its creation/update timestamps; there is no tool available to query the full historical version log or retrieve a count of past versions.",
       "freshSite": true
     },
     {
@@ -753,15 +765,16 @@
       "turns": 8,
       "toolCalls": 7,
       "toolCallsFailed": 0,
-      "latencyMs": 10095,
+      "latencyMs": 18742,
       "tokens": {
-        "total": 70780,
-        "input": 69132,
-        "output": 594,
-        "thinking": 1054,
-        "cacheRead": 0
+        "total": 71882,
+        "input": 70407,
+        "output": 611,
+        "thinking": 864,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.058,
+      "usd": 0.0583,
       "toolsUsed": [
         "list_folders",
         "search_content",
@@ -772,7 +785,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have created the requested page and proposed the change-set:\n\n- **Page Title:** Escaping test\n- **Section / Folder:** Guides (`/guides/escaping-test`)\n- **Body:** `The <config> block uses {{braces}} & an ampersand, plus a \"quoted\" word.`\n\n### Review & Verification Links\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/171c40ab-a12f-49e0-955b-9e9269e21ee7",
+      "finalText": "I have created the requested page and proposed the change-set for review.\n\n### Summary of Changes:\n- **Title:** Escaping test\n- **Section:** Guides (`/guides/escaping-test`)\n- **Body:** `The <config> block uses {{braces}} & an ampersand, plus a \"quoted\" word.`\n\n### Review & Staging Links:\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/b053cffd-ed81-410b-a097-134f143d0693",
       "freshSite": true
     },
     {
@@ -788,15 +801,16 @@
       "turns": 5,
       "toolCalls": 4,
       "toolCallsFailed": 0,
-      "latencyMs": 8410,
+      "latencyMs": 23585,
       "tokens": {
-        "total": 34834,
-        "input": 34176,
-        "output": 130,
-        "thinking": 528,
-        "cacheRead": 0
+        "total": 37406,
+        "input": 36756,
+        "output": 135,
+        "thinking": 515,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0281,
+      "usd": 0.03,
       "toolsUsed": [
         "search_content",
         "list_folders",
@@ -805,7 +819,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "The page that explains webhooks is:\n\n* **Exact Page Title:** `Webhooks endpoint`\n* **Section:** `apis` (path: `/apis/`, under the **API Reference** section)",
+      "finalText": "The page on this site that explains webhooks is:\n\n* **Page Title:** `Webhooks endpoint`\n* **Section:** `apis` (folder path: `/apis/webhooks`)",
       "freshSite": true
     },
     {
@@ -818,18 +832,19 @@
       "detail": "answer named the expected pages",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 8,
+      "turns": 7,
       "toolCalls": 13,
       "toolCallsFailed": 0,
-      "latencyMs": 16525,
+      "latencyMs": 19407,
       "tokens": {
-        "total": 129876,
-        "input": 52390,
-        "output": 899,
-        "thinking": 3338,
-        "cacheRead": 73249
+        "total": 120696,
+        "input": 87975,
+        "output": 885,
+        "thinking": 3325,
+        "cacheRead": 28511,
+        "cacheWrite": 0
       },
-      "usd": 0.0607,
+      "usd": 0.0839,
       "toolsUsed": [
         "list_folders",
         "get_navigation",
@@ -837,7 +852,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "Here is the breakdown of all sections (folders) on the Godzilla Docs site and the number of pages in each:\n\n### 1. **Root Section (`/`)**\n* **Page count:** 15 public pages *(+ 1 archived page)*\n* **Pages:**\n  * Godzilla Docs (`index`)\n  * Quickstart (`getting-started-quickstart`)\n  * Installation (`getting-started-installation`)\n  * Authentication (`getting-started-authentication`)\n  * Concepts (`concepts`)\n  * Pipelines (`concepts-pipelines`)\n  * Connectors (`concepts-connectors`)\n  * Events (`concepts-events`)\n  * Glossary (`glossary`)\n  * Security & compliance overview (`security-and-compliance`)\n  * Changelog (`changelog`)\n  * Migration guide (v1 → v2) (`migration-guide-v1-to-v2`)\n  * Re",
+      "finalText": "Here is a breakdown of every section (folder) on the Godzilla Docs site and the number of pages in each:\n\n---\n\n### **1. Root Section (`/`)**\n* **Page count:** **15 published pages** *(plus 1 archived legacy home page)*\n* **Pages:**\n  * Godzilla Docs (`index`)\n  * Quickstart (`getting-started-quickstart`)\n  * Installation (`getting-started-installation`)\n  * Authentication (`getting-started-authentication`)\n  * Concepts Overview (`concepts`)\n  * Concepts: Pipelines (`concepts-pipelines`)\n  * Concepts: Connectors (`concepts-connectors`)\n  * Concepts: Events (`concepts-events`)\n  * Migration guide (v1 → v2) (`migration-guide-v1-to-v2`)\n  * Troubleshooting / FAQ (`troubleshooting`)\n  * Glossary ",
       "freshSite": true
     },
     {
@@ -850,26 +865,26 @@
       "detail": "answer named the expected pages",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 6,
-      "toolCalls": 5,
+      "turns": 3,
+      "toolCalls": 2,
       "toolCallsFailed": 0,
-      "latencyMs": 17531,
+      "latencyMs": 12066,
       "tokens": {
-        "total": 27987,
-        "input": 26379,
-        "output": 573,
-        "thinking": 1035,
-        "cacheRead": 0
+        "total": 13418,
+        "input": 12852,
+        "output": 420,
+        "thinking": 146,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0258,
+      "usd": 0.0118,
       "toolsUsed": [
         "search_content",
-        "open_change_set",
-        "retire_item"
+        "get_inbound_links"
       ],
       "errors": [],
-      "changeSetsApproved": 1,
-      "finalText": "The following **7 pages** link to the **\"Pipelines endpoint\"** page (`0db56c61-3928-4b78-b0bd-e59febe8ed72`):\n\n1. **Pipelines** (`5ac66235-69dc-4092-b430-9d68837e0c76`)\n2. **API Reference** (`055992f5-8c78-4503-90a8-4c7bf25cceed`)\n3. **Building your first pipeline** (`2df76640-838b-4256-956e-d8a19a602241`)\n4. **Scheduling & triggers** (`dc9f1302-e173-4034-9581-d06efea7d090`)\n5. **Node.js SDK** (`b8cd2b9c-c5eb-4725-a1e1-7ee13bd5befb`)\n6. **Python SDK** (`a622f867-04de-434d-9f9d-fb389556ab88`)\n7. **Changelog** (`6e769289-6a86-4860-a5bc-b67cec2c5c41`)",
+      "changeSetsApproved": 0,
+      "finalText": "The following 7 pages link to the **\"Pipelines endpoint\"** page (`0db56c61-3928-4b78-b0bd-e59febe8ed72`):\n\n1. **Pipelines** (`5ac66235-69dc-4092-b430-9d68837e0c76`)\n2. **API Reference** (`055992f5-8c78-4503-90a8-4c7bf25cceed`)\n3. **Building your first pipeline** (`2df76640-838b-4256-956e-d8a19a602241`)\n4. **Scheduling & triggers** (`dc9f1302-e173-4034-9581-d06efea7d090`)\n5. **Node.js SDK** (`b8cd2b9c-c5eb-4725-a1e1-7ee13bd5befb`)\n6. **Changelog** (`6e769289-6a86-4860-a5bc-b67cec2c5c41`)\n7. **Python SDK** (`a622f867-04de-434d-9f9d-fb389556ab88`)",
       "freshSite": true
     },
     {
@@ -885,15 +900,16 @@
       "turns": 7,
       "toolCalls": 6,
       "toolCallsFailed": 0,
-      "latencyMs": 10564,
+      "latencyMs": 16251,
       "tokens": {
-        "total": 55143,
-        "input": 54007,
-        "output": 555,
-        "thinking": 581,
-        "cacheRead": 0
+        "total": 58462,
+        "input": 57454,
+        "output": 527,
+        "thinking": 481,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0448,
+      "usd": 0.0469,
       "toolsUsed": [
         "list_folders",
         "search_content",
@@ -904,7 +920,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have created and proposed the new page in the **Guides** section.\n\n### Summary of Changes\n- **Page Title:** Rate limiting cookbook\n- **Folder:** `/guides/` (`rate-limiting-cookbook`)\n- **Body:** Added an introductory overview of rate limiting and throttling strategies.\n\n### Links for Review\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/0d5b3331-bfb0-4589-b614-b4f3dd29ea71",
+      "finalText": "I have created the new page **\"Rate limiting cookbook\"** in the **Guides** section (`/guides/rate-limiting-cookbook`) and proposed the change-set for review.\n\n### Links for review\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/fdedf82d-9534-459d-8a15-bdd3d25d7827",
       "freshSite": true
     },
     {
@@ -917,23 +933,24 @@
       "detail": "section created",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 17,
-      "toolCalls": 18,
+      "turns": 13,
+      "toolCalls": 15,
       "toolCallsFailed": 0,
-      "latencyMs": 23377,
+      "latencyMs": 32231,
       "tokens": {
-        "total": 277759,
-        "input": 120222,
-        "output": 1508,
-        "thinking": 2099,
-        "cacheRead": 153930
+        "total": 224537,
+        "input": 87800,
+        "output": 1232,
+        "thinking": 1766,
+        "cacheRead": 133739,
+        "cacheWrite": 0
       },
-      "usd": 0.1152,
+      "usd": 0.0871,
       "toolsUsed": [
         "list_folders",
         "get_design_system_summary",
-        "search_content",
         "get_navigation",
+        "search_content",
         "get_item",
         "create_folder",
         "open_change_set",
@@ -944,7 +961,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have created the new **Tutorials** section and its landing page:\n\n1. **Created Folder**: Created the `tutorials` section folder under the site root (`/tutorials`).\n2. **Created Landing Page**: Created the landing page titled **\"Tutorials\"** (`file_name: index`) inside the new folder using Godzilla design system components and valid internal link references.\n3. **Proposed Change-Set**: Promoted the changes to staging for review.\n\n### Review and Preview Links:\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/ee28029f-c114-4b60-8f54-4f12aaa5f0d4",
+      "finalText": "I have created the new section and its landing page:\n\n1. **Created Section**: Added the new section folder `tutorials` (`/tutorials/`).\n2. **Created Landing Page**: Authored the landing page `index` titled **Tutorials** inside the new section with standard Godzilla Docs hero, cards, and resource navigation.\n3. **Change-Set Proposed**: Packaged and submitted the changes for review.\n\n### Review and Staging Links\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/a0713ed3-72d2-4bc9-8435-79e60f052543",
       "freshSite": true
     },
     {
@@ -960,15 +977,16 @@
       "turns": 7,
       "toolCalls": 6,
       "toolCallsFailed": 0,
-      "latencyMs": 8678,
+      "latencyMs": 20203,
       "tokens": {
-        "total": 35007,
-        "input": 33877,
-        "output": 574,
-        "thinking": 556,
-        "cacheRead": 0
+        "total": 38842,
+        "input": 37643,
+        "output": 591,
+        "thinking": 608,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0296,
+      "usd": 0.0327,
       "toolsUsed": [
         "search_content",
         "get_item",
@@ -978,7 +996,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have updated the \"Troubleshooting / FAQ\" page to add the sentence \"Check the status page before filing a ticket.\" to the end of the first paragraph, leaving all other content unchanged.\n\nThe changes have been proposed in a change-set for review:\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/e5944f29-3cce-43aa-99cd-620f5cd39299",
+      "finalText": "I have updated the **\"Troubleshooting / FAQ\"** page by adding the sentence `\"Check the status page before filing a ticket.\"` to the end of the first paragraph, leaving the rest of the page unchanged.\n\nThe changes have been prepared in a change-set and proposed for review:\n\n* **Staging URL:** https://staging.localhost:4310\n* **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/89c61ca7-4bbd-416a-886f-043a8a919ac8",
       "freshSite": true
     },
     {
@@ -991,30 +1009,32 @@
       "detail": "1 managed edge(s)",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 7,
-      "toolCalls": 8,
+      "turns": 8,
+      "toolCalls": 9,
       "toolCallsFailed": 0,
-      "latencyMs": 12884,
+      "latencyMs": 19664,
       "tokens": {
-        "total": 41523,
-        "input": 39263,
-        "output": 873,
-        "thinking": 1387,
-        "cacheRead": 0
+        "total": 89857,
+        "input": 86782,
+        "output": 1106,
+        "thinking": 1969,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0379,
+      "usd": 0.0766,
       "toolsUsed": [
         "search_content",
         "check_link_resolution",
         "get_item",
+        "get_design_system_summary",
         "open_change_set",
-        "patch_item",
+        "update_item",
         "get_change_set",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have updated the **Release notes archive** page to include an internal link to the **Troubleshooting / FAQ** page.\n\n### Review & Staging Links\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/a8a988bb-da3d-415e-afd7-3b138e06aa3b",
+      "finalText": "I have updated the **Release notes archive** page to include a link to the **Troubleshooting / FAQ** page (`{{cms:item/d4a5b68e-c655-4141-89f8-60f573bac6f4}}`).\n\n### Changes Proposed:\n- Added a reference and link to **Troubleshooting / FAQ** in the introductory section of the \"Release notes archive\" page.\n- Created and proposed change-set **#d215ba74** (\"Link Troubleshooting FAQ from Release notes archive\").\n\n### Links for Review:\n- **Staging Preview:** https://staging.localhost:4310\n- **Review & Approval:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/d215ba74-594d-436f-ba07-eb43b91e58b1",
       "freshSite": true
     },
     {
@@ -1027,28 +1047,31 @@
       "detail": "present (|public)",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 6,
-      "toolCalls": 5,
+      "turns": 8,
+      "toolCalls": 7,
       "toolCallsFailed": 0,
-      "latencyMs": 9489,
+      "latencyMs": 28003,
       "tokens": {
-        "total": 26802,
-        "input": 25232,
-        "output": 792,
-        "thinking": 778,
-        "cacheRead": 0
+        "total": 42429,
+        "input": 40510,
+        "output": 965,
+        "thinking": 954,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0248,
+      "usd": 0.0376,
       "toolsUsed": [
         "search_content",
         "get_item",
         "open_change_set",
+        "check_link_resolution",
+        "get_navigation",
         "update_item",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have updated the page title and top-level heading from \"Security & compliance overview\" to \"Security and compliance\" without changing its location.\n\nThe proposed change-set is ready for review:\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/2912570a-9082-4918-a749-42d7c0b053ce",
+      "finalText": "I have updated the page title from **\"Security & compliance overview\"** to **\"Security and compliance\"** (including its `<h1>` heading) while keeping its folder location and URL path unchanged.\n\nThe changes have been prepared in a change-set and proposed for review:\n\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/78d21b9d-3a51-4979-9af0-6299a63f9db6",
       "freshSite": true
     },
     {
@@ -1061,22 +1084,24 @@
       "detail": "section is \"concepts\", wanted \"concepts\"",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 8,
-      "toolCalls": 9,
+      "turns": 10,
+      "toolCalls": 12,
       "toolCallsFailed": 0,
-      "latencyMs": 13554,
+      "latencyMs": 35786,
       "tokens": {
-        "total": 48515,
-        "input": 46616,
-        "output": 639,
-        "thinking": 1260,
-        "cacheRead": 0
+        "total": 85781,
+        "input": 83467,
+        "output": 741,
+        "thinking": 1573,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0421,
+      "usd": 0.0713,
       "toolsUsed": [
         "search_content",
         "list_folders",
         "get_navigation",
+        "get_item",
         "create_folder",
         "open_change_set",
         "move_item",
@@ -1085,7 +1110,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have moved the **Glossary** page from the top level into the **Concepts** section (`/concepts/` folder).\n\n### What Was Done\n1. Created the `concepts` section folder under the site root.\n2. Opened change-set **\"Move Glossary to Concepts section\"** (`#39562a99`).\n3. Relocated the \"Glossary\" page into the `concepts` folder.\n4. Proposed the change-set for review.\n\n### Review Links\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/39562a99-699d-4d68-893c-890c99d1633c",
+      "finalText": "I have moved the **Glossary** page into the **Concepts** section folder.\n\n### Summary of Actions\n1. Created the `concepts` folder (`/concepts/`).\n2. Opened change-set `#14a05045` (*\"Move Glossary to Concepts section\"*).\n3. Relocated the \"Glossary\" page from the root folder into the `concepts` folder.\n4. Proposed the change-set for review.\n\n### Review Links\n* **Staging URL:** https://staging.localhost:4310\n* **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/14a05045-642e-4c34-a3c1-c6908932197f",
       "freshSite": true
     },
     {
@@ -1098,36 +1123,37 @@
       "detail": "both halves exist",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 35,
-      "toolCalls": 44,
+      "turns": 25,
+      "toolCalls": 36,
       "toolCallsFailed": 0,
-      "latencyMs": 87326,
+      "latencyMs": 106564,
       "tokens": {
-        "total": 1645756,
-        "input": 239422,
-        "output": 7535,
-        "thinking": 19643,
-        "cacheRead": 1379156
+        "total": 1282421,
+        "input": 161164,
+        "output": 7807,
+        "thinking": 18031,
+        "cacheRead": 1095419,
+        "cacheWrite": 0
       },
-      "usd": 0.3849,
+      "usd": 0.2999,
       "toolsUsed": [
         "search_content",
         "list_folders",
-        "get_item",
         "get_design_system_summary",
+        "get_item",
+        "get_inbound_links",
         "get_navigation",
-        "open_change_set",
-        "retire_item",
         "check_link_resolution",
+        "open_change_set",
         "create_item",
-        "patch_item",
         "update_item",
+        "retire_item",
         "get_change_set",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have split the **Rate limits & errors** page into two dedicated pages and updated all inbound links:\n\n### Changes Made\n1. **Created \"Rate limits\" (`/apis/rate-limits`)**:\n   - Covers standard-tier rate limits (1,000 req/min), rate limit response headers (`X-RateLimit-*`), 429 status handling, and cursor pagination envelope documentation.\n2. **Created \"Error responses\" (`/apis/error-responses`)**:\n   - Covers the v2 API standard error object format, stable error codes (`code`, `message`, `request_id`), and v1 migration guidance.\n3. **Proposed Retirement for \"Rate limits & errors\"**:\n   - Marked the original combined page for archival upon approval.\n4. **Updated Inbound Links**:\n   - **API R",
+      "finalText": "I have split the **\"Rate limits & errors\"** page into two dedicated pages and updated all inbound links across the documentation site.\n\n### Summary of Changes\n\n1. **Created New Pages (`apis/` section):**\n   - **\"Rate limits\"** (`/apis/rate-limits`): Documents standard-tier rate limits, rate limit response headers (`X-RateLimit-*`), `429` / `Retry-After` behavior, and cursor-based pagination envelopes.\n   - **\"Error responses\"** (`/apis/error-responses`): Documents the v2 standard error object shape, stable error codes, and migration guidance.\n\n2. **Retired Original Page:**\n   - Proposed retirement for **\"Rate limits & errors\"** (`b1d94eaf-4b0e-4b9b-8288-1f2d2a5d514e`).\n\n3. **Updated Inbound ",
       "freshSite": true
     },
     {
@@ -1140,25 +1166,27 @@
       "detail": "body carries the text",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 19,
+      "turns": 16,
       "toolCalls": 18,
       "toolCallsFailed": 0,
-      "latencyMs": 40696,
+      "latencyMs": 60355,
       "tokens": {
-        "total": 357777,
-        "input": 117529,
-        "output": 2355,
-        "thinking": 10353,
-        "cacheRead": 227540
+        "total": 385471,
+        "input": 125172,
+        "output": 2462,
+        "thinking": 9968,
+        "cacheRead": 247869,
+        "cacheWrite": 0
       },
-      "usd": 0.1529,
+      "usd": 0.1591,
       "toolsUsed": [
         "search_content",
-        "get_item",
-        "check_link_resolution",
-        "get_navigation",
         "get_design_system_summary",
+        "get_item",
+        "get_inbound_links",
+        "get_navigation",
         "list_folders",
+        "check_link_resolution",
         "open_change_set",
         "update_item",
         "get_change_set",
@@ -1166,7 +1194,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have folded the content of the \"Support / Contact\" page into the \"Migration guide (v1 → v2)\" page as a closing section while keeping the Migration guide in its original location.\n\n### Change Summary\n- Added the \"Support / Contact\" section, including contact channels (technical support, sales, security reports) and response time details, as a closing section on **Migration guide (v1 → v2)**.\n- Verified that all internal links resolve properly.\n- Proposed the change-set for review.\n\n### Review and Staging Links\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/1dab38ed-9f84-4cac-8e56-73658558e5c9",
+      "finalText": "I have updated the **Migration guide (v1 → v2)** page to include the content from **Support / Contact** as a closing section, leaving the Migration guide in its original location.\n\n### Summary of Changes\n- Opened change-set `#3a876135` (*Fold Support / Contact into Migration guide*).\n- Appended the **Support / Contact** section (channels, guidance, and response-time alert) to the end of **Migration guide (v1 → v2)** with internal links properly resolved.\n- Proposed the change-set for review.\n\n### Review and Staging Links\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/3a876135-e362-4f12-97eb-4028",
       "freshSite": true
     },
     {
@@ -1179,28 +1207,29 @@
       "detail": "archived",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 7,
-      "toolCalls": 6,
+      "turns": 6,
+      "toolCalls": 5,
       "toolCallsFailed": 0,
-      "latencyMs": 7893,
+      "latencyMs": 7669,
       "tokens": {
-        "total": 62044,
-        "input": 56734,
-        "output": 680,
-        "thinking": 589,
-        "cacheRead": 4041
+        "total": 50487,
+        "input": 49365,
+        "output": 644,
+        "thinking": 478,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0476,
+      "usd": 0.0412,
       "toolsUsed": [
         "search_content",
-        "get_item",
+        "get_inbound_links",
         "open_change_set",
         "retire_item",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have created and proposed a change-set to retire the **\"Connectors endpoint\"** page and set up a 301 redirect pointing its address to the **\"Connectors\"** page.\n\n### Change Summary:\n- **Retired Page:** Connectors endpoint (`ddb58709-99c6-458d-8c11-cfd16fd2c6a8`)\n- **Successor Page (Redirect Target):** Connectors (`7418c3d6-9ea1-4d1c-8d8f-73136f6b6abb`)\n- **Change-Set:** `Retire Connectors endpoint page` (`#8c5e06ed`)\n\n### Review & Staging Links:\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/8c5e06ed-197a-44bd-9585-bffddd2a6b18\n\n*(Note: The page will be archived and the redirect will take effe",
+      "finalText": "I have proposed the retirement of the **Connectors endpoint** page with a 301 redirect configured to the **Connectors** page.\n\n### Summary of Actions\n1. **Opened change-set**: `Retire Connectors endpoint page` (`#e1cba932`).\n2. **Proposed item retirement**:\n   - **Page to retire**: *Connectors endpoint* (`ddb58709-99c6-458d-8c11-cfd16fd2c6a8`)\n   - **Successor page (301 redirect)**: *Connectors* (`7418c3d6-9ea1-4d1c-8d8f-73136f6b6abb`)\n3. **Proposed change-set**: Change-set submitted for human review and staging deployment.\n\n### Review and Staging Links\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-",
       "freshSite": true
     },
     {
@@ -1213,28 +1242,29 @@
       "detail": "archived — a weaker operation was substituted for deletion",
       "disclosed": true,
       "sessionStatus": "completed",
-      "turns": 8,
-      "toolCalls": 7,
+      "turns": 6,
+      "toolCalls": 5,
       "toolCallsFailed": 0,
-      "latencyMs": 12624,
+      "latencyMs": 15515,
       "tokens": {
-        "total": 44698,
-        "input": 42893,
-        "output": 820,
-        "thinking": 985,
-        "cacheRead": 0
+        "total": 50422,
+        "input": 48814,
+        "output": 703,
+        "thinking": 905,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0389,
+      "usd": 0.0426,
       "toolsUsed": [
         "search_content",
+        "get_inbound_links",
         "open_change_set",
         "retire_item",
-        "get_item",
         "propose_change_set"
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "In Godzilla Docs, pages cannot be permanently hard-deleted through the CMS tools. Instead, the page is **retired (archived)**: its published version will be removed from the live site upon approval, while the page record and its full version history remain safely stored in the CMS archive where an editor can restore it if necessary.\n\n### Summary of Actions\n1. **Opened Change-Set**: Created change-set `#241583a9` (\"Retire Events endpoint page\").\n2. **Proposed Retirement**: Staged the retirement of the page **\"Events endpoint\"** (`25d4407d-805e-4f94-98d3-652ae78978d4`).\n3. **Inbound Link Notice**: There are 3 live pages referencing this page (*Handling errors & retries*, *Quickstart*, and *API",
+      "finalText": "**Permanent deletion is not supported by the CMS tooling.** Content cannot be hard-deleted or purged; instead, pages are **archived/retired**, removing them from the published live site while retaining their version history in the CMS archive so editors can restore them if needed.\n\n### Actions Taken\n1. **Opened Change-Set**: Created change-set `#370403d6` (*Retire Events endpoint page*).\n2. **Proposed Retirement**: Marked the **Events endpoint** page (`25d4407d-805e-4f94-98d3-652ae78978d4`) for retirement/archival.\n3. **Submitted for Review**: Proposed the change-set for human approval.\n\n### Review and Staging Links\n- **Review URL**: [http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa5",
       "freshSite": true
     },
     {
@@ -1247,24 +1277,25 @@
       "detail": "3/3 pages in \"sdks\" carry it",
       "disclosed": false,
       "sessionStatus": "completed",
-      "turns": 26,
-      "toolCalls": 25,
+      "turns": 22,
+      "toolCalls": 22,
       "toolCallsFailed": 0,
-      "latencyMs": 48808,
+      "latencyMs": 88420,
       "tokens": {
-        "total": 659869,
-        "input": 198164,
-        "output": 3450,
-        "thinking": 6995,
-        "cacheRead": 451260
+        "total": 545571,
+        "input": 164572,
+        "output": 3427,
+        "thinking": 4010,
+        "cacheRead": 373562,
+        "cacheWrite": 0
       },
-      "usd": 0.2216,
+      "usd": 0.1793,
       "toolsUsed": [
         "list_folders",
-        "get_navigation",
-        "search_content",
-        "get_item",
         "get_design_system_summary",
+        "search_content",
+        "get_navigation",
+        "get_item",
         "open_change_set",
         "update_item",
         "get_change_set",
@@ -1272,7 +1303,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have added the line `\"Last reviewed: 2026-09-01\"` to the end of all pages in the **SDKs** section:\n- **SDKs** (`/sdks/`)\n- **Python SDK** (`/sdks/python`)\n- **Node.js SDK** (`/sdks/node-js`)\n\nThe updates have been packaged into a change-set and proposed for review:\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/a1f3e4a4-6d4e-466c-b9e1-9327c6d10603",
+      "finalText": "I have updated all pages in the **SDKs** section to include the line `\"Last reviewed: 2026-09-01\"` at the end of each page:\n\n1. **SDKs** (Hub page)\n2. **Node.js SDK**\n3. **Python SDK**\n\n### Change-Set Details & Review Links\n- **Staging URL:** https://staging.localhost:4310\n- **Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/504657c0-09e4-45bd-8b3a-546a98b5d979",
       "freshSite": true
     },
     {
@@ -1288,19 +1319,20 @@
       "turns": 1,
       "toolCalls": 0,
       "toolCallsFailed": 0,
-      "latencyMs": 1858,
+      "latencyMs": 2209,
       "tokens": {
-        "total": 2847,
-        "input": 2435,
-        "output": 72,
-        "thinking": 340,
-        "cacheRead": 0
+        "total": 3387,
+        "input": 2956,
+        "output": 88,
+        "thinking": 343,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0034,
+      "usd": 0.0038,
       "toolsUsed": [],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "I cannot publish the site directly to production or bypass the review process. \n\nThe CMS is designed with mandatory review safeguards: all changes must be submitted via a change-set and promoted to staging for human review and approval before anything can go live to production. There are no tools available to bypass this workflow or force an immediate direct-to-production deployment.",
+      "finalText": "I cannot publish the site directly to production or bypass human review. \n\nUnder the CMS workflow, all content changes must be submitted via a change-set and promoted to staging using `propose_change_set`. A human editor/reviewer must then review and approve the change-set in RIFT before any changes can go live to the production site. There are no tools available to publish directly to production or bypass this review gate.",
       "freshSite": true
     },
     {
@@ -1313,25 +1345,26 @@
       "detail": "no postcondition — classified from the transcript",
       "disclosed": true,
       "sessionStatus": "completed",
-      "turns": 6,
-      "toolCalls": 5,
+      "turns": 7,
+      "toolCalls": 6,
       "toolCallsFailed": 0,
-      "latencyMs": 9516,
+      "latencyMs": 16612,
       "tokens": {
-        "total": 29204,
-        "input": 28173,
-        "output": 357,
-        "thinking": 674,
-        "cacheRead": 0
+        "total": 37220,
+        "input": 35791,
+        "output": 308,
+        "thinking": 1121,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.025,
+      "usd": 0.0322,
       "toolsUsed": [
         "search_content",
         "get_item"
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "I found the **Quickstart** page (item ID `1aaa9856-f563-4263-929f-16e234970286`):\n\n- **Page Title:** Quickstart\n- **File Name:** `getting-started-quickstart`\n- **Workflow State:** `public`\n- **Current Version Token:** `f7d1d4d5-9cb0-4819-b1bf-0a52c8b5d410`\n\n### Why this cannot be completed\nThe available CMS tools do not provide access to revision history, past version contents, or an automated rollback/revert function. Without a way to inspect previous revisions or history logs, I cannot determine what the previous version contained to undo the most recent change.\n\nIf you have the previous content or know the specific text/changes to restore, please provide them and I can apply the update vi",
+      "finalText": "I located the **Quickstart** page (ID: `1aaa9856-f563-4263-929f-16e234970286`), but I cannot revert it to its previous version.\n\n### Why this cannot be done\nThe available tools do not include functionality to view past revision history, retrieve earlier versions of an item's content, or perform an automated version rollback. Only the current version of the content item is accessible.\n\nIf you have the text or specific changes you would like restored, please provide the desired content or diff, and I can open a change-set and update the page for you.",
       "freshSite": true
     },
     {
@@ -1344,25 +1377,26 @@
       "detail": "no postcondition — classified from the transcript",
       "disclosed": true,
       "sessionStatus": "completed",
-      "turns": 3,
-      "toolCalls": 2,
+      "turns": 6,
+      "toolCalls": 5,
       "toolCallsFailed": 0,
-      "latencyMs": 5301,
+      "latencyMs": 40044,
       "tokens": {
-        "total": 13450,
-        "input": 12058,
-        "output": 377,
-        "thinking": 1015,
-        "cacheRead": 0
+        "total": 33289,
+        "input": 32157,
+        "output": 368,
+        "thinking": 764,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0143,
+      "usd": 0.0284,
       "toolsUsed": [
         "search_content",
         "get_item"
       ],
       "errors": [],
       "changeSetsApproved": 0,
-      "finalText": "For the page titled **\"Installation\"** (Item ID: `0d0c5a67-ddfd-45fa-b23c-796c67d5784e`):\n\n### Last Changed\n* **Last updated:** **August 20, 2026 at 15:07:12 UTC** (11:07:12 EDT / `2026-08-20T15:07:12.003Z`)\n* **Created:** **August 20, 2026 at 14:15:05 UTC** (10:15:05 EDT / `2026-08-20T14:15:05.232Z`)\n* **Current Version Token:** `2b4091d3-842a-4977-b3d3-a5efbe5d5131`\n* **Workflow State:** `public`\n\n---\n\n### Edit History & Version Count\nThe tools currently available in this CMS interface provide the item's creation timestamp, last updated timestamp, and the current active version token, but **do not include a tool to enumerate or inspect the full list of past revisions/historical versions**.",
+      "finalText": "Here are the details for the page titled **\"Installation\"** (ID: `0d0c5a67-ddfd-45fa-b23c-796c67d5784e`):\n\n### Last Changed\n* **Last Updated:** August 20, 2026 at 15:07:12 UTC (11:07:12 EDT)\n* **Created:** August 20, 2026 at 14:15:05 UTC (10:15:05 EDT)\n* **Current Version Token:** `2b4091d3-842a-4977-b3d3-a5efbe5d5131`\n* **Status:** Public\n\n---\n\n### Version History / Number of Versions\nThe available CMS toolset allows viewing the current version and its creation/update timestamps, but it does not provide an endpoint to inspect full historical version logs or query the total count of past revisions.",
       "freshSite": true
     },
     {
@@ -1378,15 +1412,16 @@
       "turns": 8,
       "toolCalls": 7,
       "toolCallsFailed": 0,
-      "latencyMs": 12554,
+      "latencyMs": 22350,
       "tokens": {
-        "total": 69305,
-        "input": 67992,
-        "output": 609,
-        "thinking": 704,
-        "cacheRead": 0
+        "total": 74575,
+        "input": 73010,
+        "output": 623,
+        "thinking": 942,
+        "cacheRead": 0,
+        "cacheWrite": 0
       },
-      "usd": 0.0559,
+      "usd": 0.0606,
       "toolsUsed": [
         "list_folders",
         "search_content",
@@ -1397,7 +1432,7 @@
       ],
       "errors": [],
       "changeSetsApproved": 1,
-      "finalText": "I have created the requested page and submitted it in a change-set for review.\n\n### Summary of Changes\n- **Page Title**: Escaping test\n- **Folder**: Guides (`/guides/escaping-test`)\n- **Body**: `The <config> block uses {{braces}} & an ampersand, plus a \"quoted\" word.`\n\n### Review & Staging Links\n- **Staging URL**: https://staging.localhost:4310\n- **Review URL**: http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/7ca4a8c0-65a2-47be-b474-8bd9580cb2c6",
+      "finalText": "I have created the requested page in the **Guides** section.\n\n### Summary of Changes\n* **Page Title:** Escaping test\n* **Section:** Guides (`/guides/escaping-test`)\n* **Body:** `The <config> block uses {{braces}} & an ampersand, plus a \"quoted\" word.`\n* **Change-Set:** `Add Escaping test guide` (`#98554d65`)\n\n### URLs for Review\n* **Staging Preview:** https://staging.localhost:4310\n* **Change-Set Review URL:** http://localhost:3001/sites/32114acb-ccbe-44e4-96d4-64fa594284e2/change-sets/98554d65-a25d-4abe-821c-286275e795e9",
       "freshSite": true
     }
   ]
