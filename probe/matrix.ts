@@ -24,7 +24,15 @@ const CELLS = [
   { key: 'RIFT · sonnet5 · 0adc095', file: 'rift-claude-sonnet-5.json',   note: '' },
   { key: 'Payload · gemini',         file: 'payload.json',                note: '' },
   { key: 'Payload · sonnet5',        file: 'payload-claude-sonnet-5.json', note: '' },
+  { key: 'Sanity · sonnet5',         file: 'sanity-claude-sonnet-5.json',  note: 'hosted' },
 ]
+
+/** Tool-schema tokens sent on every call, measured per column. */
+const SCHEMA: Record<string, number> = {
+  'RIFT · gemini · b8461b8': 2285, 'RIFT · gemini · 0adc095': 2889,
+  'RIFT · sonnet5 · 0adc095': 2889, 'Payload · gemini': 12583,
+  'Payload · sonnet5': 12583, 'Sanity · sonnet5': 12581,
+}
 
 const load = (f: string): Row[] =>
   (JSON.parse(readFileSync(path.join('probe', 'results', f), 'utf8')).results as Row[])
@@ -60,6 +68,16 @@ const cells = CELLS.map(c => {
     medSeconds: Math.round(med(rows.map(r => r.latencyMs)) / 1000),
     medTurns: med(rows.map(r => r.turns)),
     usd: rows.reduce((n, r) => n + r.usd, 0),
+    /**
+     * Total splits into SURFACE cost (turns x schema, paid before any thinking)
+     * and WORK cost (everything else). Reported because a column carrying a big
+     * tool list is penalised on total in a way that says nothing about how well
+     * it edits — and separating them removes any need to guess which tools
+     * "count" as content and filter the rest away.
+     */
+    surface: med(rows.map(r => r.turns)) * (SCHEMA[c.key] ?? 0),
+    work: Math.max(0, med(rows.map(r => r.tokens.total)) - med(rows.map(r => r.turns)) * (SCHEMA[c.key] ?? 0)),
+    truncated: rows.filter(r => r.outcome === 'truncated-by-harness').length,
   }
 })
 
@@ -83,14 +101,14 @@ if (process.argv.includes('--json')) {
   console.log(JSON.stringify(out, null, 2))
 } else {
   console.log('\n  Affordance probe — full matrix. Same 18 intents, same site (30 pages, 119 links).\n')
-  const H = ['cell', 'sess', 'supp', 'STABLE', 'silent', 'disclosed', 'med tok', 'total tok', 'med s', 'med turns', '$']
-  const W = [26, 5, 6, 7, 7, 10, 10, 12, 6, 10, 7]
+  const H = ['cell', 'sess', 'supp', 'STABLE', 'silent', 'disclosed', 'med tok', 'surface', 'work', 'med s', 'turns', '$']
+  const W = [26, 5, 6, 7, 7, 10, 10, 9, 9, 6, 6, 7]
   console.log('  ' + H.map((h, i) => h.padEnd(W[i])).join(''))
   console.log('  ' + '─'.repeat(W.reduce((a, b) => a + b, 0)))
   for (const c of cells) {
     const v = [c.key, String(c.sessions), `${c.supported}/18`, `${c.stable}/18`,
                `${c.silentMiss}/${c.sessions}`, c.disclosed,
-               c.medTokens.toLocaleString(), c.totTokens.toLocaleString(),
+               c.medTokens.toLocaleString(), c.surface.toLocaleString(), Math.round(c.work).toLocaleString(),
                String(c.medSeconds), String(c.medTurns), '$' + c.usd.toFixed(2)]
     console.log('  ' + v.map((x, i) => x.padEnd(W[i])).join(''))
   }
@@ -111,6 +129,14 @@ if (process.argv.includes('--json')) {
     console.log(`    ${g.split(' ·')[0].padEnd(8)} stable ${a.stable}/18 -> ${b.stable}/18` +
                 `   tokens ${a.totTokens.toLocaleString()} -> ${b.totTokens.toLocaleString()}` +
                 `   $${a.usd.toFixed(2)} -> $${b.usd.toFixed(2)}`)
+  }
+
+  console.log(`\n  three substrates on sonnet 5 (Sanity is HOSTED — its seconds include network, its tokens do not):`)
+  for (const k of ['RIFT · sonnet5 · 0adc095', 'Payload · sonnet5', 'Sanity · sonnet5']) {
+    const c = by(k)
+    console.log(`    ${k.split(' ·')[0].padEnd(8)} supported ${c.supported}/18  stable ${c.stable}/18` +
+                `  silent ${c.silentMiss}  truncated ${c.truncated}` +
+                `  med tok ${c.medTokens.toLocaleString().padStart(8)}  turns ${String(c.medTurns).padStart(2)}`)
   }
 
   console.log(`\n  substrate change, same model:`)

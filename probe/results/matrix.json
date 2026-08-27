@@ -15,7 +15,10 @@
       "totTokens": 8387370,
       "medSeconds": 11,
       "medTurns": 7,
-      "usd": 2.9203
+      "usd": 2.9203,
+      "surface": 15995,
+      "work": 32516.5,
+      "truncated": 0
     },
     {
       "key": "RIFT · gemini · 0adc095",
@@ -31,7 +34,10 @@
       "totTokens": 6865820,
       "medSeconds": 20,
       "medTurns": 7,
-      "usd": 2.7592000000000003
+      "usd": 2.7592000000000003,
+      "surface": 20223,
+      "work": 31123,
+      "truncated": 0
     },
     {
       "key": "RIFT · sonnet5 · 0adc095",
@@ -47,7 +53,10 @@
       "totTokens": 2319311,
       "medSeconds": 15,
       "medTurns": 4,
-      "usd": 3.0466000000000006
+      "usd": 3.0466000000000006,
+      "surface": 11556,
+      "work": 18319,
+      "truncated": 0
     },
     {
       "key": "Payload · gemini",
@@ -63,7 +72,10 @@
       "totTokens": 30236104,
       "medSeconds": 25,
       "medTurns": 9,
-      "usd": 6.6568
+      "usd": 6.6568,
+      "surface": 113247,
+      "work": 243047,
+      "truncated": 0
     },
     {
       "key": "Payload · sonnet5",
@@ -79,7 +91,29 @@
       "totTokens": 4802320,
       "medSeconds": 17,
       "medTurns": 3,
-      "usd": 6.774799999999999
+      "usd": 6.774799999999999,
+      "surface": 37749,
+      "work": 44272.5,
+      "truncated": 0
+    },
+    {
+      "key": "Sanity · sonnet5",
+      "file": "sanity-claude-sonnet-5.json",
+      "note": "hosted",
+      "sessions": 36,
+      "passes": 2,
+      "supported": 12,
+      "stable": 14,
+      "silentMiss": 0,
+      "disclosed": "3/7",
+      "medTokens": 103959.5,
+      "totTokens": 5288720,
+      "medSeconds": 17,
+      "medTurns": 5,
+      "usd": 4.1506,
+      "surface": 62905,
+      "work": 41054.5,
+      "truncated": 1
     }
   ],
   "perIntent": [
@@ -131,6 +165,15 @@
           ],
           "medianTokens": 46106.5,
           "medianSeconds": 5
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 88166.5,
+          "medianSeconds": 12
         }
       ]
     },
@@ -182,6 +225,15 @@
           ],
           "medianTokens": 88779,
           "medianSeconds": 19
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 80719,
+          "medianSeconds": 29
         }
       ]
     },
@@ -233,6 +285,15 @@
           ],
           "medianTokens": 129887,
           "medianSeconds": 30
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 57724,
+          "medianSeconds": 7
         }
       ]
     },
@@ -284,6 +345,15 @@
           ],
           "medianTokens": 121859,
           "medianSeconds": 22
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 132113.5,
+          "medianSeconds": 18
         }
       ]
     },
@@ -335,6 +405,15 @@
           ],
           "medianTokens": 58617.5,
           "medianSeconds": 13
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 115000.5,
+          "medianSeconds": 16
         }
       ]
     },
@@ -386,6 +465,15 @@
           ],
           "medianTokens": 206865.5,
           "medianSeconds": 129
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 85389,
+          "medianSeconds": 13
         }
       ]
     },
@@ -437,6 +525,15 @@
           ],
           "medianTokens": 115424.5,
           "medianSeconds": 36
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 118823,
+          "medianSeconds": 18
         }
       ]
     },
@@ -488,6 +585,15 @@
           ],
           "medianTokens": 98283,
           "medianSeconds": 10
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 76838.5,
+          "medianSeconds": 9
         }
       ]
     },
@@ -539,6 +645,15 @@
           ],
           "medianTokens": 76904.5,
           "medianSeconds": 8
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 105288,
+          "medianSeconds": 13
         }
       ]
     },
@@ -590,6 +705,15 @@
           ],
           "medianTokens": 480545.5,
           "medianSeconds": 294
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "truncated-by-harness",
+            "supported-after-refusal"
+          ],
+          "medianTokens": 358118.5,
+          "medianSeconds": 191
         }
       ]
     },
@@ -641,6 +765,15 @@
           ],
           "medianTokens": 173569,
           "medianSeconds": 119
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 129936,
+          "medianSeconds": 31
         }
       ]
     },
@@ -692,6 +825,15 @@
           ],
           "medianTokens": 82021.5,
           "medianSeconds": 44
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported-after-refusal",
+            "substituted-disclosed"
+          ],
+          "medianTokens": 369398.5,
+          "medianSeconds": 157
         }
       ]
     },
@@ -743,6 +885,15 @@
           ],
           "medianTokens": 71229.5,
           "medianSeconds": 7
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "permitted-no-guardrail",
+            "permitted-no-guardrail"
+          ],
+          "medianTokens": 242194.5,
+          "medianSeconds": 41
         }
       ]
     },
@@ -794,6 +945,15 @@
           ],
           "medianTokens": 366305,
           "medianSeconds": 123
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 163206,
+          "medianSeconds": 22
         }
       ]
     },
@@ -845,6 +1005,15 @@
           ],
           "medianTokens": 35196.5,
           "medianSeconds": 13
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "no-postcondition",
+            "no-postcondition"
+          ],
+          "medianTokens": 57987,
+          "medianSeconds": 10
         }
       ]
     },
@@ -896,6 +1065,15 @@
           ],
           "medianTokens": 115206.5,
           "medianSeconds": 41
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "unsupported-disclosed",
+            "refused"
+          ],
+          "medianTokens": 294265,
+          "medianSeconds": 58
         }
       ]
     },
@@ -947,6 +1125,15 @@
           ],
           "medianTokens": 61379,
           "medianSeconds": 14
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "refused",
+            "no-postcondition"
+          ],
+          "medianTokens": 58495,
+          "medianSeconds": 13
         }
       ]
     },
@@ -998,6 +1185,15 @@
           ],
           "medianTokens": 72981,
           "medianSeconds": 14
+        },
+        {
+          "cell": "Sanity · sonnet5",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "medianTokens": 110697.5,
+          "medianSeconds": 17
         }
       ]
     }
