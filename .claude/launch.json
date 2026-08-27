@@ -4,14 +4,29 @@
     {
       "name": "godzilladocs-main",
       "runtimeExecutable": "/bin/zsh",
-      "runtimeArgs": ["-c", "cd 'clones/godzilladocs-main' && npx --yes serve -l 4310 ."],
+      "runtimeArgs": [
+        "-c",
+        "cd 'clones/godzilladocs-main' && npx --yes serve -l 4310 ."
+      ],
       "port": 4310
     },
     {
       "name": "godzilladocs-staging",
       "runtimeExecutable": "/bin/zsh",
-      "runtimeArgs": ["-c", "cd 'clones/godzilladocs-staging' && npx --yes serve -l 4311 ."],
+      "runtimeArgs": [
+        "-c",
+        "cd 'clones/godzilladocs-staging' && npx --yes serve -l 4311 ."
+      ],
       "port": 4311
+    },
+    {
+      "name": "payload-probe",
+      "runtimeExecutable": "/bin/zsh",
+      "runtimeArgs": [
+        "-c",
+        "cd '/Users/heithamghariani/Documents/payload/godzilla-payload' && /opt/homebrew/bin/pnpm dev --port 3002"
+      ],
+      "port": 3002
     }
   ]
 }

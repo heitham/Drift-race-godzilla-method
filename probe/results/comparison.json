@@ -1,0 +1,586 @@
+{
+  "site": "probe/fixtures/site.json",
+  "columns": [
+    {
+      "substrate": "RIFT",
+      "surface": {
+        "tools": 15,
+        "approxTokensPerCall": 2364,
+        "toolNames": [
+          "search_content",
+          "get_item",
+          "list_folders",
+          "get_navigation",
+          "get_design_system_summary",
+          "check_link_resolution",
+          "create_folder",
+          "move_item",
+          "open_change_set",
+          "create_item",
+          "update_item",
+          "patch_item",
+          "retire_item",
+          "get_change_set",
+          "propose_change_set"
+        ]
+      },
+      "sessions": 36,
+      "passes": 2
+    },
+    {
+      "substrate": "Payload",
+      "surface": {
+        "tools": 20,
+        "approxTokensPerCall": 12583,
+        "toolNames": [
+          "createPages",
+          "updatePages",
+          "findPages",
+          "deletePages",
+          "createPosts",
+          "updatePosts",
+          "findPosts",
+          "deletePosts",
+          "createCategories",
+          "updateCategories",
+          "findCategories",
+          "deleteCategories",
+          "createMedia",
+          "updateMedia",
+          "findMedia",
+          "deleteMedia",
+          "findHeader",
+          "updateHeader",
+          "findFooter",
+          "updateFooter"
+        ]
+      },
+      "sessions": 36,
+      "passes": 2
+    }
+  ],
+  "intents": [
+    {
+      "id": "D1",
+      "capability": "find-page-by-topic",
+      "group": "discovery",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 39557,
+          "medianUsd": 0.0314,
+          "medianSeconds": 7
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 143476.5,
+          "medianUsd": 0.0612,
+          "medianSeconds": 9
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "capability": "list-structure",
+      "group": "discovery",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 104327,
+          "medianUsd": 0.0548,
+          "medianSeconds": 15
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 234245.5,
+          "medianUsd": 0.075,
+          "medianSeconds": 13
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "capability": "inbound-link-query",
+      "group": "discovery",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 739252.5,
+          "medianUsd": 0.1636,
+          "medianSeconds": 44
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 587651,
+          "medianUsd": 0.2122,
+          "medianSeconds": 20
+        }
+      ]
+    },
+    {
+      "id": "C1",
+      "capability": "create-page-in-section",
+      "group": "create",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 73354,
+          "medianUsd": 0.0465,
+          "medianSeconds": 10
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported"
+          ],
+          "stable": false,
+          "medianTokens": 440720,
+          "medianUsd": 0.1127,
+          "medianSeconds": 27
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "capability": "create-section",
+      "group": "create",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 230294.5,
+          "medianUsd": 0.0973,
+          "medianSeconds": 21
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported"
+          ],
+          "stable": false,
+          "medianTokens": 266319,
+          "medianUsd": 0.0776,
+          "medianSeconds": 25
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "capability": "small-edit-published-page",
+      "group": "edit",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 34680,
+          "medianUsd": 0.0292,
+          "medianSeconds": 8
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "stable": true,
+          "medianTokens": 346698,
+          "medianUsd": 0.1532,
+          "medianSeconds": 67
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "capability": "retarget-a-link",
+      "group": "edit",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 85866.5,
+          "medianUsd": 0.0587,
+          "medianSeconds": 14
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported",
+            "supported-after-refusal"
+          ],
+          "stable": false,
+          "medianTokens": 810624,
+          "medianUsd": 0.2295,
+          "medianSeconds": 60
+        }
+      ]
+    },
+    {
+      "id": "R1",
+      "capability": "rename-page",
+      "group": "restructure",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 29481,
+          "medianUsd": 0.027,
+          "medianSeconds": 9
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 389310.5,
+          "medianUsd": 0.1139,
+          "medianSeconds": 48
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "capability": "move-published-page",
+      "group": "restructure",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 48511.5,
+          "medianUsd": 0.0421,
+          "medianSeconds": 12
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported-after-refusal",
+            "silent-miss"
+          ],
+          "stable": false,
+          "medianTokens": 1923822.5,
+          "medianUsd": 0.3481,
+          "medianSeconds": 87
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "capability": "split-page",
+      "group": "restructure",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 1701172.5,
+          "medianUsd": 0.3783,
+          "medianSeconds": 94
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported-after-refusal",
+            "supported-after-refusal"
+          ],
+          "stable": true,
+          "medianTokens": 4795097,
+          "medianUsd": 0.7434,
+          "medianSeconds": 150
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "capability": "merge-pages",
+      "group": "restructure",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 442805,
+          "medianUsd": 0.179,
+          "medianSeconds": 56
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 968708.5,
+          "medianUsd": 0.2944,
+          "medianSeconds": 85
+        }
+      ]
+    },
+    {
+      "id": "X1",
+      "capability": "retire-with-successor",
+      "group": "retire",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 49567,
+          "medianUsd": 0.0391,
+          "medianSeconds": 7
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "substituted-disclosed",
+            "silent-miss"
+          ],
+          "stable": false,
+          "medianTokens": 356294,
+          "medianUsd": 0.1426,
+          "medianSeconds": 23
+        }
+      ]
+    },
+    {
+      "id": "X2",
+      "capability": "hard-delete",
+      "group": "retire",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "substituted-disclosed",
+            "substituted-disclosed"
+          ],
+          "stable": true,
+          "medianTokens": 45600.5,
+          "medianUsd": 0.0392,
+          "medianSeconds": 12
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "permitted-no-guardrail",
+            "permitted-no-guardrail"
+          ],
+          "stable": true,
+          "medianTokens": 49768,
+          "medianUsd": 0.0379,
+          "medianSeconds": 7
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "capability": "fan-out-edit",
+      "group": "bulk",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 454425.5,
+          "medianUsd": 0.1754,
+          "medianSeconds": 39
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "refused",
+            "supported-after-refusal"
+          ],
+          "stable": false,
+          "medianTokens": 2945190.5,
+          "medianUsd": 0.4589,
+          "medianSeconds": 104
+        }
+      ]
+    },
+    {
+      "id": "G1",
+      "capability": "publish-directly",
+      "group": "governance",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "stable": true,
+          "medianTokens": 2831.5,
+          "medianUsd": 0.0033,
+          "medianSeconds": 2
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "substituted-disclosed",
+            "unsupported-disclosed"
+          ],
+          "stable": false,
+          "medianTokens": 429912.5,
+          "medianUsd": 0.0959,
+          "medianSeconds": 18
+        }
+      ]
+    },
+    {
+      "id": "G2",
+      "capability": "rollback",
+      "group": "governance",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "stable": true,
+          "medianTokens": 28674.5,
+          "medianUsd": 0.0246,
+          "medianSeconds": 9
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "unsupported-disclosed",
+            "unsupported-disclosed"
+          ],
+          "stable": true,
+          "medianTokens": 65356.5,
+          "medianUsd": 0.0491,
+          "medianSeconds": 9
+        }
+      ]
+    },
+    {
+      "id": "G3",
+      "capability": "version-history",
+      "group": "governance",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "no-postcondition",
+            "unsupported-disclosed"
+          ],
+          "stable": false,
+          "medianTokens": 13242,
+          "medianUsd": 0.0136,
+          "medianSeconds": 5
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "no-postcondition",
+            "unsupported-disclosed"
+          ],
+          "stable": false,
+          "medianTokens": 47344,
+          "medianUsd": 0.0357,
+          "medianSeconds": 6
+        }
+      ]
+    },
+    {
+      "id": "F1",
+      "capability": "round-trip-fidelity",
+      "group": "fidelity",
+      "columns": [
+        {
+          "substrate": "RIFT",
+          "outcomes": [
+            "supported",
+            "supported"
+          ],
+          "stable": true,
+          "medianTokens": 70042.5,
+          "medianUsd": 0.057,
+          "medianSeconds": 11
+        },
+        {
+          "substrate": "Payload",
+          "outcomes": [
+            "supported",
+            "supported-after-refusal"
+          ],
+          "stable": false,
+          "medianTokens": 317514,
+          "medianUsd": 0.087,
+          "medianSeconds": 17
+        }
+      ]
+    }
+  ]
+}

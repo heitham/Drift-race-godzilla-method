@@ -186,8 +186,12 @@ function check(v: Verify, finalText: string): { ok: boolean; detail: string; per
 
     case 'allBodiesContain': {
       const s = esc((v.section as string).toLowerCase())
-      const total = sql(`SELECT count(*) FROM pages p JOIN pages pp ON pp.id=p.parent_id WHERE lower(pp.slug)='${s}'`)
-      const titles = sql(`SELECT p.title FROM pages p JOIN pages pp ON pp.id=p.parent_id WHERE lower(pp.slug)='${s}'`)
+      // The section's own landing page counts as a page IN the section: RIFT
+      // stores it inside the folder, so excluding it here would ask Payload to
+      // edit two pages where RIFT is asked to edit three.
+      const inSection = `(lower(p.slug)='${s}' OR p.parent_id = (SELECT id FROM pages WHERE lower(slug)='${s}' LIMIT 1))`
+      const total = sql(`SELECT count(*) FROM pages p WHERE ${inSection}`)
+      const titles = sql(`SELECT p.title FROM pages p WHERE ${inSection}`)
         .split('\n').map(t => t.trim()).filter(Boolean)
       const hit = titles.filter(t => pageText(t).toLowerCase().includes((v.text as string).toLowerCase())).length
       const ok = hit >= Number(v.minPages ?? 1) && String(hit) === total

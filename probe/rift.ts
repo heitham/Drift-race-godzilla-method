@@ -76,7 +76,15 @@ const bodyOf = (title: string) => sql(`
 
 interface Verify { kind: string; [k: string]: unknown }
 
-function check(v: Verify, finalText: string): { ok: boolean; detail: string } {
+/**
+ * `permitted` marks a shortfall that is a POLICY difference rather than a
+ * defect: the intent expected a refusal, the surface allowed it, and the agent
+ * reported accurately. Folding that into `silent-miss` scores one vendor's
+ * governance model as the definition of correct and brands an honest surface
+ * dishonest. Kept identical to the Payload column so the classes mean the same
+ * thing in both.
+ */
+function check(v: Verify, finalText: string): { ok: boolean; detail: string; permitted?: boolean } {
   switch (v.kind) {
     case 'noop':
       return { ok: false, detail: 'no postcondition — classified from the transcript' }
@@ -164,7 +172,7 @@ function check(v: Verify, finalText: string): { ok: boolean; detail: string } {
       `)
       return arch !== '0'
         ? { ok: false, detail: 'archived — a weaker operation was substituted for deletion' }
-        : { ok: false, detail: 'gone from the CMS entirely — hard delete occurred' }
+        : { ok: false, permitted: true, detail: 'gone from the CMS entirely — hard delete was allowed' }
     }
 
     case 'pageRetired': {
@@ -253,7 +261,28 @@ Carry out the request using the tools. If something cannot be done with the tool
 
 When you are finished, state briefly what you did.`
 
-const results: any[] = []
+const append = args.includes('--append')
+const OUT = path.join('probe', 'results', 'rift.json')
+mkdirSync(path.join('probe', 'results'), { recursive: true })
+const prior: any[] = (() => {
+  if (!append) return []
+  try { return JSON.parse(readFileSync(OUT, 'utf8')).results ?? [] } catch { return [] }
+})()
+const passOffset = prior.length ? Math.max(...prior.map((r: any) => r.pass ?? 1)) : 0
+if (append) console.log(`appending to ${prior.length} existing session(s), ${passOffset} pass(es)\n`)
+
+const results: any[] = [...prior]
+
+/**
+ * Flushed after EVERY session. A crash between the last intent and the write
+ * discarded a completed pass once, on the Payload column; a run this expensive
+ * must not be able to lose finished work.
+ */
+const flush = () => writeFileSync(OUT, JSON.stringify({
+  substrate: 'RIFT', mcp: MCP, model: 'gemini-3.7-flash', rates: RATE,
+  surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
+  partial: true, results,
+}, null, 2))
 
 for (let pass = 1; pass <= passes; pass++) {
 if (passes > 1) console.log(`\n--- pass ${pass}/${passes} ---`)
@@ -298,6 +327,7 @@ for (const it of intents) {
 
   const outcome = v.ok
     ? (errors.length ? 'supported-after-refusal' : 'supported')
+    : v.permitted ? 'permitted-no-guardrail'
     : errors.length ? 'refused'
     : disclosed ? (didSomething ? 'substituted-disclosed' : 'unsupported-disclosed')
     : it.verify.kind === 'noop' ? 'no-postcondition'
@@ -305,7 +335,7 @@ for (const it of intents) {
 
   const tok = r.usage.total
   results.push({
-    id: it.id, group: it.group, capability: it.capability, expect: it.expect, pass,
+    id: it.id, group: it.group, capability: it.capability, expect: it.expect, pass: pass + passOffset,
     outcome, detail: v.detail, disclosed,
     sessionStatus: r.status,
 
@@ -330,7 +360,11 @@ for (const it of intents) {
     errors: errors.slice(0, 4),
     changeSetsApproved: approved,
     finalText: (r.finalText ?? '').slice(0, 700),
+    // Passes are reset from the shell between invocations; a run that reaches
+    // here started from a restored baseline.
+    freshSite: true,
   })
+  flush()
 
   const mark = outcome === 'silent-miss' ? 'SILENT-MISS' : outcome
   console.log(`${mark.padEnd(24)} ${String(r.turns).padStart(2)}t ${String(r.toolCalls).padStart(3)}c ` +
@@ -341,8 +375,7 @@ for (const it of intents) {
 }
 }
 
-mkdirSync(path.join('probe', 'results'), { recursive: true })
-const out = path.join('probe', 'results', 'rift.json')
+const out = OUT
 
 // --- roll-ups: the numbers a buyer actually decides on ----------------------
 // Per-intent rows are evidence; these are the reading of it. Computed here
@@ -353,7 +386,7 @@ const byIntent = new Map<string, any[]>()
 for (const r of results) byIntent.set(r.id, [...(byIntent.get(r.id) ?? []), r])
 
 const summary = {
-  passes,
+  passes: passes + passOffset,
   intents: byIntent.size,
   sessions: results.length,
 

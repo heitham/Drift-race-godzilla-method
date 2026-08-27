@@ -1,0 +1,622 @@
+{
+  "_": "Derived from the RIFT benchmark site. Every affordance-probe column seeds from this, so the site is identical across substrates by construction.",
+  "source": {
+    "site": "32114acb-ccbe-44e4-96d4-64fa594284e2",
+    "exportedFrom": "rift"
+  },
+  "pages": [
+    {
+      "title": "Authentication",
+      "section": "",
+      "slug": "getting-started-authentication",
+      "paragraphs": [
+        "Authentication",
+        "Every request to the Godzilla API is authenticated with a bearer API key.",
+        "Getting an API key",
+        "Generate one from your workspace settings. Keys are scoped to a single workspace and inherit the standard rate limit described in Rate limits & errors .",
+        "Using the key",
+        "Verifying webhook requests",
+        "Incoming webhook deliveries are authenticated differently: by a signed X-Godzilla-Signature header rather than your API key.",
+        "|prev_label=Quickstart|next_href=|next_label=Building your first pipeline}}"
+      ],
+      "links": [
+        "API Reference",
+        "Rate limits & errors",
+        "Webhooks endpoint",
+        "Quickstart",
+        "Building your first pipeline"
+      ]
+    },
+    {
+      "title": "Changelog",
+      "section": "",
+      "slug": "changelog",
+      "paragraphs": [
+        "Changelog",
+        "Recent changes to the API and platform. For the full v1 → v2 history, see the Migration guide . Older entries live in Release notes archive .",
+        "2026-08-01 — Webhooks generally available",
+        "The Webhooks endpoint is now generally available for all workspaces, with signed payload verification.",
+        "2026-06-15 — Cursor pagination on all list endpoints",
+        "Every list endpoint, including Pipelines , moved from offset to cursor pagination. See Rate limits & errors for the envelope shape.",
+        "2026-05-02 — v2 API launched",
+        "Full v2 launch. See the Migration guide for what changed from v1."
+      ],
+      "links": [
+        "Migration guide (v1 → v2)",
+        "Release notes archive",
+        "Webhooks endpoint",
+        "Pipelines endpoint",
+        "Rate limits & errors"
+      ]
+    },
+    {
+      "title": "Concepts",
+      "section": "",
+      "slug": "concepts",
+      "paragraphs": [
+        "\">Start with Pipelines }} Godzilla is built from three ideas that compose into everything else in these docs. Understanding how they relate makes the rest of the platform — guides, API reference, SDKs — much easier to follow.",
+        "|tag=Concept|title=Pipelines|description=Named, versioned workflows that move data from a source to a destination through optional transforms.}} |tag=Concept|title=Connectors|description=Pre-built integrations to external systems — sources, destinations, or both.}} |tag=Concept|title=Events|description=The atomic unit of data flowing through a pipeline, plus the platform's own lifecycle events.}} How they fit together",
+        "A pipeline reads events from a source connector , transforms them, and writes them to a destination connector. Everything else in Godzilla — retries, webhooks, monitoring — is built on top of that single loop."
+      ],
+      "links": [
+        "Pipelines",
+        "Connectors",
+        "Events"
+      ]
+    },
+    {
+      "title": "Connectors",
+      "section": "",
+      "slug": "concepts-connectors",
+      "paragraphs": [
+        "Connectors",
+        "A connector is a pre-built integration to an external system that a Pipeline reads from or writes to. Connectors handle authentication, batching, and retry behavior for a specific system so pipeline authors don't have to.",
+        "Connector direction",
+        "Source — emits events into a pipeline (e.g. a change-data-capture stream from Postgres).",
+        "Destination — receives events from a pipeline (e.g. writing rows into Snowflake).",
+        "Bidirectional — a small set of connectors, like the generic Webhook connector, can act as either.",
+        "Built-in connector catalog",
+        "Connector Direction Auth Postgres Source Connection string + replication slot Amazon S3 Source / Destination IAM role or access key Snowflake Destination Key-pair auth Kafka Source / Destination SASL/SSL Webhook Source / Destination Signed request or bearer token Connector health",
+        "Each connector reports a health status independent of any single pipeline: healthy , degraded , or down . A connector shared across multiple pipelines only needs to be fixed once — every pipeline referencing it recovers automatically.",
+        "See also",
+        "Connectors are configured per pipeline in the Connecting a data source guide, and referenced directly in the Connectors endpoint of the API reference."
+      ],
+      "links": [
+        "Connecting a data source",
+        "Connectors endpoint"
+      ]
+    },
+    {
+      "title": "Events",
+      "section": "",
+      "slug": "concepts-events",
+      "paragraphs": [
+        "Events",
+        "An event is the atomic unit of data that moves through a Pipeline . Every record a source connector emits, every row a transform produces, and every write a destination connector performs is an event.",
+        "Event shape",
+        "User data events vs. platform events",
+        "Godzilla distinguishes two kinds of events:",
+        "User data events — the records your pipelines process, shaped however your source system produces them.",
+        "Platform events — lifecycle notifications Godzilla itself emits: pipeline.started , pipeline.completed , pipeline.failed , connector.error . These are what power Webhooks .",
+        "Retries and dead-lettering",
+        "An event that fails a transform or destination write is retried with exponential backoff. After the configured retry limit, it is moved to that pipeline's dead-letter queue rather than dropped. See Handling errors & retries for how to configure and drain a dead-letter queue."
+      ],
+      "links": [
+        "Webhooks endpoint",
+        "Handling errors & retries"
+      ]
+    },
+    {
+      "title": "Glossary",
+      "section": "",
+      "slug": "glossary",
+      "paragraphs": [
+        "Glossary",
+        "Short definitions for every term used throughout these docs.",
+        "Pipeline A named, versioned workflow that moves data from a source connector, through optional transforms, to a destination connector. Connector A pre-built integration to an external system — a source, a destination, or both. Event The atomic unit of data moving through a pipeline, or a platform lifecycle notification like pipeline.failed . Webhook An outbound HTTP request Godzilla sends to a URL you control when a subscribed event occurs. Dead-letter queue Where an event goes after exhausting its retries, rather than being dropped. See Handling errors & retries . Cursor pagination The pagination style used by every v2 list endpoint. See Rate limits & errors . Workspace The top-level account boundary an API key is scoped to."
+      ],
+      "links": [
+        "Pipelines",
+        "Connectors",
+        "Events",
+        "Webhooks endpoint",
+        "Handling errors & retries",
+        "Rate limits & errors"
+      ]
+    },
+    {
+      "title": "Godzilla Docs",
+      "section": "",
+      "slug": "index",
+      "paragraphs": [
+        "\">Get started }} Start here",
+        "|tag=Getting Started|title=Installation|description=Install an SDK or start calling the REST API directly.}} |tag=Getting Started|title=Quickstart|description=Go from zero to a running pipeline in five minutes.}} |tag=Getting Started|title=Authentication|description=Authenticate API requests with a bearer API key.}} Explore the docs",
+        "|tag=Concepts|title=Pipelines, connectors & events|description=The three building blocks everything else is made of.}} |tag=Guides|title=Task-oriented walkthroughs|description=Build, connect, and operate pipelines end to end.}} |tag=API Reference|title=v2 REST API|description=Every endpoint, with request and response examples.}} |tag=SDKs|title=Node.js & Python|description=Official typed client libraries.}}"
+      ],
+      "links": [
+        "Quickstart",
+        "Installation",
+        "Authentication",
+        "Concepts",
+        "Guides",
+        "API Reference",
+        "SDKs"
+      ]
+    },
+    {
+      "title": "Installation",
+      "section": "",
+      "slug": "getting-started-installation",
+      "paragraphs": [
+        "Installation",
+        "Godzilla has no server to install — it's a hosted platform you reach over the REST API, either directly or through an SDK.",
+        "Option A: Use an SDK",
+        "Full setup for each is in Node.js SDK and Python SDK .",
+        "Option B: Call the API directly",
+        "No install needed — every endpoint in the API reference is a plain HTTPS request.",
+        "|prev_label=Concepts|next_href=|next_label=Quickstart}}"
+      ],
+      "links": [
+        "Node.js SDK",
+        "Python SDK",
+        "API Reference",
+        "Concepts",
+        "Quickstart"
+      ]
+    },
+    {
+      "title": "Migration guide (v1 → v2)",
+      "section": "",
+      "slug": "migration-guide-v1-to-v2",
+      "paragraphs": [
+        "Migration guide (v1 → v2)",
+        "v1 reached end of life on 2026-08-01 alongside the webhooks GA changelog entry . This guide covers the three breaking changes you need to handle to move a v1 integration to v2.",
+        "1. Pagination: offset → cursor",
+        "v1 used page / per_page query parameters. v2 uses an opaque cursor and next_cursor — see Rate limits & errors for the exact envelope.",
+        "2. Status checks: polling → webhooks",
+        "v1 had no push notifications — you polled a pipeline's status endpoint. v2 replaces this with the Webhooks endpoint : subscribe to pipeline.completed and pipeline.failed instead of polling.",
+        "3. Error shape",
+        "v1 returned bare error strings. v2 wraps every error in an object with a stable code field. Update any error handling that matched on message text — see the error shape reference .",
+        "Still stuck?",
+        "Common migration issues are covered in Troubleshooting / FAQ ."
+      ],
+      "links": [
+        "Changelog",
+        "Rate limits & errors",
+        "Webhooks endpoint",
+        "Troubleshooting / FAQ"
+      ]
+    },
+    {
+      "title": "Pipelines",
+      "section": "",
+      "slug": "concepts-pipelines",
+      "paragraphs": [
+        "Pipelines",
+        "A pipeline is the core unit of work in Godzilla: a named, versioned data-processing workflow that moves data from a source connector, through zero or more transform steps, to a destination connector. Every pipeline runs as a sequence of events flowing through that path.",
+        "Anatomy of a pipeline",
+        "Every pipeline has three parts:",
+        "Source — the connector that emits events into the pipeline (a database, a queue, an upload, a webhook).",
+        "Transforms — an ordered list of steps that reshape, filter, or enrich events as they pass through. Transforms are optional; a pipeline with none is a pass-through copy.",
+        "Destination — the connector that events are written to once transforms complete.",
+        "Pipeline state",
+        "A pipeline is always in one of three states:",
+        "draft — configured but not yet processing events.",
+        "active — running on its configured schedule or trigger.",
+        "paused — temporarily stopped; resumes from the last checkpoint."
+      ],
+      "links": [
+        "Events",
+        "Connectors",
+        "Migration guide (v1 → v2)",
+        "Building your first pipeline",
+        "Pipelines endpoint"
+      ]
+    },
+    {
+      "title": "Quickstart",
+      "section": "",
+      "slug": "getting-started-quickstart",
+      "paragraphs": [
+        "Quickstart",
+        "The fastest path from zero to a running pipeline .",
+        "1. Get an API key",
+        "See Authentication if you don't have one yet.",
+        "2. Create a pipeline",
+        "3. Watch it run",
+        "Subscribe to pipeline.completed via Webhooks , or poll the Events endpoint to see events as they're processed.",
+        "\">Building your first pipeline in the Guides section.",
+        "}} |prev_label=Installation|next_href=|next_label=Authentication}}"
+      ],
+      "links": [
+        "Pipelines",
+        "Authentication",
+        "Webhooks endpoint",
+        "Events endpoint",
+        "Building your first pipeline",
+        "Installation"
+      ]
+    },
+    {
+      "title": "Release notes archive",
+      "section": "",
+      "slug": "release-notes-archive",
+      "paragraphs": [
+        "Release notes archive",
+        "Older, v1-era release notes. For current changes, see the Changelog . For the breaking changes between v1 and v2, see the Migration guide .",
+        "2026-03-11 — v1.6",
+        "Added Kafka as a source connector type.",
+        "2026-01-20 — v1.5",
+        "Added configurable retry ceilings per pipeline.",
+        "2025-11-04 — v1.0",
+        "Initial public release: Postgres, S3, and Snowflake connectors; offset-paginated REST API; polling-only status checks."
+      ],
+      "links": [
+        "Changelog",
+        "Migration guide (v1 → v2)"
+      ]
+    },
+    {
+      "title": "Security & compliance overview",
+      "section": "",
+      "slug": "security-and-compliance",
+      "paragraphs": [
+        "Security & compliance overview",
+        "How Godzilla protects data moving through your pipelines .",
+        "Encryption",
+        "All API traffic requires TLS 1.2+. Connector credentials are encrypted at rest and are never returned in full by any endpoint after creation.",
+        "Credential handling",
+        "See Authentication for API key handling, and Connectors endpoint for connector credential rotation.",
+        "Data residency",
+        "Events are processed in the region your workspace was created in and are not replicated across regions by default.",
+        "Reporting a vulnerability",
+        "Contact the team through Support / Contact — do not file security reports as public issues."
+      ],
+      "links": [
+        "Pipelines",
+        "Authentication",
+        "Connectors endpoint"
+      ]
+    },
+    {
+      "title": "Support / Contact",
+      "section": "",
+      "slug": "support",
+      "paragraphs": [
+        "Support / Contact",
+        "Before reaching out, check Troubleshooting / FAQ — most common issues are covered there.",
+        "Channels",
+        "Technical support: support@godzilladocs.dev",
+        "Sales: sales@godzilladocs.dev",
+        "Security reports: security@godzilladocs.dev — see Security & compliance overview for our disclosure policy."
+      ],
+      "links": [
+        "Troubleshooting / FAQ",
+        "Security & compliance overview"
+      ]
+    },
+    {
+      "title": "Troubleshooting / FAQ",
+      "section": "",
+      "slug": "troubleshooting",
+      "paragraphs": [
+        "Troubleshooting / FAQ",
+        "Common problems, and where in the docs to go for the full explanation.",
+        "My pipeline isn't processing events",
+        "Check the source connector's health field via the Connectors endpoint . A down connector stalls every pipeline that reads from it. If it's healthy , confirm the pipeline itself is active and not paused — see Scheduling & triggers .",
+        "Events keep failing and landing in the dead-letter queue",
+        "Walk through Handling errors & retries — it covers both diagnosing the failure and replaying events once fixed.",
+        "I'm not receiving webhook deliveries",
+        "Verify your endpoint returns a 2xx status and that you're checking X-Godzilla-Signature correctly — a rejected signature looks identical to a dropped delivery from the outside. Full details in the Webhooks endpoint reference.",
+        "I'm getting 429s",
+        "You've hit the standard-tier limit described in Rate limits & errors . Back off using the Retry-After header.",
+        "Still stuck?",
+        "Reach the team via Support / Contact ."
+      ],
+      "links": [
+        "Connectors endpoint",
+        "Scheduling & triggers",
+        "Handling errors & retries",
+        "Webhooks endpoint",
+        "Rate limits & errors",
+        "Support / Contact"
+      ]
+    },
+    {
+      "title": "API Reference",
+      "section": "apis",
+      "slug": "index",
+      "paragraphs": [
+        "\">Start with Pipelines }} All endpoints live under https://api.godzilladocs.dev/v2 and require a bearer API key . New to the API? Read Authentication in Getting Started first.",
+        "|tag=Endpoint|title=Pipelines|description=Create, list, and manage pipelines.}} |tag=Endpoint|title=Connectors|description=Create, list, and rotate credentials for connectors.}} |tag=Endpoint|title=Events|description=Query and replay events that have flowed through a pipeline.}} |tag=Endpoint|title=Webhooks|description=Subscribe to platform lifecycle events over outbound HTTP.}} |tag=Reference|title=Rate limits & errors|description=Standard-tier limits, pagination, and the error response shape.}}"
+      ],
+      "links": [
+        "Pipelines endpoint",
+        "Connectors endpoint",
+        "Events endpoint",
+        "Webhooks endpoint",
+        "Rate limits & errors"
+      ]
+    },
+    {
+      "title": "Connectors endpoint",
+      "section": "apis",
+      "slug": "connectors",
+      "paragraphs": [
+        "Connectors endpoint",
+        "Manage connectors — the source and destination integrations pipelines read from and write to.",
+        "Create a connector",
+        "POST /v2/connectors",
+        "Rotate credentials",
+        "POST /v2/connectors/&#123;id&#125;/rotate — pauses every pipeline referencing this connector for the duration of the rotation, then resumes them automatically.",
+        "Health status",
+        "GET /v2/connectors/&#123;id&#125; returns a health field of healthy , degraded , or down ."
+      ],
+      "links": [
+        "Connectors"
+      ]
+    },
+    {
+      "title": "Events endpoint",
+      "section": "apis",
+      "slug": "events",
+      "paragraphs": [
+        "Events endpoint",
+        "Query and replay events that have flowed through a pipeline.",
+        "List events",
+        "GET /v2/pipelines/&#123;pipeline_id&#125;/events — cursor-paginated, filterable by type and occurred_at range.",
+        "Replay a dead-lettered event",
+        "POST /v2/events/&#123;id&#125;/replay — re-runs an event that exhausted its retries from where it was dead-lettered. See the Handling errors & retries guide for when to use this versus reprocessing an entire time range."
+      ],
+      "links": [
+        "Events"
+      ]
+    },
+    {
+      "title": "Pipelines endpoint",
+      "section": "apis",
+      "slug": "pipelines",
+      "paragraphs": [
+        "Pipelines endpoint",
+        "Create and manage pipelines programmatically. Base URL: https://api.godzilladocs.dev/v2 .",
+        "Create a pipeline",
+        "POST /v2/pipelines",
+        "List pipelines",
+        "GET /v2/pipelines — cursor-paginated, see Rate limits & errors for the pagination envelope.",
+        "Pipeline states",
+        "Returned pipelines include a state field of draft , active , or paused — see Pipelines for what each means."
+      ],
+      "links": [
+        "Pipelines"
+      ]
+    },
+    {
+      "title": "Rate limits & errors",
+      "section": "apis",
+      "slug": "rate-limits-errors",
+      "paragraphs": [
+        "Rate limits & errors",
+        "Rate limit headers",
+        "Every response includes X-RateLimit-Limit , X-RateLimit-Remaining , and X-RateLimit-Reset . A request over the limit returns 429 Too Many Requests with a Retry-After header.",
+        "Pagination",
+        "List endpoints ( Pipelines , Connectors, Events ) use cursor-based pagination — a departure from v1's offset-based pagination.",
+        "Error shape"
+      ],
+      "links": [
+        "Pipelines",
+        "Events"
+      ]
+    },
+    {
+      "title": "Webhooks endpoint",
+      "section": "apis",
+      "slug": "webhooks",
+      "paragraphs": [
+        "Webhooks endpoint",
+        "Subscribe to platform lifecycle events — such as pipeline.completed or connector.error — as outbound HTTP requests to a URL you control. This is the v2 replacement for v1's polling-only status checks; see the Migration guide if you're moving off v1.",
+        "Create a webhook subscription",
+        "POST /v2/webhooks",
+        "Delivery retries",
+        "A webhook delivery that doesn't receive a 2xx response is retried with exponential backoff for up to 24 hours, then marked failed. Failed deliveries are visible per-subscription and can be manually redelivered."
+      ],
+      "links": [
+        "Migration guide (v1 → v2)"
+      ]
+    },
+    {
+      "title": "Building your first pipeline",
+      "section": "guides",
+      "slug": "building-your-first-pipeline",
+      "paragraphs": [
+        "Building your first pipeline",
+        "This guide walks through creating a pipeline end to end: a source connector, a destination connector, and the pipeline that ties them together.",
+        "\">Authentication in Getting Started if you don't have one yet.",
+        "}} 1. Create a source connector",
+        "We'll pull orders from Postgres. See Connectors for the full catalog of types.",
+        "2. Create a destination connector",
+        "We'll write to Snowflake.",
+        "3. Create the pipeline",
+        "Full request/response details are in the Pipelines endpoint reference.",
+        "The pipeline starts in draft state. Activate it once you're ready to start processing events.",
+        "Next steps",
+        "Now that events are flowing, read Handling errors & retries to see what happens when a write fails, or Monitoring & alerts to watch it run."
+      ],
+      "links": [
+        "Pipelines",
+        "Authentication",
+        "Connectors",
+        "Pipelines endpoint",
+        "Handling errors & retries",
+        "Monitoring & alerts",
+        "Guides",
+        "Connecting a data source"
+      ]
+    },
+    {
+      "title": "Connecting a data source",
+      "section": "guides",
+      "slug": "connecting-a-data-source",
+      "paragraphs": [
+        "Connecting a data source",
+        "This guide covers choosing and configuring a source connector — the first step of any new pipeline .",
+        "Choosing a connector type",
+        "You have Use A relational database you can grant replication access to Postgres Files landing in object storage Amazon S3 An existing event stream Kafka A third party that can push to a URL you control Webhook Authenticating",
+        "Each connector type has its own credential shape — see the Connectors endpoint for the full parameter list per type.",
+        "Verifying the connection",
+        "A newly created connector reports health: degraded until its first successful read or write, then flips to healthy . If it goes straight to down , double check credentials before opening a support ticket.",
+        "Next steps",
+        "With a source connected, follow Building your first pipeline to wire it into a full pipeline.",
+        "|prev_label=Building your first pipeline|next_href=|next_label=Handling errors & retries}}"
+      ],
+      "links": [
+        "Connectors",
+        "Pipelines",
+        "Connectors endpoint",
+        "Building your first pipeline",
+        "Handling errors & retries"
+      ]
+    },
+    {
+      "title": "Guides",
+      "section": "guides",
+      "slug": "index",
+      "paragraphs": [
+        "\">Start with your first pipeline }} |tag=Guide|title=Building your first pipeline|description=Create a source connector, a destination connector, and the pipeline that connects them.}} |tag=Guide|title=Connecting a data source|description=Choose the right connector type and authentication method.}} |tag=Guide|title=Handling errors & retries|description=How failed events retry, get dead-lettered, and get replayed.}} |tag=Guide|title=Scheduling & triggers|description=Run a pipeline on a cron schedule or trigger it from incoming events.}} |tag=Guide|title=Monitoring & alerts|description=Watch pipeline health and get notified of failures before they're incidents.}}"
+      ],
+      "links": [
+        "Building your first pipeline",
+        "Connecting a data source",
+        "Handling errors & retries",
+        "Scheduling & triggers",
+        "Monitoring & alerts"
+      ]
+    },
+    {
+      "title": "Handling errors & retries",
+      "section": "guides",
+      "slug": "handling-errors-and-retries",
+      "paragraphs": [
+        "Handling errors & retries",
+        "Every event that fails a transform or a destination write is retried automatically. This guide covers how that works and what to do when retries run out.",
+        "Automatic retries",
+        "Failed events retry with exponential backoff — 1s, 2s, 4s, up to a per-pipeline configurable ceiling. Most transient failures (a destination hiccup, a rate-limited third party) resolve within the first few attempts.",
+        "Dead-lettering",
+        "An event that exhausts its retries is moved to that pipeline's dead-letter queue rather than dropped silently.",
+        "Replaying events",
+        "Use the Events endpoint 's replay action to re-run a specific dead-lettered event once the underlying issue is fixed.",
+        "Watching for failures",
+        "Subscribe to pipeline.failed via Webhooks so you find out about dead-lettered events before a customer does. See also Monitoring & alerts .",
+        "|prev_label=Connecting a data source|next_href=|next_label=Scheduling & triggers}}"
+      ],
+      "links": [
+        "Events",
+        "Events endpoint",
+        "Webhooks endpoint",
+        "Monitoring & alerts",
+        "Connecting a data source",
+        "Scheduling & triggers"
+      ]
+    },
+    {
+      "title": "Monitoring & alerts",
+      "section": "guides",
+      "slug": "monitoring-and-alerts",
+      "paragraphs": [
+        "Monitoring & alerts",
+        "Keep an eye on a running pipeline without babysitting it manually.",
+        "Connector health",
+        "Poll a connector's health field via the Connectors endpoint , or better, subscribe to connector.error so you're notified the moment it degrades.",
+        "Subscribing to pipeline lifecycle events",
+        "The most reliable way to monitor a pipeline is a webhook subscription on pipeline.failed and connector.error .",
+        "Dead-letter queue depth",
+        "A growing dead-letter queue is an early warning sign, not just a symptom — see Handling errors & retries for how events end up there and how to drain them.",
+        "|prev_label=Scheduling & triggers|next_href=|next_label=Guides}}"
+      ],
+      "links": [
+        "Pipelines",
+        "Connectors endpoint",
+        "Webhooks endpoint",
+        "Handling errors & retries",
+        "Scheduling & triggers",
+        "Guides"
+      ]
+    },
+    {
+      "title": "Scheduling & triggers",
+      "section": "guides",
+      "slug": "scheduling-and-triggers",
+      "paragraphs": [
+        "Scheduling & triggers",
+        "A pipeline runs either on a schedule or in response to incoming events. This guide covers both.",
+        "Scheduled pipelines",
+        "Set a schedule (a cron expression) when creating or updating a pipeline via the Pipelines endpoint . Godzilla runs the pipeline once per schedule tick, processing whatever new data is available from the source since the last run.",
+        "Event-triggered pipelines",
+        "Omit schedule and the pipeline instead runs continuously, processing events as its source connector emits them — the right choice for sources like Kafka or a Webhook connector where near-real-time matters.",
+        "Pausing and resuming",
+        "A paused pipeline skips scheduled ticks entirely and buffers nothing for event-triggered sources — resuming picks up new events going forward, not a backlog. To reprocess a time range instead, see the replay flow in Handling errors & retries .",
+        "|prev_label=Handling errors & retries|next_href=|next_label=Monitoring & alerts}}"
+      ],
+      "links": [
+        "Pipelines",
+        "Pipelines endpoint",
+        "Handling errors & retries",
+        "Monitoring & alerts"
+      ]
+    },
+    {
+      "title": "Node.js SDK",
+      "section": "sdks",
+      "slug": "node-js",
+      "paragraphs": [
+        "Node.js SDK",
+        "A thin, typed wrapper around the v2 REST API for Node.js and TypeScript projects.",
+        "Install",
+        "Create a client",
+        "Create a pipeline",
+        "Maps directly onto the Pipelines endpoint — see the Building your first pipeline guide for the concepts.",
+        "Listening for webhooks",
+        "The SDK includes a signature-verification helper for webhook payloads:"
+      ],
+      "links": [
+        "API Reference",
+        "Pipelines endpoint",
+        "Building your first pipeline",
+        "Webhooks endpoint"
+      ]
+    },
+    {
+      "title": "Python SDK",
+      "section": "sdks",
+      "slug": "python",
+      "paragraphs": [
+        "Python SDK",
+        "A typed client for the v2 REST API , for Python 3.9+.",
+        "Install",
+        "Create a client",
+        "Create a pipeline",
+        "Maps directly onto the Pipelines endpoint — see the Building your first pipeline guide for the concepts.",
+        "Replaying dead-lettered events",
+        "Wraps the replay action described in Handling errors & retries :"
+      ],
+      "links": [
+        "API Reference",
+        "Pipelines endpoint",
+        "Building your first pipeline",
+        "Handling errors & retries"
+      ]
+    },
+    {
+      "title": "SDKs",
+      "section": "sdks",
+      "slug": "index",
+      "paragraphs": [
+        "\">Node.js SDK }} |tag=SDK|title=Node.js|description=Typed client for Node.js and TypeScript — npm install @godzilla/sdk.}} |tag=SDK|title=Python|description=Typed client for Python 3.9+ — pip install godzilla-sdk.}} Prefer raw HTTP? Every SDK method maps one-to-one onto the REST API reference ."
+      ],
+      "links": [
+        "Node.js SDK",
+        "Python SDK",
+        "API Reference"
+      ]
+    }
+  ]
+}
