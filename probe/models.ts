@@ -47,7 +47,14 @@ export function resolveModel(argv: string[]): ModelSpec {
   const id = i >= 0 ? argv[i + 1] : 'gemini-3.7-flash'
   const m = MODELS[id]
   if (!m) throw new Error(`unknown model "${id}" — known: ${Object.keys(MODELS).join(', ')}`)
-  return m
+
+  // The per-response output ceiling is a HARNESS choice, not a property of any
+  // substrate, and it is identical across columns. It is overridable so the
+  // choice can be tested rather than assumed: a ceiling low enough to cut a
+  // response mid-sentence turns a smooth cost into a binary failure, which is
+  // an artefact. Any column run at a non-default ceiling records it.
+  const t = argv.indexOf('--max-tokens')
+  return t >= 0 ? { ...m, maxTokens: Number(argv[t + 1]) } : m
 }
 
 /** Thinking tokens are billed at the output rate, so they are charged as output. */

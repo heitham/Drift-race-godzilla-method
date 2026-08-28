@@ -24,6 +24,7 @@ import { loadEnv } from '../harness/run/config.js'
 import { makeDriver, type ToolDef } from '../harness/run/drivers.js'
 import { resolveModel, dollarsFor, resultFile } from './models.js'
 import { DISCLOSURE } from './disclosure.js'
+import { checkSubstance } from './substance.js'
 
 loadEnv()
 
@@ -145,7 +146,12 @@ function check(v: Verify, finalText: string): { ok: boolean; detail: string; per
 
     case 'allPagesExist': {
       const missing = (v.titles as string[]).filter(t => !pageRow(t))
-      return { ok: !missing.length, detail: missing.length ? `missing: ${missing.join(', ')}` : 'both halves exist' }
+      if (missing.length) return { ok: false, detail: `missing: ${missing.join(', ')}` }
+      if (v.minWords) {
+        const r = checkSubstance((v.titles as string[]).map(t => ({ title: t, body: pageText(t) || null })), Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `both halves exist — ${r.detail}` : `both halves exist but ${r.detail}` }
+      }
+      return { ok: true, detail: 'both halves exist' }
     }
 
     case 'pageInSection': {
@@ -153,7 +159,12 @@ function check(v: Verify, finalText: string): { ok: boolean; detail: string; per
       if (!r) return { ok: false, detail: `no page titled "${v.title}"` }
       const parent = r.split('|')[3] ?? ''
       const want = (v.section as string).toLowerCase()
-      return { ok: parent.toLowerCase() === want, detail: `parent is "${parent || '(root)'}", wanted "${want}"` }
+      if (parent.toLowerCase() !== want) return { ok: false, detail: `parent is "${parent || '(root)'}", wanted "${want}"` }
+      if (v.minWords) {
+        const r = checkSubstance([{ title: v.title as string, body: pageText(v.title as string) || null }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `in "${want}" — ${r.detail}` : `in "${want}" but ${r.detail}` }
+      }
+      return { ok: true, detail: `parent is "${want}"` }
     }
 
     /**
@@ -165,8 +176,14 @@ function check(v: Verify, finalText: string): { ok: boolean; detail: string; per
       const s = esc((v.section as string).toLowerCase())
       const asPage = sql(`SELECT count(*) FROM pages WHERE lower(slug)='${s}' OR lower(title)='${s}'`)
       const asCat = sql(`SELECT count(*) FROM categories WHERE lower(slug)='${s}' OR lower(title)='${s}'`)
-      const ok = asPage !== '0' || asCat !== '0'
-      return { ok, detail: ok ? (asPage !== '0' ? 'section page created' : 'created as a category') : `no section "${v.section}"` }
+      if (asPage === '0' && asCat === '0') return { ok: false, detail: `no section "${v.section}"` }
+      const how = asPage !== '0' ? 'section page created' : 'created as a category'
+      if (v.minWords && asPage !== '0') {
+        const title = sql(`SELECT title FROM pages WHERE lower(slug)='${s}' OR lower(title)='${s}' LIMIT 1`)
+        const r = checkSubstance([{ title: title || (v.section as string), body: pageText(title) || null }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `${how} — ${r.detail}` : `${how} but ${r.detail}` }
+      }
+      return { ok: true, detail: how }
     }
 
     case 'bodyContains': {
@@ -174,8 +191,12 @@ function check(v: Verify, finalText: string): { ok: boolean; detail: string; per
       if (!text) return { ok: false, detail: `no page titled "${v.title}"` }
       const hay = v.caseInsensitive ? text.toLowerCase() : text
       const needle = v.caseInsensitive ? (v.text as string).toLowerCase() : (v.text as string)
-      const ok = hay.includes(needle)
-      return { ok, detail: ok ? 'body carries the text' : `body does not contain "${v.text}"` }
+      if (!hay.includes(needle)) return { ok: false, detail: `body does not contain "${v.text}"` }
+      if (v.minWords) {
+        const r = checkSubstance([{ title: v.title as string, body: text }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `carries the text — ${r.detail}` : `carries the text but ${r.detail}` }
+      }
+      return { ok: true, detail: 'body carries the text' }
     }
 
     case 'linksTo': {
@@ -271,7 +292,7 @@ When you are finished, state briefly what you did.`
 const append = args.includes('--append')
 const prior: any[] = (() => {
   if (!append) return []
-  try { return JSON.parse(readFileSync(path.join('probe', 'results', resultFile('payload', MODEL)), 'utf8')).results ?? [] }
+  try { return JSON.parse(readFileSync(OUT, 'utf8')).results ?? [] }
   catch { return [] }
 })()
 const passOffset = prior.length ? Math.max(...prior.map((r: any) => r.pass ?? 1)) : 0
@@ -286,10 +307,16 @@ const reseedFailed = new Set<number>()
  * last intent and the write discarded a complete pass once; a run this
  * expensive must not be able to lose finished work.
  */
-const OUT = path.join('probe', 'results', resultFile('payload', MODEL))
+/**
+ * `--tag` files a run beside the main column instead of over it. A side
+ * experiment run without one overwrote a finished column that had cost real
+ * money; it was recoverable only because the column was already committed.
+ */
+const tag = args.includes('--tag') ? `-${args[args.indexOf('--tag') + 1]}` : ''
+const OUT = path.join('probe', 'results', resultFile('payload', MODEL).replace(/\.json$/, tag + '.json'))
 mkdirSync(path.join('probe', 'results'), { recursive: true })
 const flush = () => writeFileSync(OUT, JSON.stringify({
-  substrate: 'Payload', mcp: MCP, model: MODEL.id, rates: RATE,
+  substrate: 'Payload', mcp: MCP, model: MODEL.id, rates: RATE, maxTokens: MODEL.maxTokens,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   partial: true, results,
 }, null, 2))
@@ -444,7 +471,7 @@ const summary = {
 }
 
 writeFileSync(out, JSON.stringify({
-  substrate: 'Payload', mcp: MCP, model: MODEL.id, rates: RATE,
+  substrate: 'Payload', mcp: MCP, model: MODEL.id, rates: RATE, maxTokens: MODEL.maxTokens,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   summary, results,
 }, null, 2))

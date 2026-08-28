@@ -22,6 +22,7 @@ import { loadEnv } from '../harness/run/config.js'
 import { makeDriver, type ToolDef } from '../harness/run/drivers.js'
 import { resolveModel, dollarsFor, resultFile } from './models.js'
 import { DISCLOSURE } from './disclosure.js'
+import { checkSubstance } from './substance.js'
 
 loadEnv()
 
@@ -105,19 +106,41 @@ function check(v: Verify, finalText: string): { ok: boolean; detail: string; per
 
     case 'allPagesExist': {
       const missing = (v.titles as string[]).filter(t => !livePage(t))
-      return { ok: missing.length === 0, detail: missing.length ? `missing: ${missing.join(', ')}` : 'both halves exist' }
+      if (missing.length) return { ok: false, detail: `missing: ${missing.join(', ')}` }
+      if (v.minWords) {
+        const r = checkSubstance((v.titles as string[]).map(t => ({ title: t, body: bodyOf(t) || null })), Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `both halves exist — ${r.detail}` : `both halves exist but ${r.detail}` }
+      }
+      return { ok: true, detail: 'both halves exist' }
     }
 
     case 'pageInSection': {
       const row = livePage(v.title as string)
       if (!row) return { ok: false, detail: `no page titled "${v.title}"` }
       const section = row.split('|')[0]
-      return { ok: section === v.section, detail: `section is "${section || '(root)'}", wanted "${v.section}"` }
+      if (section !== v.section) return { ok: false, detail: `section is "${section || '(root)'}", wanted "${v.section}"` }
+      if (v.minWords) {
+        const r = checkSubstance([{ title: v.title as string, body: bodyOf(v.title as string) || null }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `in "${v.section}" — ${r.detail}` : `in "${v.section}" but ${r.detail}` }
+      }
+      return { ok: true, detail: `section is "${section}"` }
     }
 
     case 'sectionExists': {
       const n = sql(`SELECT count(*) FROM folders WHERE site_id='${SITE}' AND path='${esc(v.section as string)}'`)
-      return { ok: n !== '0', detail: n !== '0' ? 'section created' : `no section "${v.section}"` }
+      if (n === '0') return { ok: false, detail: `no section "${v.section}"` }
+      if (v.minWords) {
+        const landing = sql(`
+          SELECT ci.body FROM content_placements cp
+          JOIN content_items ci ON ci.id = cp.item_id
+          JOIN folders f ON f.id = cp.folder_id
+          WHERE cp.site_id='${SITE}' AND f.path='${esc(v.section as string)}'
+            AND ci.workflow_state IN ('public','staging') ORDER BY length(ci.body) DESC LIMIT 1
+        `)
+        const r = checkSubstance([{ title: `${v.section} landing`, body: landing || null }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `section created — ${r.detail}` : `section created but ${r.detail}` }
+      }
+      return { ok: true, detail: 'section created' }
     }
 
     case 'bodyContains': {
@@ -125,8 +148,12 @@ function check(v: Verify, finalText: string): { ok: boolean; detail: string; per
       if (!body) return { ok: false, detail: `no page titled "${v.title}"` }
       const hay = v.caseInsensitive ? body.toLowerCase() : body
       const needle = v.caseInsensitive ? (v.text as string).toLowerCase() : (v.text as string)
-      const ok = hay.includes(needle)
-      return { ok, detail: ok ? 'body carries the text' : `body does not contain "${v.text}"` }
+      if (!hay.includes(needle)) return { ok: false, detail: `body does not contain "${v.text}"` }
+      if (v.minWords) {
+        const r = checkSubstance([{ title: v.title as string, body }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `carries the text — ${r.detail}` : `carries the text but ${r.detail}` }
+      }
+      return { ok: true, detail: 'body carries the text' }
     }
 
     case 'linksTo': {
@@ -275,7 +302,13 @@ Carry out the request using the tools. If something cannot be done with the tool
 When you are finished, state briefly what you did.`
 
 const append = args.includes('--append')
-const OUT = path.join('probe', 'results', resultFile('rift', MODEL))
+/**
+ * `--tag` files a run beside the main column instead of over it. A side
+ * experiment run without one overwrote a finished column that had cost real
+ * money; it was recoverable only because the column was already committed.
+ */
+const tag = args.includes('--tag') ? `-${args[args.indexOf('--tag') + 1]}` : ''
+const OUT = path.join('probe', 'results', resultFile('rift', MODEL).replace(/\.json$/, tag + '.json'))
 mkdirSync(path.join('probe', 'results'), { recursive: true })
 const prior: any[] = (() => {
   if (!append) return []
@@ -292,7 +325,7 @@ const results: any[] = [...prior]
  * must not be able to lose finished work.
  */
 const flush = () => writeFileSync(OUT, JSON.stringify({
-  substrate: 'RIFT', mcp: MCP, model: MODEL.id, rates: RATE, cmsPin: CMS_PIN,
+  substrate: 'RIFT', mcp: MCP, model: MODEL.id, rates: RATE, maxTokens: MODEL.maxTokens, cmsPin: CMS_PIN,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   partial: true, results,
 }, null, 2))
@@ -452,7 +485,7 @@ const summary = {
 }
 
 writeFileSync(out, JSON.stringify({
-  substrate: 'RIFT', mcp: MCP, model: MODEL.id, rates: RATE, cmsPin: CMS_PIN,
+  substrate: 'RIFT', mcp: MCP, model: MODEL.id, rates: RATE, maxTokens: MODEL.maxTokens, cmsPin: CMS_PIN,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   summary, results,
 }, null, 2))

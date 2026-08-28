@@ -27,6 +27,24 @@
         "cd '/Users/heithamghariani/Documents/payload/godzilla-payload' && /opt/homebrew/bin/pnpm dev --port 3002"
       ],
       "port": 3002
+    },
+    {
+      "name": "site-raw",
+      "runtimeExecutable": "/bin/zsh",
+      "runtimeArgs": [
+        "-c",
+        "cd '/private/tmp/claude-501/-Users-heithamghariani-Documents-RIFT-Drift-Race-Benchmark/ac0766f1-d05e-4199-a1ab-90d2e20a3c8b/scratchpad/site-raw' && npx --yes serve -l 4320 ."
+      ],
+      "port": 4320
+    },
+    {
+      "name": "site-gov",
+      "runtimeExecutable": "/bin/zsh",
+      "runtimeArgs": [
+        "-c",
+        "cd '/private/tmp/claude-501/-Users-heithamghariani-Documents-RIFT-Drift-Race-Benchmark/ac0766f1-d05e-4199-a1ab-90d2e20a3c8b/scratchpad/site-gov' && npx --yes serve -l 4321 ."
+      ],
+      "port": 4321
     }
   ]
 }

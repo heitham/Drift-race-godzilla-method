@@ -33,6 +33,7 @@ import { loadEnv } from '../harness/run/config.js'
 import { makeDriver, type ToolDef } from '../harness/run/drivers.js'
 import { resolveModel, dollarsFor } from './models.js'
 import { DISCLOSURE } from './disclosure.js'
+import { checkSubstance } from './substance.js'
 
 loadEnv()
 
@@ -74,6 +75,13 @@ async function findPage(title: string): Promise<PageState | null> {
   return { _id: r._id, title: r.title, parent: r.parent ?? null, draft: r._id.startsWith('drafts.') }
 }
 
+/** Rendered plain text, so the word count is prose rather than Portable Text keys. */
+async function plainBody(title: string): Promise<string | null> {
+  if (!title) return null
+  const r = await groq<string | null>(`${any_(title)}.body` .replace('.body', '{"t": pt::text(body)}.t'))
+  return r ?? null
+}
+
 async function bodyText(title: string): Promise<string | null> {
   const r = await groq<any>(`${any_(title)}{body}`)
   if (!r) return null
@@ -102,7 +110,13 @@ async function check(v: Verify, finalText: string): Promise<Result> {
     case 'allPagesExist': {
       const found = await Promise.all((v.titles as string[]).map(t => findPage(t)))
       const missing = (v.titles as string[]).filter((_, i) => !found[i])
-      return { ok: !missing.length, detail: missing.length ? `missing: ${missing.join(', ')}` : 'both halves exist' }
+      if (missing.length) return { ok: false, detail: `missing: ${missing.join(', ')}` }
+      if (v.minWords) {
+        const bodies = await Promise.all((v.titles as string[]).map(async t => ({ title: t, body: await plainBody(t) })))
+        const r = checkSubstance(bodies, Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `both halves exist — ${r.detail}` : `both halves exist but ${r.detail}` }
+      }
+      return { ok: true, detail: 'both halves exist' }
     }
 
     case 'pageInSection': {
@@ -110,7 +124,12 @@ async function check(v: Verify, finalText: string): Promise<Result> {
       if (!p) return { ok: false, detail: `no page titled "${v.title}"` }
       const want = (v.section as string).toLowerCase()
       const got = (p.parent ?? '').toLowerCase()
-      return { ok: got === want, detail: `parent is "${got || '(root)'}", wanted "${want}"` }
+      if (got !== want) return { ok: false, detail: `parent is "${got || '(root)'}", wanted "${want}"` }
+      if (v.minWords) {
+        const r = checkSubstance([{ title: v.title as string, body: await plainBody(v.title as string) }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `in "${want}" — ${r.detail}` : `in "${want}" but ${r.detail}` }
+      }
+      return { ok: true, detail: `parent is "${want}"` }
     }
 
     /** A section in Sanity is a page other pages point `parent` at. */
@@ -119,7 +138,13 @@ async function check(v: Verify, finalText: string): Promise<Result> {
       const n = await groq<number>(
         `count(*[_type=="page" && (lower(slug.current)=="${s}" || lower(title)=="${s}")])`,
       )
-      return { ok: n > 0, detail: n > 0 ? 'section page created' : `no section "${v.section}"` }
+      if (n === 0) return { ok: false, detail: `no section "${v.section}"` }
+      if (v.minWords) {
+        const t = await groq<string>(`*[_type=="page" && (lower(slug.current)=="${s}" || lower(title)=="${s}")][0].title`)
+        const r = checkSubstance([{ title: t ?? (v.section as string), body: await plainBody(t ?? '') }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `section page created — ${r.detail}` : `section page created but ${r.detail}` }
+      }
+      return { ok: true, detail: 'section page created' }
     }
 
     case 'bodyContains': {
@@ -127,8 +152,12 @@ async function check(v: Verify, finalText: string): Promise<Result> {
       if (body === null) return { ok: false, detail: `no page titled "${v.title}"` }
       const hay = v.caseInsensitive ? body.toLowerCase() : body
       const needle = v.caseInsensitive ? (v.text as string).toLowerCase() : (v.text as string)
-      const ok = hay.includes(needle)
-      return { ok, detail: ok ? 'body carries the text' : `body does not contain "${v.text}"` }
+      if (!hay.includes(needle)) return { ok: false, detail: `body does not contain "${v.text}"` }
+      if (v.minWords) {
+        const r = checkSubstance([{ title: v.title as string, body: await plainBody(v.title as string) }], Number(v.minWords))
+        return { ok: r.ok, detail: r.ok ? `carries the text — ${r.detail}` : `carries the text but ${r.detail}` }
+      }
+      return { ok: true, detail: 'body carries the text' }
     }
 
     /**
@@ -271,7 +300,7 @@ const all: ToolDef[] = (await rpc('tools/list', {})).tools.map((t: any) => {
 const surfaceTokens = Math.round(JSON.stringify(all).length / 4)
 console.log(`substrate   Sanity @ ${MCP}  (hosted — wall-clock includes network)`)
 console.log(`surface     ${all.length} tools, ~${surfaceTokens.toLocaleString()} tokens per call`)
-console.log(`model       ${MODEL.id}`)
+console.log(`model       ${MODEL.id}  ·  output ceiling ${MODEL.maxTokens.toLocaleString()} tok/response`)
 console.log(`intents     ${intents.length}\n`)
 
 if (args.includes('--dry')) { console.log(intents.map((i: any) => `${i.id}  ${i.intent}`).join('\n')); process.exit(0) }
@@ -283,7 +312,9 @@ Carry out the request using the tools. If something cannot be done with the tool
 
 When you are finished, state briefly what you did.`
 
-const OUT = path.join('probe', 'results', MODEL.id === 'gemini-3.7-flash' ? 'sanity.json' : `sanity-${MODEL.id}.json`)
+const suffix = args.includes('--tag') ? `-${args[args.indexOf('--tag') + 1]}` : ''
+const OUT = path.join('probe', 'results',
+  (MODEL.id === 'gemini-3.7-flash' ? 'sanity' : `sanity-${MODEL.id}`) + suffix + '.json')
 mkdirSync(path.join('probe', 'results'), { recursive: true })
 const prior: any[] = (() => {
   if (!append) return []
@@ -294,7 +325,7 @@ if (append) console.log(`appending to ${prior.length} existing session(s), ${pas
 
 const results: any[] = [...prior]
 const flush = () => writeFileSync(OUT, JSON.stringify({
-  substrate: 'Sanity', mcp: MCP, hosted: true, model: MODEL.id, rates: RATE,
+  substrate: 'Sanity', mcp: MCP, hosted: true, model: MODEL.id, rates: RATE, maxTokens: MODEL.maxTokens,
   project: PROJECT, dataset: DATASET,
   surface: { tools: all.length, approxTokensPerCall: surfaceTokens, toolNames: all.map(t => t.name) },
   partial: true, results,

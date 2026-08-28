@@ -1,0 +1,113 @@
+{
+  "substrate": "Payload",
+  "mcp": "http://localhost:3002/api/mcp",
+  "model": "claude-sonnet-5",
+  "rates": {
+    "input": 3,
+    "output": 15,
+    "cached": 0.3,
+    "cacheWrite": 3.75
+  },
+  "surface": {
+    "tools": 20,
+    "approxTokensPerCall": 12583,
+    "toolNames": [
+      "createPages",
+      "updatePages",
+      "findPages",
+      "deletePages",
+      "createPosts",
+      "updatePosts",
+      "findPosts",
+      "deletePosts",
+      "createCategories",
+      "updateCategories",
+      "findCategories",
+      "deleteCategories",
+      "createMedia",
+      "updateMedia",
+      "findMedia",
+      "deleteMedia",
+      "findHeader",
+      "updateHeader",
+      "findFooter",
+      "updateFooter"
+    ]
+  },
+  "summary": {
+    "passes": 1,
+    "intents": 1,
+    "sessions": 1,
+    "supportedRate": 1,
+    "silentMissRate": 0,
+    "disclosureRate": null,
+    "usdTotal": 2.402,
+    "usdMedian": 2.4016,
+    "secondsMedian": 543,
+    "turnsMedian": 22,
+    "toolCallFailureRate": 0.39473684210526316,
+    "tokensByGroup": {
+      "restructure": {
+        "sessions": 1,
+        "tokens": 2748243,
+        "usd": 2.402
+      }
+    },
+    "outcomeByGroup": {
+      "restructure": {
+        "supported-after-refusal": 1
+      }
+    },
+    "nonDeterministicIntents": [],
+    "costConcentration": [
+      {
+        "id": "R3",
+        "capability": "split-page",
+        "usd": 2.402
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "R3",
+      "group": "restructure",
+      "capability": "split-page",
+      "expect": "supported",
+      "pass": 1,
+      "outcome": "supported-after-refusal",
+      "detail": "both halves exist",
+      "disclosed": false,
+      "sessionStatus": "completed",
+      "sessionError": null,
+      "turns": 22,
+      "toolCalls": 38,
+      "toolCallsFailed": 15,
+      "latencyMs": 543036,
+      "tokens": {
+        "total": 2748243,
+        "input": 44,
+        "output": 70081,
+        "thinking": 0,
+        "cacheRead": 2519609,
+        "cacheWrite": 158509
+      },
+      "usd": 2.4016,
+      "toolsUsed": [
+        "findPages",
+        "findPosts",
+        "findHeader",
+        "findFooter",
+        "createPages",
+        "updatePages"
+      ],
+      "errors": [
+        "createPages: MCP error -32602: Input validation error: Invalid arguments for tool createPages: Expected array, received string at layout",
+        "createPages: MCP error -32602: Input validation error: Invalid arguments for tool createPages: Expected array, received string at layout",
+        "updatePages: MCP error -32602: Input validation error: Invalid arguments for tool updatePages: Expected array, received string at layout",
+        "updatePages: MCP error -32602: Input validation error: Invalid arguments for tool updatePages: Expected array, received string at layout"
+      ],
+      "finalText": "No lingering references to the old combined title remain, and both new pages are in place.\n\n## Summary\n\nI split **\"Rate limits & errors\"** into two pages under API Reference:\n\n1. **Rate limits** (`/apis/rate-limits`, reused the original page id 649) — keeps the \"Rate limit headers\" and \"Pagination\" sections, since both are about response/list-endpoint mechanics. Its \"See also\" still points to Pipelines and Events.\n2. **Error responses** (`/apis/error-responses`, new page id 658) — keeps the \"Error shape\" section (given a short description drawn from existing docs content) and links back to the Migration guide.\n\nThen I updated every page that referenced the original combined page, pointing ea",
+      "freshSite": true
+    }
+  ]
+}

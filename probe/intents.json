@@ -31,7 +31,9 @@
     "share that scope with an intent that measures it.",
     "Every column seeds from probe/fixtures/site.json, exported once from the RIFT benchmark site, so the SITE is identical across substrates by construction rather than by inspection. Two differences were doing real damage before this: RIFT's Changelog already carried the link E2 asks an agent to add, handing RIFT a free `supported` for work it never performed; and RIFT's \"Concepts\" was a childless root page where the other seed had a populated section, so R2 asked one substrate to build a section and the other only to reparent a page.",
     "",
-    "E2, X1 and X2 target pages no other intent measures, and E2 asserts a link ABSENT from the fixture. An intent that mutates a page must not share it with an intent that measures it, and an intent must not be pre-satisfied by the starting state — both defects were found by running them."
+    "E2, X1 and X2 target pages no other intent measures, and E2 asserts a link ABSENT from the fixture. An intent that mutates a page must not share it with an intent that measures it, and an intent must not be pre-satisfied by the starting state — both defects were found by running them.",
+    "",
+    "`minWords` is a CONTENT-SUBSTANCE floor on pages an instruction asked the agent to write. Every other check asks whether a structure exists; none asks whether what was written is worth reading, and an agent that splits a page into two headings satisfies allPagesExist completely while a reader calls the result broken. The floors are deliberately low and assert only what the instruction implies: C1 says \"one short paragraph is enough\", so its floor is one short paragraph. Demanding more would score a house style rather than a capability."
   ],
   "intents": [
     {
@@ -83,7 +85,8 @@
       "verify": {
         "kind": "pageInSection",
         "title": "Rate limiting cookbook",
-        "section": "guides"
+        "section": "guides",
+        "minWords": 15
       }
     },
     {
@@ -94,7 +97,8 @@
       "expect": "supported",
       "verify": {
         "kind": "sectionExists",
-        "section": "tutorials"
+        "section": "tutorials",
+        "minWords": 10
       }
     },
     {
@@ -155,7 +159,8 @@
         "titles": [
           "Rate limits",
           "Error responses"
-        ]
+        ],
+        "minWords": 40
       }
     },
     {
@@ -168,7 +173,8 @@
         "kind": "bodyContains",
         "title": "Migration guide (v1 → v2)",
         "text": "support",
-        "caseInsensitive": true
+        "caseInsensitive": true,
+        "minWords": 60
       }
     },
     {
