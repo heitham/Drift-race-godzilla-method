@@ -146,51 +146,90 @@ scored one vendor's governance policy as the definition of correct behaviour and
 honest surface dishonest. A hard delete offered and performed on request is a policy
 difference, not a defect.
 
-### What it found — RIFT vs Payload 3.88
+### How a result is verified
 
-Same 18 intents, same site, `gemini-3.7-flash`, 2 passes each, 72 sessions.
+Two thirds of the intents are checked against the CMS's **own store**, read directly and never
+through the surface under test: raw SQL for RIFT and Payload, GROQ over the HTTP API for Sanity.
+An agent that says it moved a page and left `parent_id` unchanged scores `silent-miss`. The
+remaining third is stated plainly rather than dressed up:
 
-| | RIFT | Payload |
+| checked against | intents | |
 |---|---|---|
-| tool schema sent on **every** call | 15 tools, **2,364 tok** | 20 tools, **12,583 tok** |
-| supported in every pass | **14/18** | 11/18 |
-| **same outcome in every pass** | **17/18** | **9/18** |
-| silent misses | **0/36** | 2/36 |
-| shortfalls disclosed | **7/7** | 6/11 |
-| tool calls that errored | **0.0%** | 2.5% |
-| median tokens per intent | **48.5k** | 356k |
-| median seconds per intent | **11** | 25 |
-| whole column | 12.5 min · $2.92 | 25.8 min · $6.66 |
+| CMS state | 12/18 | the store, independently |
+| the agent's own answer | 3/18 — D1–D3 | the answer *is* the deliverable; there is no state change to verify |
+| nothing | 3/18 — G1–G3 | no postcondition; classified from the transcript and reported as `no-postcondition` |
+
+`probe/substance.ts` adds a word floor on pages an instruction asked the agent to write, so an
+agent cannot pass by splitting a page into two headings. The floors are low and assert only
+what each instruction implies.
+
+### What it found — RIFT vs Payload 3.88 vs Sanity
+
+Same 18 intents, same site, same model, 2 passes each. Sanity is **hosted**, so its seconds
+include network round-trips and are not comparable; tokens and turns are.
+
+| on `claude-sonnet-5` | RIFT | Payload | Sanity |
+|---|---|---|---|
+| tool schema sent on **every** call | **2,889** | 12,583 | 12,581 |
+| supported in every pass | **14/18** | 12/18 | 12/18 |
+| **same outcome in every pass** | **18/18** | 14/18 | 14/18 |
+| silent misses | **0/36** | 1/36 | **0/36** |
+| median tokens per intent | **29.9k** | 82.0k | 104.0k |
+| of which tool surface | 11.6k | 37.7k | 62.9k |
+| **of which actual work** | **18.3k** | 44.3k | 41.1k |
+| whole column | $3.05 | $6.77 | $4.15 |
 
 The headline is not the pass rate, it is the **reproducibility**. RIFT gave the same answer
-twice on 17 of 18 intents; Payload on 9. Payload sometimes moved a page and sometimes reported
-moving a page without doing it. A missing feature can be planned around; a coin flip is
-discovered in production.
+twice on every intent. On `gemini-3.7-flash` the same comparison is 18/18 against Payload's
+10/18 — so a stronger model closes about half the gap and does not remove it. A missing feature
+can be planned around; a coin flip is discovered in production.
 
-The mechanism is visible in the token column. Payload's `updatePages` inlines the entire
-Lexical document shape into its tool signature, so every semantic operation becomes fetch the
-whole document, reason over it, rebuild it, resubmit it. Renaming a page took RIFT 6 turns and
-Payload 18; moving one took 8 turns against 30. The gap is widest exactly where a fragment-level
-tool should win — **editing a sentence is 14× cheaper on RIFT** — and narrowest on whole-page
-creation, where both must send a whole document anyway.
+**Surface cost is reported separately from work cost**, because a column carrying a large tool
+list is otherwise penalised for something that says nothing about how well it edits. Sanity
+ships 38 tools of which nine are content operations, so most of its total is schema it never
+uses. Its *work* cost is close to Payload's, and both are roughly 2.2× RIFT's. Filtering the
+surface to a content subset would have measured a product nobody can buy; splitting the number
+answers the same question without anyone guessing which tools "count".
 
-**Where Payload wins, and it is worth knowing.** The inbound-link query (D3) is *cheaper on
-Payload* despite Payload having no link graph at all — inline links are ids buried inside a
-JSON blob. Its agent simply fetched every page and scanned them, consistently. RIFT's agent has
-tools that look like they should answer the question, goes hunting, and on one pass spent 24
-turns and 1.45M tokens getting there. A richer surface made things worse.
+**Sanity was chosen to test the mechanism, not to add a third demo.** It shares RIFT's
+architecture — fragment-level patch mutations, first-class typed references — where Payload
+round-trips a whole Lexical document. If the mechanism were the whole story Sanity should have
+landed near RIFT. It did not, so fragment-level editing is necessary and not sufficient, and
+this benchmark cannot yet say what the rest is.
 
-**Both products share one gap.** Both have full version history in the database; neither
-exposes it to MCP, so both agents correctly reported they could not roll back or show an edit
-history. That is a category finding about MCP-native CMSes rather than a mark against either.
+**Where each one breaks is more useful than the totals.** Sanity has no retire or archive
+concept, so its agent improvises: 10 turns to retire a page, 12 to fail at a rollback. RIFT
+refuses a hard delete in **1 turn and 4.9k tokens** because the constraint is legible in the
+tool description; Sanity spends 242k discovering it. A constraint an agent can read costs
+around fifty times less than one it has to find out by trying.
+
+**Payload wins one cell and it is worth knowing.** The inbound-link query was *cheaper on
+Payload* than on pre-`get_inbound_links` RIFT, despite Payload having no link graph at all —
+its agent fetched every page and scanned them, consistently, while RIFT's went hunting through
+tools that looked like they should answer and once spent 1.45M tokens getting there.
+
+**All three shared one gap.** Every product has version history in its database; none exposed
+it to MCP, so every agent correctly reported it could not roll back. That is a category finding
+about MCP-native CMSes rather than a mark against any of them.
+
+### A change this benchmark prompted, and then measured
+
+RIFT shipped `get_inbound_links` after the first column named the gap. Re-measured on the same
+model, the inbound-link query fell from **739,252 tokens to 13,008** — 57× — and the column's
+reproducibility went to 18/18. Both pins are kept (`rift-b8461b8-gemini.json` against
+`rift.json`) so the before/after is checkable rather than asserted.
 
 ```bash
 npm run reset                        # restore the CMS to the frozen baseline
 npx tsx probe/export-site.ts         # fixture — only ever from a freshly reset site
-npx tsx probe/rift.ts                # one pass
-npm run reset && npx tsx probe/rift.ts --append   # second pass
-npx tsx probe/compare.ts             # the paired table
+npx tsx probe/rift.ts --model claude-sonnet-5
+npm run reset && npx tsx probe/rift.ts --model claude-sonnet-5 --append
+npx tsx probe/matrix.ts              # substrate x model, with the surface/work split
 ```
+
+`--tag <name>` files a side experiment beside a column instead of over it, and `--max-tokens`
+overrides the per-response output ceiling so that choice can be tested rather than assumed.
+Every column records the model, the ceiling and — for RIFT — the CMS pin it ran against.
 
 Passes are driven from the shell with a reset between them, and every session is flushed to
 disk as it completes — a crash between the last intent and the write discarded a finished pass
@@ -223,6 +262,14 @@ These are in the methodology in full; the short version belongs here too.
   plugin — one line of config, and Payload's documented answer to hierarchy. Running against
   flat pages would have measured a handicap we imposed. Every collection is likewise exposed at
   full CRUD.
+- **The output ceiling is 8,000 tokens per response, and it was tested rather than assumed.**
+  Sanity's split-page truncated against it. The worst single turn in any RIFT column used 1,229
+  tokens, so RIFT cannot have been shaped by it; Payload's split-page re-run at 32,000 keeps the
+  same outcome while costing two to six times MORE, because given more room the agent attempts
+  larger single-shot writes and retries after validation failures. Only Sanity's split-page
+  needs restating, at 522k tokens rather than the 358k a truncated run implied.
+- **Sanity is hosted.** Its wall-clock includes network round-trips and is not comparable to the
+  local columns; tokens and turns are. Its results carry `hosted: true`.
 - **Two harness-side distortions affect the Payload column.** Gemini's function-declaration
   schema has no `anyOf`, so Payload's union schemas are merged into one permissive object; and
   Gemini rejects an empty-string enum member, which Lexical uses as its no-format sentinel, so
@@ -243,7 +290,12 @@ These are in the methodology in full; the short version belongs here too.
     already carried the link intent E2 asks an agent to add, so RIFT would have scored
     `supported` for work it never performed. Hence the shared fixture.
 
-  Each is documented in the commit that fixed it. If you find an eleventh, that is the point of
+  - The substance gate stripped `{{…}}` reference syntax wholesale, which deletes the prose RIFT
+    stores inside design-system component parameters. A page carrying a code block, an alert with
+    real explanatory copy and a table of contents counted as **four words**; corrected, it counts
+    54. That one cut against us, as two of the others did.
+
+  Each is documented in the commit that fixed it. If you find a twelfth, that is the point of
   publishing this.
 
 ---
@@ -256,7 +308,15 @@ two implementations. A third CMS needs one file and an entry in the benchmark co
 operation list, the scorer and the assertions are substrate-blind: they read published HTML and
 never learn which arm produced it.
 
-**Affordance probe.** Copy `probe/payload.ts`. A column is roughly three things: an RPC call
-into that vendor's MCP, a seed that builds `probe/fixtures/site.json` in it, and the
-postcondition reads against its own store. The intents, the outcome classes and the roll-ups are
-shared, so the comparison cannot drift between columns.
+**Affordance probe.** Copy `probe/payload.ts` (local) or `probe/sanity.ts` (hosted, session-based
+transport). A column is roughly three things: an RPC call into that vendor's MCP, a seed that
+builds `probe/fixtures/site.json` in it, and postcondition reads against its own store. The
+intents, the outcome classes, the disclosure detector and the roll-ups are shared, so the
+comparison cannot drift between columns. Sanity took about a day end to end, most of it setup
+rather than measurement.
+
+## What is NOT measured
+
+Both instruments score an **agent**. Neither scores the hour a human spends setting the product
+up, and that may matter more to a buyer than anything here. Recorded as a limitation rather than
+left for a reader to notice.
